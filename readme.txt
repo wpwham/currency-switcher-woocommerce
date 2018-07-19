@@ -1,9 +1,9 @@
 === Currency Switcher for WooCommerce ===
-Contributors: algoritmika, anbinder
+Contributors: algoritmika, anbinder, karzin
 Tags: woocommerce, currency switcher, multicurrency, currency, switcher, woo commerce, algoritmika, wpfactory
 Requires at least: 4.4
 Tested up to: 4.9
-Stable tag: 2.8.7
+Stable tag: 2.8.71
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -61,7 +61,17 @@ Currency Switcher for WooCommerce.
 9. Currency Switcher for WooCommerce - Languages.
 10. Currency Switcher for WooCommerce - Shortcodes - Product Price Table.
 
+== Frequently Asked Questions ==
+= Issues regarding Paypal =
+
+* If you are experiencing some sort of issue regarding paypal, like incorrect currency code displayed in notification emails or anything else, please try to disable the default paypal component bundled with WooCommerce and use [this plugin instead](https://wordpress.org/plugins/paypal-for-woocommerce/)
+
 == Changelog ==
+
+
+= 2.8.71 - 19/07/2018 =
+* Add notification on plugin's description about possible paypal issues
+* Add karzin as contributor
 
 = 2.8.7 - 13/07/2018 =
 * Dev - Admin settings descriptions updated.
@@ -244,5 +254,6 @@ Currency Switcher for WooCommerce.
 
 == Upgrade Notice ==
 
-= 1.0.0 =
-This is the first release of the plugin.
+= 2.8.71 =
+* Add notification on plugin's description about possible paypal issues
+* Add karzin as contributor

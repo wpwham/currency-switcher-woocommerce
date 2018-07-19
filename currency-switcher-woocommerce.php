@@ -3,12 +3,12 @@
 Plugin Name: Currency Switcher for WooCommerce
 Plugin URI: https://wpfactory.com/item/currency-switcher-woocommerce-wordpress-plugin/
 Description: Currency Switcher for WooCommerce.
-Version: 2.8.7
+Version: 2.8.71
 Author: Algoritmika Ltd
 Author URI: http://www.algoritmika.com
 Text Domain: currency-switcher-woocommerce
 Domain Path: /langs
-Copyright: © 2018 Tom Anbinder
+Copyright: Â© 2018 Algoritmika Ltd.
 WC tested up to: 3.4
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html

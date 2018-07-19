@@ -550,6 +550,7 @@ class Alg_WC_Currency_Switcher_Main {
 	 * @since   1.0.0
 	 */
 	function change_price_by_currency( $price, $_product = null ) {
+		//wc_delete_product_transients($_product->get_id());
 		if ( $this->do_revert() ) {
 			return $price;
 		}
