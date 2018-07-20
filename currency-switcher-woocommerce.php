@@ -3,7 +3,7 @@
 Plugin Name: Currency Switcher for WooCommerce
 Plugin URI: https://wpfactory.com/item/currency-switcher-woocommerce-wordpress-plugin/
 Description: Currency Switcher for WooCommerce.
-Version: 2.8.8
+Version: 2.8.9
 Author: Algoritmika Ltd
 Author URI: http://www.algoritmika.com
 Text Domain: currency-switcher-woocommerce
@@ -81,7 +81,7 @@ final class Alg_WC_Currency_Switcher {
 	/**
 	 * Alg_WC_Currency_Switcher Constructor.
 	 *
-	 * @version 2.0.0
+	 * @version 2.8.8
 	 * @since   1.0.0
 	 * @access  public
 	 * @todo    (maybe) AJAX in admin "Currencies" settings section
@@ -94,6 +94,9 @@ final class Alg_WC_Currency_Switcher {
 		// Set up localisation
 		load_plugin_textdomain( 'currency-switcher-woocommerce', false, dirname( plugin_basename( __FILE__ ) ) . '/langs/' );
 
+		// Add compatibility with WooCommerce Product Addons plugin
+		add_filter( 'ppom_option_price', array( $this, 'add_compatibility_with_wc_product_addons' ), 10, 4 );
+
 		// Include required files
 		$this->includes();
 
@@ -102,6 +105,25 @@ final class Alg_WC_Currency_Switcher {
 			add_filter( 'woocommerce_get_settings_pages', array( $this, 'add_woocommerce_settings_tab' ) );
 			add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'action_links' ) );
 		}
+	}
+
+	/**
+	 * Add compatibility with WooCommerce Product Addons plugin
+	 *
+	 * @version 2.8.8
+	 * @since   2.8.8
+	 * @link https://wordpress.org/plugins/woocommerce-product-addon/
+	 */
+	public function add_compatibility_with_wc_product_addons( $option_price, $option, $meta, $product ) {
+		if ( 'yes' !== apply_filters( 'alg_wc_currency_switcher_plugin_option', 'no', 'premium_version' ) ) {
+			return $option_price;
+		}
+		$option_price = alg_convert_price( array(
+			'price'        => $option_price,
+			'format_price' => 'no'
+		) );
+
+		return $option_price;
 	}
 
 	/**
