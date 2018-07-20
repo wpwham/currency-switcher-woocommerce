@@ -3,7 +3,7 @@ Contributors: algoritmika, anbinder, karzin
 Tags: woocommerce, currency switcher, multicurrency, currency, switcher, woo commerce, algoritmika, wpfactory
 Requires at least: 4.4
 Tested up to: 4.9
-Stable tag: 2.8.71
+Stable tag: 2.8.8
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -69,9 +69,10 @@ Currency Switcher for WooCommerce.
 == Changelog ==
 
 
-= 2.8.71 - 19/07/2018 =
+= 2.8.8 - 19/07/2018 =
 * Add notification on plugin's description about possible paypal issues
 * Add karzin as contributor
+* Fix version number
 
 = 2.8.7 - 13/07/2018 =
 * Dev - Admin settings descriptions updated.
@@ -254,6 +255,7 @@ Currency Switcher for WooCommerce.
 
 == Upgrade Notice ==
 
-= 2.8.71 =
+= 2.8.8 =
 * Add notification on plugin's description about possible paypal issues
 * Add karzin as contributor
+* Fix version number
