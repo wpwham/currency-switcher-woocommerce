@@ -68,6 +68,9 @@ Currency Switcher for WooCommerce.
 
 == Changelog ==
 
+= 2.8.9 - 30/07/2018 =
+* Improve compatibility with WooCommerce Product Addons plugin 
+
 = 2.8.8 - 19/07/2018 =
 * Add notification on plugin's description about possible paypal issues
 * Add karzin as contributor

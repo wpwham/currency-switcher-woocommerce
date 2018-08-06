@@ -53,7 +53,7 @@ final class Alg_WC_Currency_Switcher {
 	 * @var   string
 	 * @since 1.0.0
 	 */
-	public $version = '2.8.7';
+	public $version = '2.8.9';
 
 	/**
 	 * @var   Alg_WC_Currency_Switcher The single instance of the class
@@ -81,7 +81,7 @@ final class Alg_WC_Currency_Switcher {
 	/**
 	 * Alg_WC_Currency_Switcher Constructor.
 	 *
-	 * @version 2.8.8
+	 * @version 2.8.9
 	 * @since   1.0.0
 	 * @access  public
 	 * @todo    (maybe) AJAX in admin "Currencies" settings section
@@ -92,39 +92,21 @@ final class Alg_WC_Currency_Switcher {
 	function __construct() {
 
 		// Set up localisation
-		load_plugin_textdomain( 'currency-switcher-woocommerce', false, dirname( plugin_basename( __FILE__ ) ) . '/langs/' );
-
-		// Add compatibility with WooCommerce Product Addons plugin
-		add_filter( 'ppom_option_price', array( $this, 'add_compatibility_with_wc_product_addons' ), 10, 4 );
+		load_plugin_textdomain( 'currency-switcher-woocommerce', false, dirname( plugin_basename( __FILE__ ) ) . '/langs/' );		
 
 		// Include required files
 		$this->includes();
+
+		// Add compatibility with third party plugins
+		$compatibility = new Alg_Switcher_Third_Party_Compatibility();
+		$compatibility->init();
 
 		// Settings & Scripts
 		if ( is_admin() ) {
 			add_filter( 'woocommerce_get_settings_pages', array( $this, 'add_woocommerce_settings_tab' ) );
 			add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'action_links' ) );
 		}
-	}
-
-	/**
-	 * Add compatibility with WooCommerce Product Addons plugin
-	 *
-	 * @version 2.8.8
-	 * @since   2.8.8
-	 * @link https://wordpress.org/plugins/woocommerce-product-addon/
-	 */
-	public function add_compatibility_with_wc_product_addons( $option_price, $option, $meta, $product ) {
-		if ( 'yes' !== apply_filters( 'alg_wc_currency_switcher_plugin_option', 'no', 'premium_version' ) ) {
-			return $option_price;
-		}
-		$option_price = alg_convert_price( array(
-			'price'        => $option_price,
-			'format_price' => 'no'
-		) );
-
-		return $option_price;
-	}
+	}	
 
 	/**
 	 * Show action links on the plugin screen
@@ -146,7 +128,7 @@ final class Alg_WC_Currency_Switcher {
 	/**
 	 * Include required core files used in admin and on the frontend.
 	 *
-	 * @version 2.8.3
+	 * @version 2.8.9
 	 * @since   1.0.0
 	 * @todo    (maybe) import/export all settings
 	 */
@@ -161,6 +143,9 @@ final class Alg_WC_Currency_Switcher {
 		require_once( 'includes/functions/alg-switcher-exchange-rates-functions.php' );
 		require_once( 'includes/functions/alg-switcher-country-functions.php' );
 		require_once( 'includes/functions/alg-switcher-locale-functions.php' );
+
+		// Compatibility
+		require_once( 'includes/class-alg-switcher-third-party-compatibility.php' );
 
 		// Settings
 		require_once( 'includes/admin/settings/class-alg-wc-currency-switcher-settings-section.php' );
