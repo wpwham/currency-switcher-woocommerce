@@ -4,7 +4,7 @@
  *
  * Adds compatibility with other third party plugins, like Product Addons
  *
- * @version 2.8.8
+ * @version 2.8.9
  * @since   2.8.8
  * @author  Tom Anbinder
  */
@@ -32,11 +32,124 @@ if ( ! class_exists( 'Alg_Switcher_Third_Party_Compatibility' ) ) :
 		/**
 		 * Initializes
 		 *
-		 * @version 2.8.8
-		 * @since   2.8.8
+		 * @version 2.8.9
+		 * @since   2.8.9
 		 */
 		function init() {
-			// Add compatibility with WooCommerce Product Addons plugin
+			// Adds compatibility with WooCommerce Product Addons plugin
+			$this->handle_product_addons_plugin();
+
+			// Adds compatibility with WooCommerce Price Filter widget
+			$this->handle_price_filter();
+		}
+
+		/**
+		 * Adds compatibility with WooCommerce Price Filter widget
+		 * @version 2.8.9
+		 * @since   2.8.9
+		 */
+		private function handle_price_filter(){
+			add_action( 'wp_footer', array( $this, 'add_compatibility_with_price_filter_widget' ) );
+		}
+
+		/**
+		 * Adds compatibility with WooCommerce Price Filter widget
+		 * @version 2.8.9
+		 * @since   2.8.9
+		 */
+		public function add_compatibility_with_price_filter_widget() {
+			if ( ! is_active_widget( false, false, 'woocommerce_price_filter' ) ) {
+				return;
+			}
+			?>
+			<?php
+				$exchange_rate = alg_wc_cs_get_currency_exchange_rate( alg_get_current_currency_code() );
+			?>
+			<input type="hidden" id="alg_wc_cs_exchange_rate" value="<?php echo esc_html( $exchange_rate ) ?>"/>
+			<script>
+                var awccs_slider = {
+                    slider: null,
+                    convert_rate: 1,
+                    original_min: 1,
+                    original_max: 1,
+                    original_values: [],
+                    current_min: 1,
+                    current_max: 1,
+                    current_values: [],
+
+                    init(slider, convert_rate) {
+                        this.slider = slider;
+                        this.convert_rate = convert_rate;
+                        this.original_min = jQuery(this.slider).slider("option", "min");
+                        this.original_max = jQuery(this.slider).slider("option", "max");
+                        this.original_values = jQuery(this.slider).slider("option", "values");
+                        this.current_min = this.original_min * this.convert_rate;
+                        this.current_max = this.original_max * this.convert_rate;
+                        this.current_values = this.original_values.map(function (elem) {
+                            return elem * awccs_slider.convert_rate;
+                        });
+                        this.update_slider();
+                    },
+
+                    /**
+                     * @see price-slider.js, init_price_filter()
+                     */
+                    update_slider() {
+                        jQuery(this.slider).slider("destroy");
+                        var current_min_price = this.current_min;
+                        var current_max_price = this.current_max;
+                        jQuery(this.slider).slider({
+                            range: true,
+                            animate: true,
+                            min: current_min_price,
+                            max: current_max_price,
+                            values: awccs_slider.current_values,
+                            create: function () {
+                                jQuery(awccs_slider.slider).parent().find('.price_slider_amount #min_price').val(awccs_slider.current_values[0]);
+                                jQuery(awccs_slider.slider).parent().find('.price_slider_amount #max_price').val(awccs_slider.current_values[1]);
+                                jQuery(document.body).trigger('price_slider_create', [awccs_slider.current_values[0], awccs_slider.current_values[1]]);
+                            },
+                            slide: function (event, ui) {
+                                jQuery(awccs_slider.slider).parent().find('input#min_price').val(Math.round(ui.values[0] / awccs_slider.convert_rate));
+                                jQuery(awccs_slider.slider).parent().find('input#max_price').val(Math.round(ui.values[1] / awccs_slider.convert_rate));
+                                jQuery(document.body).trigger('price_slider_slide', [ui.values[0], ui.values[1]]);
+                            },
+                            change: function (event, ui) {
+                                jQuery(document.body).trigger('price_slider_change', [ui.values[0], ui.values[1]]);
+                            }
+                        });
+                    }
+                };
+                var awccs_pfc = {
+                    price_filters: null,
+                    rate: 1,
+                    init: function (price_filters) {
+                        this.price_filters = price_filters;
+                        this.rate = document.getElementById('alg_wc_cs_exchange_rate').value;
+                        this.update_slider();
+                    },
+                    update_slider: function () {
+                        [].forEach.call(awccs_pfc.price_filters, function (el) {
+                            awccs_slider.init(el, awccs_pfc.rate);
+                        });
+                    }
+                }
+                document.addEventListener("DOMContentLoaded", function () {
+                    var price_filters = document.querySelectorAll('.price_slider.ui-slider');
+                    if (price_filters.length) {
+                        awccs_pfc.init(price_filters);
+                    }
+                });
+			</script>
+			<?php
+		}
+
+		/**
+		 * Add compatibility with WooCommerce Product Addons plugin
+		 * @version 2.8.9
+		 * @since   2.8.9
+		 */
+		private function handle_product_addons_plugin(){
 			add_filter( 'ppom_option_price', array( $this, 'product_addons_convert_option_price' ), 10, 4 );
 			add_filter( 'ppom_cart_line_total', array( $this, 'product_addons_convert_price_back' ) );
 			add_filter( 'ppom_cart_fixed_fee', array( $this, 'product_addons_convert_price_back' ) );
