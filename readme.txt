@@ -3,7 +3,7 @@ Contributors: algoritmika, anbinder, karzin
 Tags: woocommerce, currency switcher, multicurrency, currency, switcher, woo commerce, algoritmika, wpfactory
 Requires at least: 4.4
 Tested up to: 4.9
-Stable tag: 2.8.9
+Stable tag: 2.9.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -66,7 +66,28 @@ Currency Switcher for WooCommerce.
 
 * If you are experiencing some sort of issue regarding paypal, like incorrect currency code displayed in notification emails or anything else, please try to disable the default paypal component bundled with WooCommerce and use [this plugin instead](https://wordpress.org/plugins/paypal-for-woocommerce/)
 
+= How to get the converted price =
+If you are trying to display the converted price on a custom template for example you can use our `alg_get_product_price_by_currency()` function.
+e.g
+
+`
+add_action('woocommerce_single_product_summary', function(){
+	if ( ! class_exists( 'Alg_WC_Currency_Switcher' ) ) {
+		return;
+	}
+	global $product;
+	$price = get_post_meta( get_the_ID(), '_regular_price', true);
+	$converted_price = alg_get_product_price_by_currency( $price, alg_get_current_currency_code(), $product );
+	$converted_price_formatted = wc_price( $converted_price );
+	echo "<h1>{$converted_price}</h1>";
+	echo "<h1>{$converted_price_formatted}</h1>";
+});
+`
+
 == Changelog ==
+
+= 2.9.0 - 20/08/2018 =
+* Add question on plugin's description about getting converted values
 
 = 2.8.9 - 08/08/2018 =
 * Improve compatibility with WooCommerce Product Addons plugin
@@ -259,6 +280,5 @@ Currency Switcher for WooCommerce.
 
 == Upgrade Notice ==
 
-= 2.8.9 =
-* Improve compatibility with WooCommerce Product Addons plugin
-* Add compatibility with price filter widget
+= 2.9.0 =
+* Add question on plugin's description about getting converted values
