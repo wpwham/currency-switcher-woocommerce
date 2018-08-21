@@ -2,7 +2,7 @@
 /**
  * Currency Switcher Functions - Exchange Rates
  *
- * @version 2.8.6
+ * @version 2.9.0
  * @since   2.8.0
  * @author  Tom Anbinder
  */
@@ -212,7 +212,7 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rate' ) ) {
 	/*
 	 * alg_wc_cs_get_exchange_rate.
 	 *
-	 * @version 2.8.6
+	 * @version 2.9.0
 	 * @since   2.0.0
 	 * @return  float rate on success, else 0
 	 */
@@ -240,6 +240,7 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rate' ) ) {
 			default: // 'ecb'
 				$return = alg_wc_cs_get_exchange_rate_ecb( $currency_from, $currency_to );
 		}
+		$return = apply_filters( 'alg_wc_cs_get_exchange_rate', $return, $server, $currency_from, $currency_to );
 		if ( 'default' === get_option( 'alg_currency_switcher_exchange_rate_offset_type_' . $currency_from . '_' . $currency_to, 'default' ) ) {
 			$offset = get_option( 'alg_currency_switcher_exchange_rate_offset', 0 );
 		} else {
