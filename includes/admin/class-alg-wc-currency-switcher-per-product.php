@@ -40,7 +40,7 @@ class Alg_WC_Currency_Switcher_Per_Product_Settings {
 			foreach ( $available_variations as $variation ) {
 				$variation_product = wc_get_product( $variation['variation_id'] );
 				$products[ $variation['variation_id'] ] = ( ALG_IS_WC_VERSION_BELOW_3 ?
-					$variation_product->wc_get_formatted_variation( true ) :
+					$variation_product->get_formatted_variation_attributes( true ) :
 					wc_get_formatted_variation( $variation_product, true, true )
 				);
 			}
