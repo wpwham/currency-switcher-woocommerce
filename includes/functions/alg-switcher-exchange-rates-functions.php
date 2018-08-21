@@ -32,6 +32,34 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rate_google' ) ) {
 	}
 }
 
+if ( ! function_exists( 'alg_wc_cs_get_exchange_rate_georgia' ) ) {
+	/*
+	 * alg_wc_cs_get_exchange_rate_georgia.
+	 *
+	 * @version 2.9.0
+	 * @since   2.9.0
+	 */
+	function alg_wc_cs_get_exchange_rate_georgia( $currency_from, $currency_to ) {
+		if ( ! class_exists( "SoapClient" ) ) {
+			return 0;
+		}
+		$client = new SoapClient( 'https://services.nbg.gov.ge/Rates/Service.asmx?wsdl' );
+
+		$currencies = "{$currency_from},{$currency_to}";
+		$result     = $client->GetCurrentRates( array( 'Currencies' => $currencies ) );
+
+		$rate_from = $result->GetCurrentRatesResult->CurrencyRate[0]->Rate;
+		$rate_to   = $result->GetCurrentRatesResult->CurrencyRate[1]->Rate;
+		if ( ! empty( $rate_from ) && ! empty( $rate_to ) ) {
+			$final_rate = round( $rate_to / $rate_from, ALG_WC_CS_EXCHANGE_RATES_PRECISION );
+		} else {
+			$final_rate = 0;
+		}
+
+		return $final_rate;
+	}
+}
+
 if ( ! function_exists( 'alg_wc_cs_get_exchange_rate_yahoo' ) ) {
 	/*
 	 * alg_wc_cs_get_exchange_rate_yahoo.
@@ -180,7 +208,7 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rates_servers' ) ) {
 	/*
 	 * alg_wc_cs_get_exchange_rates_servers.
 	 *
-	 * @version 2.8.6
+	 * @version 2.9.0
 	 * @since   2.8.0
 	 */
 	function alg_wc_cs_get_exchange_rates_servers() {
@@ -190,6 +218,7 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rates_servers' ) ) {
 			'fixer'           => __( 'Fixer.io', 'currency-switcher-woocommerce' ),
 			'coinbase'        => __( 'Coinbase', 'currency-switcher-woocommerce' ),
 			'coinmarketcap'   => __( 'CoinMarketCap', 'currency-switcher-woocommerce' ),
+			'georgia'         => __( 'National Bank of Georgia', 'currency-switcher-woocommerce' ),
 //			'google'          => __( 'Google', 'currency-switcher-woocommerce' ),
 		);
 	}
@@ -234,6 +263,9 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rate' ) ) {
 			case 'coinmarketcap':
 				$return = alg_wc_cs_get_exchange_rate_coinmarketcap( $currency_from, $currency_to );
 				break;
+			case 'georgia':
+				$return = alg_wc_cs_get_exchange_rate_georgia( $currency_from, $currency_to );
+			break;
 			/* case 'google':
 				$return = alg_wc_cs_get_exchange_rate_google( $currency_from, $currency_to );
 				break; */
