@@ -77,7 +77,7 @@ add_action('woocommerce_single_product_summary', function(){
 	}
 	global $product;
 	$price = get_post_meta( get_the_ID(), '_regular_price', true);
-	$converted_price = alg_get_product_price_by_currency( $price, alg_get_current_currency_code(), $product );
+	$converted_price = alg_get_product_price_by_currency( $price, alg_get_current_currency_code(), $product, true );
 	$converted_price_formatted = wc_price( $converted_price );
 	echo "<h1>{$converted_price}</h1>";
 	echo "<h1>{$converted_price_formatted}</h1>";
