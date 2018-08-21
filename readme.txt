@@ -88,7 +88,6 @@ add_action('woocommerce_single_product_summary', function(){
 
 = 2.9.0 - 21/08/2018 =
 * Add question on plugin's description about getting converted values
-* Replace get_formatted_variation_attributes() by wc_get_formatted_variation()
 
 = 2.8.9 - 08/08/2018 =
 * Improve compatibility with WooCommerce Product Addons plugin
@@ -283,4 +282,3 @@ add_action('woocommerce_single_product_summary', function(){
 
 = 2.9.0 =
 * Add question on plugin's description about getting converted values
-* Replace get_formatted_variation_attributes() by wc_get_formatted_variation()
