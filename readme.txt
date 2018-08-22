@@ -84,6 +84,9 @@ add_action('woocommerce_single_product_summary', function(){
 });
 `
 
+= National Bank of Georgia =
+If you are trying the National Bank of Georgia server option with no success, make sure that your server has the SoapClient library installed and enabled
+
 == Changelog ==
 
 = 2.9.0 - 21/08/2018 =
