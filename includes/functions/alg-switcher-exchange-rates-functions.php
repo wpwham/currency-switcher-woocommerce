@@ -138,6 +138,7 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rates_servers' ) ) {
 			'free_cur_api'    => __( 'Free Currency Converter', 'currency-switcher-woocommerce' ),
 			'georgia'         => __( 'National Bank of Georgia', 'currency-switcher-woocommerce' ),
 			'coinbase'        => __( 'Coinbase', 'currency-switcher-woocommerce' ),
+			'coinmarketcap'   => __( 'CoinMarketCap (for Cryptocurrencies)', 'currency-switcher-woocommerce' ),
 //			'google'          => __( 'Google', 'currency-switcher-woocommerce' ),
 		);
 	}
@@ -170,6 +171,9 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rate' ) ) {
 		}
 		$return = 0;
 		switch ( $server ) {
+			case 'coinmarketcap':
+				$return = alg_wc_cs_get_exchange_rate_coinmarketcap( $currency_from, $currency_to );
+			break;
 			case 'coinbase':
 				$return = alg_wc_cs_get_exchange_rate_coinbase( $currency_from, $currency_to );
 				break;
@@ -192,6 +196,36 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rate' ) ) {
 			$offset = get_option( 'alg_currency_switcher_exchange_rate_offset_' . $currency_from . '_' . $currency_to, 0 );
 		}
 		return ( 0 != $offset ? ( $offset / 100 * $return + $return ) : $return );
+	}
+}
+
+if ( ! function_exists( 'alg_wc_cs_get_exchange_rate_coinmarketcap' ) ) {
+	/*
+	 * alg_wc_cs_get_exchange_rate_coinmarketcap.
+	 *
+	 * @version 2.8.0
+	 * @since   2.8.0
+	 * @see     https://coinmarketcap.com/api/
+	 * @todo    (maybe) `limit=0`
+	 */
+	function alg_wc_cs_get_exchange_rate_coinmarketcap( $currency_from, $currency_to, $try_reverse = true ) {
+		$return = 0;
+		if ( false != ( $response = alg_wc_cs_get_currency_exchange_rates_url_response( 'https://api.coinmarketcap.com/v1/ticker/?convert=' . $currency_to ) ) && is_array( $response ) ) {
+			foreach ( $response as $pair ) {
+				if ( isset( $pair->symbol ) && $currency_from === $pair->symbol ) {
+					$att = 'price_' . strtolower( $currency_to );
+					$return = ( isset( $pair->{$att} ) ? $pair->{$att} : 0 );
+					break;
+				}
+			}
+		}
+		if ( 0 == $return && $try_reverse ) {
+			$return = alg_wc_cs_get_exchange_rate_coinmarketcap( $currency_to, $currency_from, false );
+			if ( 0 != $return ) {
+				$return = round( ( 1 / $return ), ALG_WC_CS_EXCHANGE_RATES_PRECISION );
+			}
+		}
+		return $return;
 	}
 }
 
