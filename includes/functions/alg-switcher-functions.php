@@ -14,6 +14,7 @@ if ( ! function_exists( 'alg_wc_cs_session_maybe_start' ) ) {
 	 *
 	 * @version 2.8.1
 	 * @since   2.7.0
+	 * @todo    Investigate why it's slow
 	 */
 	function alg_wc_cs_session_maybe_start() {
 		switch ( ALG_WC_CS_SESSION_TYPE ) {
