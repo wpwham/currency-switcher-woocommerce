@@ -91,6 +91,7 @@ If you are trying the National Bank of Georgia server option with no success, ma
 
 = 2.9.1 - 10/09/2018 =
 * Remove Yahoo exchange Server
+* Add Free Currency Converter API exchange server
 
 = 2.9.0 - 21/08/2018 =
 * Add question on plugin's description about getting converted values
@@ -290,3 +291,4 @@ If you are trying the National Bank of Georgia server option with no success, ma
 
 = 2.9.1 =
 * Remove Yahoo exchange Server
+* Add Free Currency Converter API exchange server

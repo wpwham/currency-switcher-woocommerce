@@ -60,6 +60,33 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rate_georgia' ) ) {
 	}
 }
 
+if ( ! function_exists( 'alg_wc_cs_get_exchange_rate_free_currency_api' ) ) {
+	/**
+	 * Converts using the Free Currency Converter api
+	 * @link https://free.currencyconverterapi.com/
+	 *
+	 * @version 2.9.1
+	 * @since   2.9.1
+	 */
+	function alg_wc_cs_get_exchange_rate_free_currency_api( $currency_from, $currency_to ) {
+		if ( ! class_exists( "SoapClient" ) ) {
+			return 0;
+		}
+
+		$url = add_query_arg( array(
+			'q'       => $currency_from . '_' . $currency_to,
+			'compact' => 'y',
+		), 'http://free.currencyconverterapi.com/api/v5/convert' );
+
+		$json = alg_wc_cs_get_currency_exchange_rates_url_response( $url );
+		if ( property_exists( $json, $currency_from . '_' . $currency_to ) ) {
+			return $json->{$currency_from . '_' . $currency_to}->val;
+		}else{
+			return 0;
+		}
+	}
+}
+
 if ( ! function_exists( 'alg_wc_cs_get_exchange_rate_ecb' ) ) {
 	/*
 	 * alg_wc_cs_get_exchange_rate_ecb.
@@ -134,6 +161,7 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rates_servers' ) ) {
 	function alg_wc_cs_get_exchange_rates_servers() {
 		return array(
 			'ecb'             => __( 'European Central Bank', 'currency-switcher-woocommerce' ),
+			'free_cur_api'    => __( 'Free Currency Converter', 'currency-switcher-woocommerce' ),
 			'fixer'           => __( 'Fixer.io', 'currency-switcher-woocommerce' ),
 			'coinbase'        => __( 'Coinbase', 'currency-switcher-woocommerce' ),
 			'coinmarketcap'   => __( 'CoinMarketCap', 'currency-switcher-woocommerce' ),
@@ -160,7 +188,7 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rate' ) ) {
 	/*
 	 * alg_wc_cs_get_exchange_rate.
 	 *
-	 * @version 2.9.0
+	 * @version 2.9.1
 	 * @since   2.0.0
 	 * @return  float rate on success, else 0
 	 */
@@ -181,6 +209,9 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rate' ) ) {
 				break;
 			case 'georgia':
 				$return = alg_wc_cs_get_exchange_rate_georgia( $currency_from, $currency_to );
+			break;
+			case 'free_cur_api':
+				$return = alg_wc_cs_get_exchange_rate_free_currency_api( $currency_from, $currency_to );
 			break;
 			/* case 'google':
 				$return = alg_wc_cs_get_exchange_rate_google( $currency_from, $currency_to );
