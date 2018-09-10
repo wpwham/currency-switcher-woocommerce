@@ -3,7 +3,7 @@ Contributors: algoritmika, anbinder, karzin
 Tags: woocommerce, currency switcher, multicurrency, currency, switcher, woo commerce, algoritmika, wpfactory
 Requires at least: 4.4
 Tested up to: 4.9
-Stable tag: 2.9.0
+Stable tag: 2.9.1
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -88,6 +88,9 @@ add_action('woocommerce_single_product_summary', function(){
 If you are trying the National Bank of Georgia server option with no success, make sure that your server has the SoapClient library installed and enabled
 
 == Changelog ==
+
+= 2.9.1 - 10/09/2018 =
+* Remove Yahoo exchange Server
 
 = 2.9.0 - 21/08/2018 =
 * Add question on plugin's description about getting converted values
@@ -285,7 +288,5 @@ If you are trying the National Bank of Georgia server option with no success, ma
 
 == Upgrade Notice ==
 
-= 2.9.0 =
-* Add question on plugin's description about getting converted values
-* Add 'alg_wc_cs_get_exchange_rate' filter allowing managing the exchange rate externally
-* Add 'National Bank of Georgia' exchange server
+= 2.9.1 =
+* Remove Yahoo exchange Server

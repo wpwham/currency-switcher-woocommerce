@@ -60,86 +60,6 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rate_georgia' ) ) {
 	}
 }
 
-if ( ! function_exists( 'alg_wc_cs_get_exchange_rate_yahoo' ) ) {
-	/*
-	 * alg_wc_cs_get_exchange_rate_yahoo.
-	 *
-	 * @version 2.8.0
-	 * @since   2.2.0
-	 * @todo    use `alg_wc_cs_get_currency_exchange_rates_url_response()`
-	 */
-	function alg_wc_cs_get_exchange_rate_yahoo( $currency_from, $currency_to ) {
-		$currencies = array(
-			'currency_from' => array(
-				'name'     => $currency_from . '=X',
-				'usd_rate' => false,
-			),
-			'currency_to' => array(
-				'name'     => $currency_to . '=X',
-				'usd_rate' => false,
-			),
-		);
-		if ( ( $use_curl = function_exists( 'curl_version' ) ) || ini_get( 'allow_url_fopen' ) ) {
-			$url = 'https://finance.yahoo.com/webservice/v1/symbols/allcurrencies/quote?format=json';
-			if ( $use_curl ) {
-				$curl = curl_init( $url );
-				curl_setopt( $curl, CURLOPT_RETURNTRANSFER, 1 );
-				curl_setopt( $curl, CURLOPT_SSL_VERIFYPEER, false );
-				$response = curl_exec( $curl );
-				curl_close( $curl );
-			} else { // if ( ini_get( 'allow_url_fopen' ) )
-				$response = file_get_contents( $url );
-			}
-			$response = json_decode( $response );
-			if ( ! isset( $response->list->resources ) ) {
-				return 0;
-			}
-			foreach ( $currencies as &$currency ) {
-				foreach ( $response->list->resources as $resource ) {
-					if ( isset( $resource->resource->fields->symbol ) && $currency['name'] === $resource->resource->fields->symbol ) {
-						if ( ! isset( $resource->resource->fields->price ) ) {
-							return 0;
-						}
-						$currency['usd_rate'] = $resource->resource->fields->price;
-						break;
-					}
-				}
-			}
-		} elseif ( function_exists( 'simplexml_load_file' ) ) {
-			$response = simplexml_load_file( 'https://finance.yahoo.com/webservice/v1/symbols/allcurrencies/quote?format=xml' );
-			if ( ! isset( $response->resources->resource ) ) {
-				return 0;
-			}
-			foreach ( $currencies as &$currency ) {
-				foreach ( $response->resources->resource as $resource ) {
-					$price  = false;
-					$symbol = false;
-					foreach ( $resource->field as $field_obj ) {
-						$attributes = $field_obj->attributes();
-						switch ( $attributes->name ) {
-							case 'symbol':
-								$symbol = (string) $field_obj;
-								break;
-							case 'price':
-								$price = (float) $field_obj;
-								break;
-						}
-					}
-					if ( false != $symbol && $currency['name'] === $symbol ) {
-						if ( ! $price ) {
-							return 0;
-						}
-						$currency['usd_rate'] = $price;
-						break;
-					}
-				}
-			}
-		}
-		return ( false == $currencies['currency_to']['usd_rate'] || false == $currencies['currency_from']['usd_rate'] ? 0 :
-			round( ( $currencies['currency_to']['usd_rate'] / $currencies['currency_from']['usd_rate'] ), ALG_WC_CS_EXCHANGE_RATES_PRECISION ) );
-	}
-}
-
 if ( ! function_exists( 'alg_wc_cs_get_exchange_rate_ecb' ) ) {
 	/*
 	 * alg_wc_cs_get_exchange_rate_ecb.
@@ -214,7 +134,6 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rates_servers' ) ) {
 	function alg_wc_cs_get_exchange_rates_servers() {
 		return array(
 			'ecb'             => __( 'European Central Bank', 'currency-switcher-woocommerce' ),
-			'yahoo'           => __( 'Yahoo finance', 'currency-switcher-woocommerce' ),
 			'fixer'           => __( 'Fixer.io', 'currency-switcher-woocommerce' ),
 			'coinbase'        => __( 'Coinbase', 'currency-switcher-woocommerce' ),
 			'coinmarketcap'   => __( 'CoinMarketCap', 'currency-switcher-woocommerce' ),
@@ -251,9 +170,6 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rate' ) ) {
 		}
 		$return = 0;
 		switch ( $server ) {
-			case 'yahoo':
-				$return = alg_wc_cs_get_exchange_rate_yahoo( $currency_from, $currency_to );
-				break;
 			case 'fixer':
 				$return = alg_wc_cs_get_exchange_rate_fixer_io( $currency_from, $currency_to );
 				break;
