@@ -53,7 +53,7 @@ final class Alg_WC_Currency_Switcher {
 	 * @var   string
 	 * @since 1.0.0
 	 */
-	public $version = '2.8.9';
+	public $version = '2.9.1';
 
 	/**
 	 * @var   Alg_WC_Currency_Switcher The single instance of the class
