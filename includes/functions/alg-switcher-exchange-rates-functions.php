@@ -2,7 +2,7 @@
 /**
  * Currency Switcher Functions - Exchange Rates
  *
- * @version 2.9.0
+ * @version 2.9.1
  * @since   2.8.0
  * @author  Tom Anbinder
  */
@@ -128,7 +128,7 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rates_servers' ) ) {
 	/*
 	 * alg_wc_cs_get_exchange_rates_servers.
 	 *
-	 * @version 2.9.0
+	 * @version 2.9.1
 	 * @since   2.8.0
 	 */
 	function alg_wc_cs_get_exchange_rates_servers() {

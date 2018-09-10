@@ -2,7 +2,7 @@
 /**
  * Currency Switcher - Currencies Section Settings
  *
- * @version 2.8.7
+ * @version 2.9.1
  * @since   1.0.0
  * @author  Tom Anbinder
  */
