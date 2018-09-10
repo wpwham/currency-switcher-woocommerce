@@ -125,32 +125,6 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rate_ecb' ) ) {
 	}
 }
 
-if ( ! function_exists( 'alg_wc_cs_get_exchange_rate_fixer_io' ) ) {
-	/*
-	 * alg_wc_cs_get_exchange_rate_fixer_io.
-	 *
-	 * @version 2.7.0
-	 * @since   2.7.0
-	 */
-	function alg_wc_cs_get_exchange_rate_fixer_io( $currency_from, $currency_to ) {
-		return alg_wc_cs_get_exchange_rate_fixer_io_by_date( $currency_from, $currency_to, 'latest' );
-	}
-}
-
-if ( ! function_exists( 'alg_wc_cs_get_exchange_rate_fixer_io_by_date' ) ) {
-	/*
-	 * alg_wc_cs_get_exchange_rate_fixer_io_by_date.
-	 *
-	 * @version 2.8.0
-	 * @since   2.7.0
-	 */
-	function alg_wc_cs_get_exchange_rate_fixer_io_by_date( $currency_from, $currency_to, $date ) {
-		$url = 'https://api.fixer.io/' . $date . '?base=' . $currency_from . '&symbols=' . $currency_to;
-		$response = alg_wc_cs_get_currency_exchange_rates_url_response( $url );
-		return ( isset( $response->rates->{$currency_to} ) ? $response->rates->{$currency_to} : 0 );
-	}
-}
-
 if ( ! function_exists( 'alg_wc_cs_get_exchange_rates_servers' ) ) {
 	/*
 	 * alg_wc_cs_get_exchange_rates_servers.
@@ -162,10 +136,8 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rates_servers' ) ) {
 		return array(
 			'ecb'             => __( 'European Central Bank', 'currency-switcher-woocommerce' ),
 			'free_cur_api'    => __( 'Free Currency Converter', 'currency-switcher-woocommerce' ),
-			'fixer'           => __( 'Fixer.io', 'currency-switcher-woocommerce' ),
-			'coinbase'        => __( 'Coinbase', 'currency-switcher-woocommerce' ),
-			'coinmarketcap'   => __( 'CoinMarketCap', 'currency-switcher-woocommerce' ),
 			'georgia'         => __( 'National Bank of Georgia', 'currency-switcher-woocommerce' ),
+			'coinbase'        => __( 'Coinbase', 'currency-switcher-woocommerce' ),
 //			'google'          => __( 'Google', 'currency-switcher-woocommerce' ),
 		);
 	}
@@ -198,14 +170,8 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rate' ) ) {
 		}
 		$return = 0;
 		switch ( $server ) {
-			case 'fixer':
-				$return = alg_wc_cs_get_exchange_rate_fixer_io( $currency_from, $currency_to );
-				break;
 			case 'coinbase':
 				$return = alg_wc_cs_get_exchange_rate_coinbase( $currency_from, $currency_to );
-				break;
-			case 'coinmarketcap':
-				$return = alg_wc_cs_get_exchange_rate_coinmarketcap( $currency_from, $currency_to );
 				break;
 			case 'georgia':
 				$return = alg_wc_cs_get_exchange_rate_georgia( $currency_from, $currency_to );
@@ -248,36 +214,6 @@ if ( ! function_exists( 'alg_wc_cs_get_currency_exchange_rates_url_response' ) )
 			$response = file_get_contents( $url );
 		}
 		return ( '' != $response ? ( $do_json_decode ? json_decode( $response ) : $response ): false );
-	}
-}
-
-if ( ! function_exists( 'alg_wc_cs_get_exchange_rate_coinmarketcap' ) ) {
-	/*
-	 * alg_wc_cs_get_exchange_rate_coinmarketcap.
-	 *
-	 * @version 2.8.0
-	 * @since   2.8.0
-	 * @see     https://coinmarketcap.com/api/
-	 * @todo    (maybe) `limit=0`
-	 */
-	function alg_wc_cs_get_exchange_rate_coinmarketcap( $currency_from, $currency_to, $try_reverse = true ) {
-		$return = 0;
-		if ( false != ( $response = alg_wc_cs_get_currency_exchange_rates_url_response( 'https://api.coinmarketcap.com/v1/ticker/?convert=' . $currency_to ) ) && is_array( $response ) ) {
-			foreach ( $response as $pair ) {
-				if ( isset( $pair->symbol ) && $currency_from === $pair->symbol ) {
-					$att = 'price_' . strtolower( $currency_to );
-					$return = ( isset( $pair->{$att} ) ? $pair->{$att} : 0 );
-					break;
-				}
-			}
-		}
-		if ( 0 == $return && $try_reverse ) {
-			$return = alg_wc_cs_get_exchange_rate_coinmarketcap( $currency_to, $currency_from, false );
-			if ( 0 != $return ) {
-				$return = round( ( 1 / $return ), ALG_WC_CS_EXCHANGE_RATES_PRECISION );
-			}
-		}
-		return $return;
 	}
 }
 
