@@ -136,7 +136,7 @@ if ( ! class_exists( 'Alg_Switcher_Third_Party_Compatibility' ) ) :
                             create: function () {
                                 jQuery(awccs_slider.slider).parent().find('.price_slider_amount #min_price').val(awccs_slider.current_values[0] / awccs_slider.convert_rate);
                                 jQuery(awccs_slider.slider).parent().find('.price_slider_amount #max_price').val(awccs_slider.current_values[1] / awccs_slider.convert_rate);
-                                jQuery(document.body).trigger('price_slider_create', [awccs_slider.current_values[0], awccs_slider.current_values[1]]);
+                                jQuery(document.body).trigger('price_slider_create', [Math.floor(awccs_slider.current_values[0]), Math.ceil(awccs_slider.current_values[1])]);
                             },
                             slide: function (event, ui) {
                                 jQuery(awccs_slider.slider).parent().find('.price_slider_amount #min_price').val(Math.floor(ui.values[0] / awccs_slider.convert_rate));
