@@ -4,7 +4,7 @@
  *
  * Adds compatibility with other third party plugins, like Product Addons
  *
- * @version 2.8.9
+ * @version 2.9.3
  * @since   2.8.8
  * @author  Tom Anbinder
  */
@@ -37,7 +37,7 @@ if ( ! class_exists( 'Alg_Switcher_Third_Party_Compatibility' ) ) :
 		 */
 		function init() {
 			// Adds compatibility with WooCommerce Product Addons plugin
-			$this->handle_product_addons_plugin();
+			//$this->handle_product_addons_plugin();
 
 			// Adds compatibility with WooCommerce Price Filter widget
 			$this->handle_price_filter();
@@ -45,16 +45,44 @@ if ( ! class_exists( 'Alg_Switcher_Third_Party_Compatibility' ) ) :
 
 		/**
 		 * Adds compatibility with WooCommerce Price Filter widget
-		 * @version 2.8.9
+		 * @version 2.9.3
 		 * @since   2.8.9
 		 */
-		private function handle_price_filter(){
+		private function handle_price_filter() {
 			add_action( 'wp_footer', array( $this, 'add_compatibility_with_price_filter_widget' ) );
+			add_action( 'wp_footer', array( $this, 'fix_price_filter_widget_currency_format' ) );
+		}
+
+		/**
+         * Fixes price filter widget currency format
+         *
+		 * @version 2.9.3
+		 * @since   2.9.3
+		 */
+		public function fix_price_filter_widget_currency_format() {
+			$price_args = apply_filters( 'wc_price_args', array(
+				'ex_tax_label'       => false,
+				'currency'           => '',
+				'decimal_separator'  => wc_get_price_decimal_separator(),
+				'thousand_separator' => wc_get_price_thousand_separator(),
+				'decimals'           => wc_get_price_decimals(),
+				'price_format'       => get_woocommerce_price_format(),
+			) );
+			$symbol     = apply_filters( 'woocommerce_currency_symbol', get_woocommerce_currency_symbol(), get_woocommerce_currency() );
+			wp_localize_script(
+				'wc-price-slider', 'woocommerce_price_slider_params', array(
+					'currency_format_num_decimals' => $price_args['decimals'],
+					'currency_format_symbol'       => $symbol,
+					'currency_format_decimal_sep'  => esc_attr( $price_args['decimal_separator'] ),
+					'currency_format_thousand_sep' => esc_attr( $price_args['thousand_separator'] ),
+					'currency_format'              => esc_attr( str_replace( array( '%1$s', '%2$s' ), array( '%s', '%v' ), $price_args['price_format'] ) ),
+				)
+			);
 		}
 
 		/**
 		 * Adds compatibility with WooCommerce Price Filter widget
-		 * @version 2.8.9
+		 * @version 2.9.3
 		 * @since   2.8.9
 		 */
 		public function add_compatibility_with_price_filter_widget() {
@@ -96,8 +124,9 @@ if ( ! class_exists( 'Alg_Switcher_Third_Party_Compatibility' ) ) :
                      */
                     update_slider() {
                         jQuery(this.slider).slider("destroy");
-                        var current_min_price = this.current_min;
-                        var current_max_price = this.current_max;
+                        var current_min_price = Math.floor(this.current_min);
+                        var current_max_price = Math.ceil(this.current_max);
+
                         jQuery(this.slider).slider({
                             range: true,
                             animate: true,
@@ -105,17 +134,17 @@ if ( ! class_exists( 'Alg_Switcher_Third_Party_Compatibility' ) ) :
                             max: current_max_price,
                             values: awccs_slider.current_values,
                             create: function () {
-                                jQuery(awccs_slider.slider).parent().find('.price_slider_amount #min_price').val(awccs_slider.current_values[0]);
-                                jQuery(awccs_slider.slider).parent().find('.price_slider_amount #max_price').val(awccs_slider.current_values[1]);
+                                jQuery(awccs_slider.slider).parent().find('.price_slider_amount #min_price').val(awccs_slider.current_values[0] / awccs_slider.convert_rate);
+                                jQuery(awccs_slider.slider).parent().find('.price_slider_amount #max_price').val(awccs_slider.current_values[1] / awccs_slider.convert_rate);
                                 jQuery(document.body).trigger('price_slider_create', [awccs_slider.current_values[0], awccs_slider.current_values[1]]);
                             },
                             slide: function (event, ui) {
-                                jQuery(awccs_slider.slider).parent().find('input#min_price').val(Math.round(ui.values[0] / awccs_slider.convert_rate));
-                                jQuery(awccs_slider.slider).parent().find('input#max_price').val(Math.round(ui.values[1] / awccs_slider.convert_rate));
-                                jQuery(document.body).trigger('price_slider_slide', [ui.values[0], ui.values[1]]);
+                                jQuery(awccs_slider.slider).parent().find('.price_slider_amount #min_price').val(Math.floor(ui.values[0] / awccs_slider.convert_rate));
+                                jQuery(awccs_slider.slider).parent().find('.price_slider_amount #max_price').val(Math.ceil(ui.values[1] / awccs_slider.convert_rate));
+                                jQuery(document.body).trigger('price_slider_slide', [Math.floor(ui.values[0]), Math.ceil(ui.values[1])]);
                             },
                             change: function (event, ui) {
-                                jQuery(document.body).trigger('price_slider_change', [ui.values[0], ui.values[1]]);
+                                jQuery(document.body).trigger('price_slider_change', [Math.floor(ui.values[0]), Math.ceil(ui.values[1])]);
                             }
                         });
                     }
