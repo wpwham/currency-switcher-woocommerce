@@ -2,7 +2,7 @@
 /**
  * Currency Switcher Functions
  *
- * @version 2.8.6
+ * @version 2.9.3
  * @since   1.0.0
  * @author  Tom Anbinder
  * @todo    change prefix from `agl_` to `alg_wc_cs_` for all functions
@@ -285,18 +285,28 @@ if ( ! function_exists( 'alg_get_product_price_by_currency_per_product' ) ) {
 	}
 }
 
+
+
 if ( ! function_exists( 'alg_wc_cs_round_and_pretty' ) ) {
 	/**
 	 * alg_wc_cs_round_and_pretty.
 	 *
-	 * @version 2.8.5
+	 * @version 2.9.3
 	 * @since   2.8.5
 	 */
 	function alg_wc_cs_round_and_pretty( $price, $currency_code ) {
+		$shop_precision_original = absint( get_option( 'woocommerce_price_num_decimals', 2 ) );
+		$rounding_options = apply_filters( 'alg_wc_currency_switcher_correction', array(
+			'shop_precision'     => $shop_precision_original,
+			'rounding_precision' => get_option( 'alg_currency_switcher_rounding_precision', $shop_precision_original ),
+			'rounding'           => get_option( 'alg_currency_switcher_rounding', 'no_round' ),
+			'pretty_price'       => get_option( 'alg_currency_switcher_make_pretty_price', 'no' )
+		), $currency_code );
+
 		// Rounding
-		$shop_precision     = absint( get_option( 'woocommerce_price_num_decimals', 2 ) );
-		$rounding_precision = get_option( 'alg_currency_switcher_rounding_precision', $shop_precision );
-		switch ( get_option( 'alg_currency_switcher_rounding', 'no_round' ) ) {
+		$shop_precision     = $rounding_options['shop_precision'];
+		$rounding_precision = $rounding_options['rounding_precision'];
+		switch ( $rounding_options['rounding'] ) {
 			case 'round':
 				$price = round( $price, $rounding_precision );
 				break;
@@ -308,7 +318,7 @@ if ( ! function_exists( 'alg_wc_cs_round_and_pretty' ) ) {
 				break;
 		}
 		// Pretty Price
-		if ( 'yes' === get_option( 'alg_currency_switcher_make_pretty_price', 'no' ) && $price >= 0.5 ) {
+		if ( 'yes' === $rounding_options['pretty_price'] && $price >= 0.5 ) {
 			if ( 'yes' === get_option( 'alg_wc_currency_switcher_price_formats_enabled', 'no' ) ) {
 				$shop_precision = get_option( 'alg_wc_currency_switcher_price_formats_number_of_decimals_' . $currency_code, $shop_precision );
 			}
