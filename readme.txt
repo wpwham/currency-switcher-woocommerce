@@ -92,7 +92,7 @@ You can install [All Currencies for WooCommerce](https://wordpress.org/plugins/w
 If you are trying the National Bank of Georgia server option with no success, make sure that your server has the SoapClient library installed and enabled
 
 = How to override rounding and pretty price per currency? =
-If you want for example to turn on the rounding for all products except for Bitcoin, supposing you've set to round and enabled pretty price on plugin's settings:
+If you want for example to turn on the rounding for all products except for Bitcoin, supposing you’ve enabled rounding and pretty price on plugin’s settings:
 `
 add_filter( 'alg_wc_currency_switcher_correction', function ( $correction, $currency ) {
 	if ( $currency == 'BTC' ) {
