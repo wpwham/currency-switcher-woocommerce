@@ -3,7 +3,7 @@ Contributors: algoritmika, anbinder, karzin
 Tags: woocommerce, currency switcher, multicurrency, currency, switcher, woo commerce, algoritmika, wpfactory
 Requires at least: 4.4
 Tested up to: 4.9
-Stable tag: 2.9.3
+Stable tag: 2.9.4
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -104,7 +104,16 @@ add_filter( 'alg_wc_currency_switcher_correction', function ( $correction, $curr
 }, 10, 2 );
 `
 
+= How to force currency by URL =
+If you want to set a currency just accessing an URL you can append the **alg_currency** variable with the currency code you want.
+e.g
+`
+http://www.yoursite.com?alg_currency=USD
+`
+
 == Changelog ==
+= 2.9.4 - 14/09/2018 =
+* Explain how to force currency by url on readme
 
 = 2.9.3 - 11/09/2018 =
 * Fix price filter widget currency format
@@ -318,8 +327,5 @@ add_filter( 'alg_wc_currency_switcher_correction', function ( $correction, $curr
 
 == Upgrade Notice ==
 
-= 2.9.3 =
-* Fix price filter widget currency format
-* Fix price filter rounding
-* Add 'alg_wc_currency_switcher_correction' filter to override 'Final Price Correction options'
-* Add FAQ question about override rounding with 'alg_wc_currency_switcher_correction' filter
+= 2.9.4 =
+* Explain how to force currency by url on readme
