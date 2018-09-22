@@ -216,7 +216,7 @@ class Alg_WC_Currency_Switcher_Settings_Exchange_Rates extends Alg_WC_Currency_S
 						'id'                       => 'alg_currency_switcher_exchange_rate_' . $currency_from . '_' . $currency_to,
 						'default'                  => 1,
 						'type'                     => 'alg_exchange_rate',
-						'custom_attributes'        => array( 'step' => ALG_WC_CS_EXCHANGE_RATES_STEP, 'min'  => '0' ),
+						'custom_attributes'        => array( 'step' => 'any', 'min'  => '0' ),
 						'custom_attributes_button' => array( 'currency_from' => $currency_from, 'currency_to' => $currency_to, 'exchange_rates_field_id' => 'alg_currency_switcher_exchange_rate_' . $currency_from . '_' . $currency_to ),
 						'css'                      => 'width:100px;',
 						'value'                    => $currency_from . '/' . $currency_to,

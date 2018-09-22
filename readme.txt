@@ -112,8 +112,9 @@ http://www.yoursite.com?alg_currency=USD
 `
 
 == Changelog ==
-= 2.9.4 - 14/09/2018 =
+= 2.9.4 - 22/09/2018 =
 * Explain how to force currency by url on readme
+* Replace currency input step from 'ALG_WC_CS_EXCHANGE_RATES_STEP' to 'any'
 
 = 2.9.3 - 11/09/2018 =
 * Fix price filter widget currency format
@@ -329,3 +330,4 @@ http://www.yoursite.com?alg_currency=USD
 
 = 2.9.4 =
 * Explain how to force currency by url on readme
+* Replace currency input step from 'ALG_WC_CS_EXCHANGE_RATES_STEP' to 'any'
