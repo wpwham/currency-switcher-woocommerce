@@ -2,7 +2,7 @@
 /**
  * Currency Switcher - Exchange Rates Section Settings
  *
- * @version 2.8.7
+ * @version 2.9.4
  * @since   1.0.0
  * @author  Tom Anbinder
  */
@@ -138,7 +138,7 @@ class Alg_WC_Currency_Switcher_Settings_Exchange_Rates extends Alg_WC_Currency_S
 	/**
 	 * get_exchange_rates_settings.
 	 *
-	 * @version 2.8.7
+	 * @version 2.9.4
 	 * @since   1.0.0
 	 * @todo    show custom offset input field only if "Custom Offset" is selected as "type"
 	 * @todo    (maybe) optional additional "fixed" offset
