@@ -2,7 +2,7 @@
 /**
  * Currency Switcher Functions - Exchange Rates
  *
- * @version 2.9.1
+ * @version 2.9.5
  * @since   2.8.0
  * @author  Tom Anbinder
  */
@@ -233,7 +233,7 @@ if ( ! function_exists( 'alg_wc_cs_get_currency_exchange_rates_url_response' ) )
 	/*
 	 * alg_wc_cs_get_currency_exchange_rates_url_response.
 	 *
-	 * @version 2.8.2
+	 * @version 2.9.5
 	 * @since   2.8.0
 	 */
 	function alg_wc_cs_get_currency_exchange_rates_url_response( $url, $do_json_decode = true ) {
@@ -242,6 +242,7 @@ if ( ! function_exists( 'alg_wc_cs_get_currency_exchange_rates_url_response' ) )
 			$curl = curl_init( $url );
 			curl_setopt( $curl, CURLOPT_RETURNTRANSFER, 1 );
 			curl_setopt( $curl, CURLOPT_SSL_VERIFYPEER, false );
+			curl_setopt( $curl, CURLOPT_SSLVERSION,3); 
 			$response = curl_exec( $curl );
 			curl_close( $curl );
 		} elseif ( ini_get( 'allow_url_fopen' ) ) {
