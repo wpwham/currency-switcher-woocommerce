@@ -2,7 +2,7 @@
 /**
  * Currency Switcher - General Section Settings
  *
- * @version 2.8.7
+ * @version 2.9.6
  * @since   1.0.0
  * @author  Tom Anbinder
  */
@@ -39,7 +39,7 @@ class Alg_WC_Currency_Switcher_Settings_General extends Alg_WC_Currency_Switcher
 	/**
 	 * get_general_settings.
 	 *
-	 * @version 2.8.7
+	 * @version 2.9.6
 	 * @since   1.0.0
 	 * @todo    styling
 	 * @todo    add more placement options
@@ -238,6 +238,13 @@ class Alg_WC_Currency_Switcher_Settings_General extends Alg_WC_Currency_Switcher
 				'desc'     => __( 'Enable', 'currency-switcher-woocommerce' ),
 				'desc_tip' => __( 'Adds "Order Currency" switcher to admin order edit page.', 'currency-switcher-woocommerce' ),
 				'id'       => 'alg_wc_currency_switcher_order_admin_currency',
+				'default'  => 'no',
+				'type'     => 'checkbox',
+			),
+			array(
+				'title'    => __( 'Format price', 'currency-switcher-woocommerce' ),
+				'desc'     => __( 'Format prices on admin order edit page', 'currency-switcher-woocommerce' ),
+				'id'       => 'alg_wc_currency_switcher_order_admin_format',
 				'default'  => 'no',
 				'type'     => 'checkbox',
 			),

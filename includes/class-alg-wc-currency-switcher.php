@@ -2,7 +2,7 @@
 /**
  * Currency Switcher Plugin - Core Class
  *
- * @version 2.8.6
+ * @version 2.9.6
  * @since   1.0.0
  * @author  Tom Anbinder
  */
@@ -13,10 +13,26 @@ if ( ! class_exists( 'Alg_WC_Currency_Switcher_Main' ) ) :
 
 class Alg_WC_Currency_Switcher_Main {
 
+	public function is_admin_order_page() {
+		if ( isset( $_REQUEST['screen_id'] ) && $_REQUEST['screen_id'] == 'shop_order' ) {
+			return true;
+		}
+
+		$post_id = 0;
+		$post_id = isset( $_REQUEST['post'] ) ? $_REQUEST['post'] : $post_id;
+		$post_id = isset( $_REQUEST['post_ID'] ) ? $_REQUEST['post_ID'] : $post_id;
+		$post_id = isset( $_REQUEST['post_id'] ) ? $_REQUEST['post_id'] : $post_id;
+
+		if ( ! empty( $post_id ) && get_post_type( $post_id ) == 'shop_order' ) {
+			return true;
+		}
+		return false;
+	}
+
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.8.6
+	 * @version 2.9.6
 	 * @since   1.0.0
 	 * @todo    move "JS Repositioning", "Switcher" (and maybe something else) to `! is_admin()` section (as "Flags")
 	 */
@@ -42,8 +58,15 @@ class Alg_WC_Currency_Switcher_Main {
 				add_action( 'add_meta_boxes',       array( $this, 'add_order_admin_currency_meta_box' ) );
 				add_action( 'save_post_shop_order', array( $this, 'save_order_admin_currency_meta_box' ), PHP_INT_MAX, 2 );
 			}
-			// Frontend
-			if ( ! is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+			// Format price on admin order
+			$format_price_on_admin_order = get_option( 'alg_wc_currency_switcher_order_admin_format', 'no' );
+			// Format and convert
+			if (
+				( $format_price_on_admin_order === 'no' && ! is_admin() ) ||
+				( $format_price_on_admin_order === 'yes' && ! is_admin() ) ||
+				( $format_price_on_admin_order === 'yes' && is_admin() && $this->is_admin_order_page() ) ||
+				( defined( 'DOING_AJAX' ) && DOING_AJAX )
+			) {
 				// Disable on URI
 				$disable_on_uri = get_option( 'alg_currency_switcher_disable_uri', '' );
 				if ( ! empty( $disable_on_uri ) ) {
@@ -58,10 +81,9 @@ class Alg_WC_Currency_Switcher_Main {
 				alg_currency_switcher_product_price_filters( $this, 'add_filter' );
 				// Currency
 				add_filter( 'woocommerce_currency',                       array( $this, 'change_currency_code' ),   PHP_INT_MAX, 1 );
-				// Price formats
 				if ( 'yes' === get_option( 'alg_wc_currency_switcher_price_formats_enabled', 'no' ) ) {
-					add_filter( 'wc_price_args',                          array( $this, 'price_format' ), PHP_INT_MAX );
-					add_filter( 'woocommerce_currency_symbol',            array( $this, 'change_currency_symbol' ), PHP_INT_MAX, 2 );
+					add_filter( 'wc_price_args', array( $this, 'price_format' ), PHP_INT_MAX );
+					add_filter( 'woocommerce_currency_symbol', array( $this, 'change_currency_symbol' ), PHP_INT_MAX, 2 );
 				}
 				// Coupons
 				if ( 'yes' === get_option( 'alg_currency_switcher_fixed_amount_coupons_enabled', 'yes' ) ) {

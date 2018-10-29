@@ -3,7 +3,7 @@ Contributors: algoritmika, anbinder, karzin
 Tags: woocommerce, currency switcher, multicurrency, currency, switcher, woo commerce, algoritmika, wpfactory
 Requires at least: 4.4
 Tested up to: 4.9
-Stable tag: 2.9.5
+Stable tag: 2.9.6
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -112,8 +112,11 @@ http://www.yoursite.com?alg_currency=USD
 `
 
 == Changelog ==
+= 2.9.6 - 29/10/2018 =
+* Add option to format price on admin order page
+
 = 2.9.5 - 19/10/2018 =
-Improve CURL setup
+* Improve CURL setup
 
 = 2.9.4 - 22/09/2018 =
 * Explain how to force currency by url on readme
@@ -331,5 +334,5 @@ Improve CURL setup
 
 == Upgrade Notice ==
 
-= 2.9.5 =
-Improve CURL setup
+= 2.9.6 =
+* Add option to format price on admin order page
