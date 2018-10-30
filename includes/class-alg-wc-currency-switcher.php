@@ -30,6 +30,30 @@ class Alg_WC_Currency_Switcher_Main {
 	}
 
 	/**
+	 * Sets currency on order edit page
+	 *
+	 * @version 2.9.6
+	 * @since   2.9.6
+	 */
+	public function set_currency_on_order_edit_page() {
+		if ( ! $this->is_admin_order_page() ) {
+			return;
+		}
+		$post_id = 0;
+		$post_id = isset( $_REQUEST['post'] ) ? $_REQUEST['post'] : $post_id;
+		$post_id = isset( $_REQUEST['post_ID'] ) ? $_REQUEST['post_ID'] : $post_id;
+		$post_id = isset( $_REQUEST['post_id'] ) ? $_REQUEST['post_id'] : $post_id;
+		if ( empty( $post_id ) ) {
+			return;
+		}
+		$order_currency = get_post_meta( $post_id, '_order_currency', true );
+		if ( empty( $order_currency ) ) {
+			return;
+		}
+		alg_wc_cs_session_set( 'alg_currency', $order_currency );
+	}
+
+	/**
 	 * Constructor.
 	 *
 	 * @version 2.9.6
@@ -43,6 +67,7 @@ class Alg_WC_Currency_Switcher_Main {
 			if ( isset( $_REQUEST['alg_currency'] ) ) {
 				alg_wc_cs_session_set( 'alg_currency', $_REQUEST['alg_currency'] );
 			}
+			$this->set_currency_on_order_edit_page();
 			if ( 'yes' === get_option( 'alg_wc_currency_switcher_currency_locales_enabled', 'no' ) ) {
 				if ( 'yes' === get_option( 'alg_wc_currency_switcher_currency_locales_use_always_enabled', 'yes' ) ) {
 					$this->set_currency_by_locale();
