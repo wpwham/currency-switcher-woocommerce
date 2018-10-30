@@ -112,7 +112,7 @@ http://www.yoursite.com?alg_currency=USD
 `
 
 == Changelog ==
-= 2.9.6 - 29/10/2018 =
+= 2.9.6 - 30/10/2018 =
 * Add option to format price on admin order page
 
 = 2.9.5 - 19/10/2018 =
