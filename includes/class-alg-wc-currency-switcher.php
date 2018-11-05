@@ -13,7 +13,17 @@ if ( ! class_exists( 'Alg_WC_Currency_Switcher_Main' ) ) :
 
 class Alg_WC_Currency_Switcher_Main {
 
+	/**
+	 * Check if is on admin order page
+	 *
+	 * @version 2.9.6
+	 * @since   2.9.6
+	 */
 	public function is_admin_order_page() {
+		if ( ! is_admin() ) {
+			return false;
+		}
+
 		if ( isset( $_REQUEST['screen_id'] ) && $_REQUEST['screen_id'] == 'shop_order' ) {
 			return true;
 		}
