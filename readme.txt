@@ -3,7 +3,7 @@ Contributors: algoritmika, anbinder, karzin
 Tags: woocommerce, currency switcher, multicurrency, currency, switcher, woo commerce, algoritmika, wpfactory
 Requires at least: 4.4
 Tested up to: 4.9
-Stable tag: 2.9.6
+Stable tag: 2.9.7
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -112,6 +112,10 @@ http://www.yoursite.com?alg_currency=USD
 `
 
 == Changelog ==
+
+= 2.9.7 - 05/11/2018 =
+* Fix cart currency when cart is empty
+
 = 2.9.6 - 30/10/2018 =
 * Add option to format price on admin order page
 
@@ -334,5 +338,5 @@ http://www.yoursite.com?alg_currency=USD
 
 == Upgrade Notice ==
 
-= 2.9.6 =
-* Add option to format price on admin order page
+= 2.9.7 =
+* Fix cart currency when cart is empty

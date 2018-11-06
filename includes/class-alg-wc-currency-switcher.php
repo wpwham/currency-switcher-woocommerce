@@ -2,7 +2,7 @@
 /**
  * Currency Switcher Plugin - Core Class
  *
- * @version 2.9.6
+ * @version 2.9.7
  * @since   1.0.0
  * @author  Tom Anbinder
  */
@@ -64,9 +64,27 @@ class Alg_WC_Currency_Switcher_Main {
 	}
 
 	/**
+	 * Updates mini cart,
+	 *
+	 * avoiding wrong currency on empty mini cart
+	 *
+	 * @version 2.9.7
+	 * @since   2.9.7
+	 */
+	public function update_mini_cart() {
+		?>
+		<script>
+            jQuery(document).ready(function () {
+                jQuery(document.body).trigger('wc_fragment_refresh');
+            });
+		</script>
+		<?php
+	}
+
+	/**
 	 * Constructor.
 	 *
-	 * @version 2.9.6
+	 * @version 2.9.7
 	 * @since   1.0.0
 	 * @todo    move "JS Repositioning", "Switcher" (and maybe something else) to `! is_admin()` section (as "Flags")
 	 */
@@ -76,7 +94,9 @@ class Alg_WC_Currency_Switcher_Main {
 			alg_wc_cs_session_maybe_start();
 			if ( isset( $_REQUEST['alg_currency'] ) ) {
 				alg_wc_cs_session_set( 'alg_currency', $_REQUEST['alg_currency'] );
+				add_action( 'wp_footer', array( $this, 'update_mini_cart' ), PHP_INT_MAX );
 			}
+
 			$this->set_currency_on_order_edit_page();
 			if ( 'yes' === get_option( 'alg_wc_currency_switcher_currency_locales_enabled', 'no' ) ) {
 				if ( 'yes' === get_option( 'alg_wc_currency_switcher_currency_locales_use_always_enabled', 'yes' ) ) {
