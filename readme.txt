@@ -113,7 +113,7 @@ http://www.yoursite.com?alg_currency=USD
 
 == Changelog ==
 
-= 2.9.7 - 05/11/2018 =
+= 2.9.7 - 06/11/2018 =
 * Fix cart currency when cart is empty
 
 = 2.9.6 - 30/10/2018 =
