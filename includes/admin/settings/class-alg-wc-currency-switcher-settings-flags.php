@@ -101,7 +101,7 @@ class Alg_WC_Currency_Switcher_Settings_Flags extends Alg_WC_Currency_Switcher_S
 				'default'   => 'no',
 				'desc_tip'  => apply_filters( 'alg_wc_currency_switcher_plugin_option', sprintf(
 					__( 'To enable flags, you will need %s plugin.', 'currency-switcher-woocommerce' ),
-					'<a target="_blank" href="' . esc_url( 'https://wpfactory.com/item/currency-switcher-woocommerce-wordpress-plugin/' ) . '">' .
+					'<a target="_blank" href="' . esc_url( 'https://wpwham.com/products/currency-switcher-for-woocommerce/' ) . '">' .
 						__( 'Currency Switcher for WooCommerce Pro', 'currency-switcher-woocommerce' ) . '</a>' ), 'settings' ),
 				'custom_attributes' => apply_filters( 'alg_wc_currency_switcher_plugin_option', array( 'disabled' => 'disabled' ), 'settings' ),
 			),

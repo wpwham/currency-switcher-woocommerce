@@ -1,8 +1,8 @@
 === Currency Switcher for WooCommerce ===
 Contributors: wpwham
-Tags: woocommerce, currency switcher, multicurrency, currency, switcher, woo commerce, algoritmika, wpfactory
+Tags: woocommerce, currency switcher, multicurrency, currency, switcher, woo commerce
 Requires at least: 4.4
-Tested up to: 5.1
+Tested up to: 5.2
 Stable tag: 2.9.7
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -37,10 +37,10 @@ Currency Switcher for WooCommerce.
 
 = Feedback =
 * We are open to your suggestions and feedback. Thank you for using or trying out one of our plugins!
-* Drop us a line at [www.algoritmika.com](http://www.algoritmika.com).
+* Drop us a line at [https://wpwham.com](https://wpwham.com).
 
 = More =
-* Visit the [Currency Switcher for WooCommerce plugin page](https://wpfactory.com/item/currency-switcher-woocommerce-wordpress-plugin/).
+* Visit the [Currency Switcher for WooCommerce plugin page](https://wpwham.com/products/currency-switcher-for-woocommerce/).
 
 == Installation ==
 

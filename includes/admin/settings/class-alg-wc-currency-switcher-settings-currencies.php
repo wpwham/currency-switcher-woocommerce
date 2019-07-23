@@ -142,7 +142,7 @@ class Alg_WC_Currency_Switcher_Settings_Currencies extends Alg_WC_Currency_Switc
 				'desc'     => ( PHP_INT_MAX === apply_filters( 'alg_wc_currency_switcher_plugin_option', 2 ) ) ?
 					'' : sprintf(
 						'<p>' . __( 'To add more than two additional currencies, you will need %s plugin.', 'currency-switcher-woocommerce' ) . '</p>',
-						'<a target="_blank" href="' . esc_url( 'https://wpfactory.com/item/currency-switcher-woocommerce-wordpress-plugin/' ) . '">' .
+						'<a target="_blank" href="' . esc_url( 'https://wpwham.com/products/currency-switcher-for-woocommerce/' ) . '">' .
 							__( 'Currency Switcher for WooCommerce Pro', 'currency-switcher-woocommerce' ) . '</a>'
 						),
 				'custom_attributes' => ( PHP_INT_MAX === apply_filters( 'alg_wc_currency_switcher_plugin_option', 2 ) ) ?

@@ -1,15 +1,15 @@
 <?php
 /*
 Plugin Name: Currency Switcher for WooCommerce
-Plugin URI: https://wpfactory.com/item/currency-switcher-woocommerce-wordpress-plugin/
+Plugin URI: https://wpwham.com/products/currency-switcher-for-woocommerce/
 Description: Currency Switcher for WooCommerce.
 Version: 2.9.7
 Author: WP Wham
 Author URI: https://wpwham.com
 Text Domain: currency-switcher-woocommerce
 Domain Path: /langs
-Copyright: © 2018 WP Wham
-WC tested up to: 3.4
+Copyright: © 2018-2019 WP Wham
+WC tested up to: 3.6
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 */
@@ -118,7 +118,7 @@ final class Alg_WC_Currency_Switcher {
 	 */
 	function action_links( $links ) {
 		$settings_link   = '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=alg_wc_currency_switcher' ) . '">' . __( 'Settings', 'woocommerce' )   . '</a>';
-		$unlock_all_link = '<a target="_blank" href="' . esc_url( 'https://wpfactory.com/item/currency-switcher-woocommerce-wordpress-plugin/' ) . '">' .
+		$unlock_all_link = '<a target="_blank" href="' . esc_url( 'https://wpwham.com/products/currency-switcher-for-woocommerce/' ) . '">' .
 			__( 'Unlock all', 'currency-switcher-woocommerce' ) . '</a>';
 		$custom_links    = ( PHP_INT_MAX === apply_filters( 'alg_wc_currency_switcher_plugin_option', 2 ) ) ?
 			array( $settings_link ) : array( $settings_link, $unlock_all_link );
