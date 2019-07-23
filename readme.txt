@@ -3,7 +3,7 @@ Contributors: wpwham
 Tags: woocommerce, currency switcher, multicurrency, currency, switcher, woo commerce
 Requires at least: 4.4
 Tested up to: 5.2
-Stable tag: 2.9.7
+Stable tag: 2.10.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -113,69 +113,72 @@ http://www.yoursite.com?alg_currency=USD
 
 == Changelog ==
 
-= 2.9.7 - 06/11/2018 =
+= 2.10.0 - 2019-07-23 =
+* UPDATE: updated .pot file for translations
+
+= 2.9.7 - 2018-11-06 =
 * Fix cart currency when cart is empty
 
-= 2.9.6 - 30/10/2018 =
+= 2.9.6 - 2018-10-30 =
 * Add option to format price on admin order page
 
-= 2.9.5 - 19/10/2018 =
+= 2.9.5 - 2018-10-19 =
 * Improve CURL setup
 
-= 2.9.4 - 22/09/2018 =
+= 2.9.4 - 2018-09-22 =
 * Explain how to force currency by url on readme
 * Replace currency input step from 'ALG_WC_CS_EXCHANGE_RATES_STEP' to 'any'
 
-= 2.9.3 - 11/09/2018 =
+= 2.9.3 - 2018-09-11 =
 * Fix price filter widget currency format
 * Fix price filter rounding
 * Add 'alg_wc_currency_switcher_correction' filter to override 'Final Price Correction options'
 * Add FAQ question about override rounding with 'alg_wc_currency_switcher_correction' filter
 
-= 2.9.2 - 10/09/2018 =
+= 2.9.2 - 2018-09-10 =
 * Add CoinMarketCap exchange server
 * Add CoinMarketCap question on FAQ
 
-= 2.9.1 - 10/09/2018 =
+= 2.9.1 - 2018-09-10 =
 * Add Free Currency Converter API exchange server
 * Remove Yahoo exchange server
 * Remove Fixer.io exchange server
 * Remove CoinMarketCap exchange server
 
-= 2.9.0 - 21/08/2018 =
+= 2.9.0 - 2018-08-21 =
 * Add question on plugin's description about getting converted values
 * Add 'alg_wc_cs_get_exchange_rate' filter allowing managing the exchange rate externally
 * Add 'National Bank of Georgia' exchange server
 
-= 2.8.9 - 08/08/2018 =
+= 2.8.9 - 2018-08-08 =
 * Improve compatibility with WooCommerce Product Addons plugin
 * Add compatibility with price filter widget
 
-= 2.8.8 - 19/07/2018 =
+= 2.8.8 - 2018-07-19 =
 * Add notification on plugin's description about possible paypal issues
 * Add karzin as contributor
 * Fix version number
 * Prepare premium version for adding compatibility with WooCommerce Product Addons plugin 
 
-= 2.8.7 - 13/07/2018 =
+= 2.8.7 - 2018-07-13 =
 * Dev - Admin settings descriptions updated.
 
-= 2.8.6 - 14/06/2018 =
+= 2.8.6 - 2018-06-14 =
 * Fix - Exchange Rates - "Google" exchange rates server removed (fallback - default "European Central Bank (ECB)" server).
 * Dev - Countries - "Override Country" options added.
 * Dev - General - Order Options - "Order Currency" options added.
 * Dev - `alg_convert_price()` function (and `[woocommerce_currency_switcher_convert_price]` shortcode) - Special `%cart_total%` case for `price` attribute added; `currency_from` attribute (empty by default) added.
 * Dev - Plugin link updated from <a href="https://wpcodefactory.com">https://wpcodefactory.com</a> to <a href="https://wpfactory.com">https://wpfactory.com</a>.
 
-= 2.8.5 - 08/05/2018 =
+= 2.8.5 - 2018-05-08 =
 * Dev - General - "Apply Currency Conversion for Cart Fees" option added.
 * Dev - General - Exchange Rates Final Price Correction Options - "Apply Rounding and Pretty Price to Shipping Rates" option added.
 
-= 2.8.4 - 20/04/2018 =
+= 2.8.4 - 2018-04-20 =
 * Dev - `[woocommerce_currency_switcher_link_list]` - `no_links` attribute added.
 * Dev - `[woocommerce_currency_switcher_link_list]` - `%product_price%` - Checking for single product page disabled.
 
-= 2.8.3 - 07/03/2018 =
+= 2.8.3 - 2018-03-07 =
 * Dev - Advanced - Section added (some options moved from "General" section).
 * Dev - Advanced - "Default customer location" option added.
 * Dev - Advanced - "Show Flags in Admin Settings Section" option removed.
@@ -186,16 +189,16 @@ http://www.yoursite.com?alg_currency=USD
 * Dev - Flags - `alg_wc_currency_switcher_country_flag_image_url` filter added.
 * Dev - Functions - Selector - Code refactoring (`alg_get_country_flag_code()` function added).
 
-= 2.8.2 - 21/02/2018 =
+= 2.8.2 - 2018-02-21 =
 * Dev - Exchange Rates - Server - "Google" server added.
 
-= 2.8.1 - 28/01/2018 =
+= 2.8.1 - 2018-01-28 =
 * Dev - Exchange Rates - "Offset" options added.
 * Dev - Code refactoring.
 * Fix - Session (WC) functions - Additional checks added.
 * Dev - "WC tested up to" added to plugin header.
 
-= 2.8.0 - 26/12/2017 =
+= 2.8.0 - 2017-12-26 =
 * Dev - General - Advanced Options - WooCommerce v3.2 compatibility - Apply Currency Conversion for Fixed Amount Coupons.
 * Dev - General - Advanced Options - Show Flags in Admin Settings Section - Defaults to `no` now.
 * Dev - General - Advanced Options - "Add Base Currency for Fixed Amount Coupons" option added.
@@ -208,13 +211,13 @@ http://www.yoursite.com?alg_currency=USD
 * Dev - Functions - Code refactoring - Exchange rates functions moved to a new `alg-switcher-exchange-rates-functions.php` file.
 * Dev - `uninstall.php` added.
 
-= 2.7.0 - 12/11/2017 =
+= 2.7.0 - 2017-11-12 =
 * Dev - General - Advanced Options - "Session Save Path" option added.
 * Dev - Exchange Rates - Server - Yahoo finance - URL updated.
 * Dev - Exchange Rates - Server - "Fixer.io" server added.
 * Dev - Exchange Rates - Server - Default value changed to "European Central Bank".
 
-= 2.6.0 - 16/10/2017 =
+= 2.6.0 - 2017-10-16 =
 * Dev - WooCommerce v3.2 compatibility - Admin settings - `select` settings type fixed.
 * Dev - WooCommerce v3.2 compatibility - `change_shipping_price_by_currency()` - Taxes.
 * Dev - `[woocommerce_currency_switcher_current_currency_symbol]` and `[woocommerce_currency_switcher_current_currency_code]` shortcodes added.
@@ -222,14 +225,14 @@ http://www.yoursite.com?alg_currency=USD
 * Dev - "Global" flag image added.
 * Dev - Settings sections array saved as main class property.
 
-= 2.5.2 - 05/09/2017 =
+= 2.5.2 - 2017-09-05 =
 * Dev - General - Switcher Placement and Format Options - "Link List Switcher - Separator" option added.
 
-= 2.5.1 - 03/09/2017 =
+= 2.5.1 - 2017-09-03 =
 * Fix - Price Formats - "Currency Code" option renamed to "Currency Symbol".
 * Dev - Flags - Settings description updated.
 
-= 2.5.0 - 02/09/2017 =
+= 2.5.0 - 2017-09-02 =
 * Dev - `format_price` attribute (defaults to `yes`) added to `alg_convert_price()` function (and `[woocommerce_currency_switcher_convert_price]` shortcode).
 * Dev - "Currency Languages (Locales)" section added.
 * Dev - General - "Show Flags in Admin Settings Section" option added.
@@ -239,33 +242,33 @@ http://www.yoursite.com?alg_currency=USD
 * Dev - Price Formats - "Currency Code" options added.
 * Dev - Minor code refactoring.
 
-= 2.4.4 - 02/08/2017 =
+= 2.4.4 - 2017-08-02 =
 * Dev - Flags added.
 
-= 2.4.3 - 30/07/2017 =
+= 2.4.3 - 2017-07-30 =
 * Fix - General - Pretty Price - If "Price Formats" section is enabled - now uses corresponding currency "Number of decimals" instead of shop's default.
 * Dev - General - Advanced Options - "Apply Rounding and Pretty Price to Shop's Default Currency" option added.
 * Dev - Price Format - Default shop currency added ("Additional currency code position (optional)" as new option; other options are copied from "WooCommerce > Settings > General").
 * Dev - Functions - `alg_get_product_price_by_currency()` - Code refactoring.
 
-= 2.4.2 - 29/07/2017 =
+= 2.4.2 - 2017-07-29 =
 * Fix - Skipping price by currency calculation for shop default currency (this fixes the issue with original prices rounded, when rounding is enabled).
 * Fix - Skipping price formatting for shop default currency.
 
-= 2.4.1 - 28/07/2017 =
+= 2.4.1 - 2017-07-28 =
 * Dev - `[woocommerce_currency_switcher_convert_price]` shortcode added.
 
-= 2.4.0 - 03/07/2017 =
+= 2.4.0 - 2017-07-03 =
 * Dev - "Price Formats" section added.
 * Dev - "Reset settings" option added.
 * Dev - Autoloading plugin options.
 * Dev - Code cleanup.
 * Dev - Plugin link updated from <a href="http://coder.fm">http://coder.fm</a> to <a href="https://wpcodefactory.com">https://wpcodefactory.com</a>.
 
-= 2.3.1 - 21/05/2017 =
+= 2.3.1 - 2017-05-21 =
 * Dev - "Apply Currency Conversion for Fixed Amount Coupons" option added.
 
-= 2.3.0 - 14/04/2017 =
+= 2.3.0 - 2017-04-14 =
 * Dev - WooCommerce v3.x.x compatibility - Price filters.
 * Dev - WooCommerce v3.x.x compatibility - Product ID.
 * Dev - WooCommerce v3.x.x compatibility - `alg_get_product_display_price()`.
@@ -274,27 +277,27 @@ http://www.yoursite.com?alg_currency=USD
 * Dev - Functions - `alg_get_exchange_rate_yahoo()` - cURL prioritized over `allow_url_fopen` (`file_get_contents()`).
 * Tweak - Per product settings metabox restyled.
 
-= 2.2.4 - 11/03/2017 =
+= 2.2.4 - 2017-03-11 =
 * Dev - General - "Switcher Wrapper" option added.
 * Dev - General - Switcher Item Format - `%currency_symbol%` value added.
 * Dev - General - Switcher Item Format - `%product_price%` value added.
 * Dev - `[woocommerce_currency_switcher_product_price_table]` shortcode added.
 * Dev - Code refactoring.
 
-= 2.2.3 - 06/03/2017 =
+= 2.2.3 - 2017-03-06 =
 * Dev - General - "Reposition Page after Currency Switch" option added.
 
-= 2.2.2 - 01/03/2017 =
+= 2.2.2 - 2017-03-01 =
 * Dev - Functions - `alg_get_exchange_rate_yahoo()` - cURL fallback added for Yahoo server rates (in case `allow_url_fopen` is disabled).
 * Dev - Functions - `alg_get_exchange_rate_yahoo()` - Time limit (`set_time_limit()`) increased to 10 seconds.
 * Dev - Language (POT) file updated.
 
-= 2.2.1 - 20/02/2017 =
+= 2.2.1 - 2017-02-20 =
 * Dev - Free shipping minimum order amount conversion by currency added.
 * Dev - Language (POT) file updated.
 * Tweak - General - Settings divided in sections.
 
-= 2.2.0 - 19/02/2017 =
+= 2.2.0 - 2017-02-19 =
 * Fix - Rounding and Precision added to variable hash.
 * Dev - General - "Make Pretty Price" option added.
 * Dev - Exchange Rates - "Exchange Rates Server" option added (and "European Central Bank" server added).
@@ -303,17 +306,17 @@ http://www.yoursite.com?alg_currency=USD
 * Dev - Language (POT) file updated.
 * Tweak - Link to "All Currencies for WooCommerce" plugin added.
 
-= 2.1.1 - 31/12/2016 =
+= 2.1.1 - 2016-12-31 =
 * Dev - Admin - General - "Advanced: Fix Mini Cart" option added.
 * Dev - Admin - General - "Switcher Format" option added.
 * Dev - Admin - General - "Advanced: Additional Price Filters" option added.
 * Dev - Language (POT) file updated.
 * Tweak - Tag added.
 
-= 2.1.0 - 14/12/2016 =
+= 2.1.0 - 2016-12-14 =
 * Dev - Admin - General - "Advanced: Disable on URI" option added.
 
-= 2.0.0 - 08/12/2016 =
+= 2.0.0 - 2016-12-08 =
 * Dev - Admin - Exchange Rates - "Reset All Rates" button added.
 * Dev - Admin - Currencies - "Update All Exchange Rates Now" button added.
 * Dev - Admin - Currencies - "Auto Generate PayPal Supported Currencies" button added.
@@ -329,14 +332,9 @@ http://www.yoursite.com?alg_currency=USD
 * Tweak - Author added.
 * Tweak - Major code refactoring.
 
-= 1.0.1 - 04/08/2016 =
+= 1.0.1 - 2016-08-04 =
 * Fix - `custom_number` replaced with `alg_custom_number` - this fixes the issue with "Total Currencies" field duplicating.
 * Dev - Language (POT) file added.
 
-= 1.0.0 - 24/07/2016 =
+= 1.0.0 - 2016-07-24 =
 * Initial Release.
-
-== Upgrade Notice ==
-
-= 2.9.7 =
-* Fix cart currency when cart is empty
