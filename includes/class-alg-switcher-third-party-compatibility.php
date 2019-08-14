@@ -315,6 +315,33 @@ if ( ! class_exists( 'Alg_Switcher_Third_Party_Compatibility' ) ) :
 
 			return $price;
 		}
+		
+		/**
+		 * Adds compatibility with WooCommerce Chained Products plugin
+		 * @since   2.11.0
+		 */
+		public static function is_chained_product( $_product ) {
+			global $woocommerce;
+			
+			if ( ! $_product ) {
+				return false;
+			}
+		
+			$items = $woocommerce->cart->get_cart();
+			
+			$product_id = $_product->get_id();
+			
+			foreach( $items as $item => $values ) {
+				
+				$cart_product_id = $values['data']->get_id();
+				
+				if ( $product_id === $cart_product_id && ! empty( $values['chained_item_of'] ) ) {
+					return true;
+				}
+			}
+			
+			return false;
+		}
 
 	}
 

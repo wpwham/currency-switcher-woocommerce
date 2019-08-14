@@ -631,7 +631,14 @@ class Alg_WC_Currency_Switcher_Main {
 		if ( $this->do_revert() ) {
 			return $price;
 		}
-		return alg_get_product_price_by_currency( $price, alg_get_current_currency_code(), $_product );
+		
+		// Adds compatibility with WooCommerce Chained Products plugin
+		if ( Alg_Switcher_Third_Party_Compatibility::is_chained_product( $_product ) ) {
+			return $price;
+		}
+		
+		$new_price = alg_get_product_price_by_currency( $price, alg_get_current_currency_code(), $_product );
+		return $new_price;
 	}
 
 	/**
