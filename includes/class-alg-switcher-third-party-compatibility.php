@@ -323,7 +323,7 @@ if ( ! class_exists( 'Alg_Switcher_Third_Party_Compatibility' ) ) :
 		public static function is_chained_product( $_product ) {
 			global $woocommerce;
 			
-			if ( ! $_product ) {
+			if ( ! $_product || ! $woocommerce || ! $woocommerce->cart ) {
 				return false;
 			}
 		
