@@ -3,7 +3,7 @@ Contributors: wpwham
 Tags: woocommerce, currency switcher, multicurrency, currency, switcher, woo commerce
 Requires at least: 4.4
 Tested up to: 5.2
-Stable tag: 2.11.0
+Stable tag: 2.11.1
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -112,6 +112,9 @@ http://www.yoursite.com?alg_currency=USD
 `
 
 == Changelog ==
+
+= 2.11.1 - 2019-09-29 =
+* FIX: possible PHP error
 
 = 2.11.0 - 2019-08-14 =
 * NEW: Added compatibility with WooCommerce Chained Products plugin (https://woocommerce.com/products/chained-products/)
