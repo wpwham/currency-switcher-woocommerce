@@ -93,8 +93,11 @@ class Alg_WC_Currency_Switcher_Main {
 		if ( 'yes' === get_option( 'alg_wc_currency_switcher_enabled', 'yes' ) ) {
 			alg_wc_cs_session_maybe_start();
 			if ( isset( $_REQUEST['alg_currency'] ) ) {
-				alg_wc_cs_session_set( 'alg_currency', $_REQUEST['alg_currency'] );
-				add_action( 'wp_footer', array( $this, 'update_mini_cart' ), PHP_INT_MAX );
+				$currencies = alg_get_enabled_currencies();
+				if ( in_array( $_REQUEST['alg_currency'], $currencies ) ) {
+					alg_wc_cs_session_set( 'alg_currency', $_REQUEST['alg_currency'] );
+					add_action( 'wp_footer', array( $this, 'update_mini_cart' ), PHP_INT_MAX );
+				}
 			}
 
 			$this->set_currency_on_order_edit_page();
