@@ -2,9 +2,7 @@
 /**
  * Currency Switcher Functions
  *
- * @version 2.9.3
  * @since   1.0.0
- * @author  Tom Anbinder
  * @todo    change prefix from `agl_` to `alg_wc_cs_` for all functions
  */
 
@@ -243,44 +241,101 @@ if ( ! function_exists( 'alg_get_product_price_by_currency_per_product' ) ) {
 	/**
 	 * alg_get_product_price_by_currency_per_product.
 	 *
-	 * @version 2.4.3
 	 * @since   2.4.3
 	 */
 	function alg_get_product_price_by_currency_per_product( $price, $currency_code, $_product, $direct_call ) {
-		if ( 'yes' === get_option( 'alg_currency_switcher_per_product_enabled' , 'yes' ) && null != $_product && $currency_code != get_option( 'woocommerce_currency' ) ) {
-//			if ( 'yes' === get_post_meta( $_main_product_id, '_' . 'alg_currency_switcher_per_product_settings_enabled', true ) ) {
-				$_product_id = ( ALG_IS_WC_VERSION_BELOW_3 ?
-					( isset( $_product->variation_id ) ? $_product->variation_id : $_product->id ) :
-					$_product->get_id()
-				);
-				if ( '' != ( $regular_price_per_product = get_post_meta( $_product_id, '_' . 'alg_currency_switcher_per_product_regular_price_' . $currency_code, true ) ) ) {
-					$_current_filter = current_filter();
 
-					if ( in_array( $_current_filter,
-						array( 'woocommerce_get_price_including_tax', 'woocommerce_get_price_excluding_tax' )
-					) ) {
-						return alg_get_product_display_price( $_product );
-
-					} elseif ( $direct_call || in_array( $_current_filter,
-						array( ALG_PRODUCT_GET_PRICE_FILTER, 'woocommerce_variation_prices_price', 'woocommerce_product_variation_get_price' )
-					) ) {
-						$sale_price_per_product = get_post_meta( $_product_id, '_' . 'alg_currency_switcher_per_product_sale_price_' . $currency_code, true );
-						return ( '' != $sale_price_per_product && $sale_price_per_product < $regular_price_per_product ) ? $sale_price_per_product : $regular_price_per_product;
-
-					} elseif ( in_array( $_current_filter,
-						array( ALG_PRODUCT_GET_REGULAR_PRICE_FILTER, 'woocommerce_variation_prices_regular_price', 'woocommerce_product_variation_get_regular_price' )
-					) ) {
-						return $regular_price_per_product;
-
-					} elseif ( in_array( $_current_filter,
-						array( ALG_PRODUCT_GET_SALE_PRICE_FILTER, 'woocommerce_variation_prices_sale_price', 'woocommerce_product_variation_get_sale_price' )
-					) ) {
-						$sale_price_per_product = get_post_meta( $_product_id, '_' . 'alg_currency_switcher_per_product_sale_price_' . $currency_code, true );
-						return ( '' != $sale_price_per_product ) ? $sale_price_per_product : $price;
-					}
-				}
-//			}
+		if ( ! $_product ) {
+			return false;
 		}
+
+		$enabled = get_option( 'alg_currency_switcher_per_product_enabled' , 'yes' );
+		if ( $enabled !== 'yes' ) {
+			return false;
+		}
+
+		if ( $currency_code === get_option( 'woocommerce_currency' ) ) {
+			return false;
+		}
+
+		// if ( 'yes' !== get_post_meta( $_main_product_id, '_' . 'alg_currency_switcher_per_product_settings_enabled', true ) ) {
+			// return false;
+		// }
+
+		$_product_id = ( ALG_IS_WC_VERSION_BELOW_3 ?
+			( isset( $_product->variation_id ) ? $_product->variation_id : $_product->id ) :
+			$_product->get_id()
+		);
+
+		$regular_price_per_product = get_post_meta( $_product_id, '_' . 'alg_currency_switcher_per_product_regular_price_' . $currency_code, true );
+		if ( ! $regular_price_per_product > '' ) {
+			return false;
+		}
+
+		$_current_filter = current_filter();
+
+		if ( in_array( $_current_filter,
+			array( 'woocommerce_get_price_including_tax', 'woocommerce_get_price_excluding_tax' )
+		) ) {
+			var_dump('1');
+			return alg_get_product_display_price( $_product );
+		}
+
+		// determine sale price status
+		$is_onsale = false;
+		$sale_price_per_product = get_post_meta( $_product_id, '_' . 'alg_currency_switcher_per_product_sale_price_' . $currency_code, true );
+		if ( $sale_price_per_product > '' ) {
+			$now = time();
+			$sale_price_dates_from = get_post_meta( $_product_id, '_sale_price_dates_from', true );
+			$sale_price_dates_to = get_post_meta( $_product_id, '_sale_price_dates_to', true );
+			if (
+				// has sale price, no scheduled from or to dates
+				(
+					! $sale_price_dates_from &&
+					! $sale_price_dates_to
+				) ||
+				// has sale price, and now is within scheduled "from" and "to" dates
+				(
+					$sale_price_dates_from && 
+					$sale_price_dates_to &&
+					$now > $sale_price_dates_from &&
+					$now < $sale_price_dates_to
+				) ||
+				// has sale price, now is after the scheduled "from" date, and no "to" date is set
+				(
+					$sale_price_dates_from &&
+					! $sale_price_dates_to &&
+					$now > $sale_price_dates_from
+				) ||
+				// has sale price, no "from" date is set, and now is before the scheduled "to" date
+				(
+					! $sale_price_dates_from &&
+					$sale_price_dates_to &&
+					$now < $sale_price_dates_to
+				)
+			) {
+				$is_onsale = true;
+			}
+		}
+
+		if ( $direct_call || in_array( $_current_filter,
+			array( ALG_PRODUCT_GET_PRICE_FILTER, 'woocommerce_variation_prices_price', 'woocommerce_product_variation_get_price' )
+		) ) {
+			return $is_onsale ? $sale_price_per_product : $regular_price_per_product;
+		}
+
+		if ( in_array( $_current_filter,
+			array( ALG_PRODUCT_GET_REGULAR_PRICE_FILTER, 'woocommerce_variation_prices_regular_price', 'woocommerce_product_variation_get_regular_price' )
+		) ) {
+			return $regular_price_per_product;
+		}
+
+		if ( in_array( $_current_filter,
+			array( ALG_PRODUCT_GET_SALE_PRICE_FILTER, 'woocommerce_variation_prices_sale_price', 'woocommerce_product_variation_get_sale_price' )
+		) ) {
+			return $is_onsale ? $sale_price_per_product : $price;
+		}
+		
 		return false;
 	}
 }
