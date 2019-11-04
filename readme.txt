@@ -3,7 +3,7 @@ Contributors: wpwham
 Tags: woocommerce, currency switcher, multicurrency, currency, switcher, woo commerce
 Requires at least: 4.4
 Tested up to: 5.2
-Stable tag: 2.11.2
+Stable tag: 2.11.3
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -112,6 +112,9 @@ http://www.yoursite.com?alg_currency=USD
 `
 
 == Changelog ==
+
+= 2.11.3 - 2019-11-04 =
+* FIX: issue where scheduled sale prices ignore the schedule
 
 = 2.11.2 - 2019-10-31 =
 * FIX: issue where someone could force a currency that is not enabled in the settings
