@@ -200,6 +200,15 @@ class Alg_WC_Currency_Switcher_Settings_Exchange_Rates extends Alg_WC_Currency_S
 				'options'   => alg_wc_cs_get_exchange_rates_servers(),
 			),
 			array(
+				'title'    => __( 'Free Currency Converter API Key', 'currency-switcher-woocommerce' ),
+				'desc'     => sprintf(
+					__( 'Free Currency Converter now requires an API key.  Get your key at %s', 'currency-switcher-woocommerce' ),
+					'<a target="_blank" href="https://free.currencyconverterapi.com/free-api-key">https://free.currencyconverterapi.com/free-api-key</a>'
+				),
+				'type'     => 'text',
+				'id'       => 'wpw_cs_fcc_api_key',
+			),
+			array(
 				'title'     => __( 'Exchange rates offset', 'currency-switcher-woocommerce' ),
 				'desc'      => __( 'percent', 'currency-switcher-woocommerce' ),
 				'id'        => 'alg_currency_switcher_exchange_rate_offset',

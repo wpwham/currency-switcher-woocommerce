@@ -2,33 +2,32 @@
 /**
  * Currency Switcher Functions - Exchange Rates
  *
- * @version 2.9.5
+ * @version 2.12.0
  * @since   2.8.0
  * @author  Tom Anbinder
+ * @author  David Grant
  */
 
-if ( ! function_exists( 'alg_wc_cs_get_exchange_rate_google' ) ) {
+if ( ! function_exists( 'alg_wc_cs_get_exchange_rates_servers' ) ) {
 	/*
-	 * alg_wc_cs_get_exchange_rate_google.
+	 * alg_wc_cs_get_exchange_rates_servers.
 	 *
-	 * @version 2.8.2
-	 * @since   2.8.2
-	 * @see     https://gist.github.com/daveismyname/8067095
+	 * @version 2.12.0
+	 * @since   2.8.0
+	 *
+	 * @author  Algoritmika Ltd.
+	 * @author  David Grant
 	 */
-	function alg_wc_cs_get_exchange_rate_google( $currency_from, $currency_to ) {
-		$amount = 1;
-		$url    = 'https://finance.google.com/finance/converter?a=' . $amount . '&from=' . $currency_from . '&to=' . $currency_to;
-		if ( false != ( $response = alg_wc_cs_get_currency_exchange_rates_url_response( $url, false ) ) ) {
-			preg_match( "/<span class=bld>(.*)<\/span>/", $response, $converted );
-			if ( isset( $converted[1] ) ) {
-				if ( $converted = preg_replace( "/[^0-9.]/", "", $converted[1] ) ) {
-					if ( $return = round( $converted, ALG_WC_CS_EXCHANGE_RATES_PRECISION ) ) {
-						return $return;
-					}
-				}
-			}
-		}
-		return 0;
+	function alg_wc_cs_get_exchange_rates_servers() {
+		return array(
+			'ecb'             => __( 'European Central Bank (ECB) [recommended]', 'currency-switcher-woocommerce' ),
+			'free_cur_api'    => __( 'The Free Currency Converter API', 'currency-switcher-woocommerce' ),
+			'boe'             => __( 'Bank of England', 'currency-switcher-woocommerce' ),
+			'georgia'         => __( 'National Bank of Georgia', 'currency-switcher-woocommerce' ),
+			'tcmb'            => __( 'Türkiye Cumhuriyet Merkez Bankası (TCMB)', 'currency-switcher-woocommerce' ),
+			'coinbase'        => __( 'Coinbase', 'currency-switcher-woocommerce' ),
+			'coinmarketcap'   => __( 'CoinMarketCap (for Cryptocurrencies)', 'currency-switcher-woocommerce' ),
+		);
 	}
 }
 
@@ -65,25 +64,26 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rate_free_currency_api' ) ) {
 	 * Converts using the Free Currency Converter api
 	 * @link https://free.currencyconverterapi.com/
 	 *
-	 * @version 2.9.1
+	 * @version 2.12.0
 	 * @since   2.9.1
+	 *
+	 * @author  Algoritmika Ltd.
+	 * @author  David Grant
 	 */
 	function alg_wc_cs_get_exchange_rate_free_currency_api( $currency_from, $currency_to ) {
-		if ( ! class_exists( "SoapClient" ) ) {
-			return 0;
+		$pair    = $currency_from . '_' . $currency_to;
+		$url     = 'https://free.currconv.com/api/v7/convert?q=' . $pair . '&compact=y';
+		$api_key = get_option( 'wpw_cs_fcc_api_key' );
+		if ( ! empty( $api_key ) ) {
+			$url = add_query_arg( array(
+				'apiKey' => $api_key
+			), $url );
 		}
-
-		$url = add_query_arg( array(
-			'q'       => $currency_from . '_' . $currency_to,
-			'compact' => 'y',
-		), 'http://free.currencyconverterapi.com/api/v5/convert' );
-
-		$json = alg_wc_cs_get_currency_exchange_rates_url_response( $url );
-		if ( property_exists( $json, $currency_from . '_' . $currency_to ) ) {
-			return $json->{$currency_from . '_' . $currency_to}->val;
-		}else{
-			return 0;
+		$response = alg_wc_cs_get_currency_exchange_rates_url_response( $url );
+		if ( $response ) {
+			return ( ! empty( $response->{$pair}->val ) ? $response->{$pair}->val : false );
 		}
+		return false;
 	}
 }
 
@@ -91,13 +91,20 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rate_ecb' ) ) {
 	/*
 	 * alg_wc_cs_get_exchange_rate_ecb.
 	 *
-	 * @version 2.8.0
+	 * @version 2.12.0
 	 * @since   2.2.0
+	 *
+	 * @author  Algoritmika Ltd.
+	 * @author  David Grant
 	 */
 	function alg_wc_cs_get_exchange_rate_ecb( $currency_from, $currency_to ) {
 		$final_rate = 0;
 		if ( function_exists( 'simplexml_load_file' ) ) {
-			$xml = simplexml_load_file( 'http://www.ecb.int/stats/eurofxref/eurofxref-daily.xml' );
+			if ( WP_DEBUG === true ) {
+				$xml = simplexml_load_file( 'http://www.ecb.int/stats/eurofxref/eurofxref-daily.xml' );
+			} else {
+				$xml = @simplexml_load_file( 'http://www.ecb.int/stats/eurofxref/eurofxref-daily.xml' );
+			}
 			if ( isset( $xml->Cube->Cube->Cube ) ) {
 				if ( 'EUR' === $currency_from ) {
 					$EUR_currency_from_rate = 1;
@@ -122,25 +129,6 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rate_ecb' ) ) {
 			}
 		}
 		return $final_rate;
-	}
-}
-
-if ( ! function_exists( 'alg_wc_cs_get_exchange_rates_servers' ) ) {
-	/*
-	 * alg_wc_cs_get_exchange_rates_servers.
-	 *
-	 * @version 2.9.1
-	 * @since   2.8.0
-	 */
-	function alg_wc_cs_get_exchange_rates_servers() {
-		return array(
-			'ecb'             => __( 'European Central Bank', 'currency-switcher-woocommerce' ),
-			'free_cur_api'    => __( 'Free Currency Converter', 'currency-switcher-woocommerce' ),
-			'georgia'         => __( 'National Bank of Georgia', 'currency-switcher-woocommerce' ),
-			'coinbase'        => __( 'Coinbase', 'currency-switcher-woocommerce' ),
-			'coinmarketcap'   => __( 'CoinMarketCap (for Cryptocurrencies)', 'currency-switcher-woocommerce' ),
-//			'google'          => __( 'Google', 'currency-switcher-woocommerce' ),
-		);
 	}
 }
 
@@ -173,19 +161,22 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rate' ) ) {
 		switch ( $server ) {
 			case 'coinmarketcap':
 				$return = alg_wc_cs_get_exchange_rate_coinmarketcap( $currency_from, $currency_to );
-			break;
+				break;
 			case 'coinbase':
 				$return = alg_wc_cs_get_exchange_rate_coinbase( $currency_from, $currency_to );
 				break;
+			case 'tcmb':
+				$return = wpw_cs_tcmb_get_exchange_rate( $currency_from, $currency_to );
+				break;
 			case 'georgia':
 				$return = alg_wc_cs_get_exchange_rate_georgia( $currency_from, $currency_to );
-			break;
+				break;
+			case 'boe':
+				$return = wpw_cs_boe_get_exchange_rate( $currency_from, $currency_to );
+				break;
 			case 'free_cur_api':
 				$return = alg_wc_cs_get_exchange_rate_free_currency_api( $currency_from, $currency_to );
-			break;
-			/* case 'google':
-				$return = alg_wc_cs_get_exchange_rate_google( $currency_from, $currency_to );
-				break; */
+				break;
 			default: // 'ecb'
 				$return = alg_wc_cs_get_exchange_rate_ecb( $currency_from, $currency_to );
 		}
@@ -233,22 +224,29 @@ if ( ! function_exists( 'alg_wc_cs_get_currency_exchange_rates_url_response' ) )
 	/*
 	 * alg_wc_cs_get_currency_exchange_rates_url_response.
 	 *
-	 * @version 2.9.5
+	 * @version 2.12.0
 	 * @since   2.8.0
 	 */
 	function alg_wc_cs_get_currency_exchange_rates_url_response( $url, $do_json_decode = true ) {
-		$response = '';
-		if ( function_exists( 'curl_version' ) ) {
-			$curl = curl_init( $url );
-			curl_setopt( $curl, CURLOPT_RETURNTRANSFER, 1 );
-			curl_setopt( $curl, CURLOPT_SSL_VERIFYPEER, false );
-			curl_setopt( $curl, CURLOPT_SSLVERSION,3); 
-			$response = curl_exec( $curl );
-			curl_close( $curl );
-		} elseif ( ini_get( 'allow_url_fopen' ) ) {
-			$response = file_get_contents( $url );
+		$response = apply_filters( 'wpw_cs_http_request', false, $url );
+		if ( ! $response ) {
+			$response = wp_remote_get(
+				$url, 
+				array(
+					'sslverify' => false,
+					'timeout'   => 10,
+				)
+			);
+			if ( ! is_wp_error( $response ) ) {
+				$response = $response['body'];
+			} else {
+				$response = false;
+			}
 		}
-		return ( '' != $response ? ( $do_json_decode ? json_decode( $response ) : $response ): false );
+		if ( $response !== false && $do_json_decode ) {
+			$response = json_decode( $response );
+		}
+		return $response;
 	}
 }
 
@@ -301,5 +299,161 @@ if ( ! function_exists( 'alg_wc_cs_get_currency_exchange_rate' ) ) {
 	function alg_wc_cs_get_currency_exchange_rate( $currency_code ) {
 		$currency_from = get_option( 'woocommerce_currency' );
 		return ( $currency_from == $currency_code ) ? 1 : get_option( 'alg_currency_switcher_exchange_rate_' . $currency_from . '_' . $currency_code, 1 );
+	}
+}
+
+if ( ! function_exists( 'wpw_cs_boe_get_exchange_rate_gbp' ) ) {
+	/*
+	 * wpw_cs_boe_get_exchange_rate_gbp.
+	 *
+	 * @version 2.12.0
+	 * @since   2.12.0
+	 */
+	function wpw_cs_boe_get_exchange_rate_gbp( $currency_to ) {
+		if ( 'GBP' == $currency_to ) {
+			return 1;
+		}
+		$final_rate = false;
+		$currency_codes = array(
+			'AUD' => 'EC3', // Australian Dollar
+			'CAD' => 'ECL', // Canadian Dollar
+			'CNY' => 'INB', // Chinese Yuan
+			'CZK' => 'DS7', // Czech Koruna
+			'DKK' => 'ECH', // Danish Krone
+			'EUR' => 'C8J', // Euro
+			'HKD' => 'ECN', // Hong Kong Dollar
+			'HUF' => '5LA', // Hungarian Forint
+			'INR' => 'INE', // Indian Rupee
+			'ILS' => 'IN7', // Israeli Shekel
+			'JPY' => 'C8N', // Japanese Yen
+			'MYR' => 'IN8', // Malaysian ringgit
+			'NZD' => 'ECO', // New Zealand Dollar
+			'NOK' => 'EC6', // Norwegian Krone
+			'PLN' => '5OW', // Polish Zloty
+			'RUB' => 'IN9', // Russian Ruble
+			'SAR' => 'ECZ', // Saudi Riyal
+			'SGD' => 'ECQ', // Singapore Dollar
+			'ZAR' => 'ECE', // South African Rand
+			'KRW' => 'INC', // South Korean Won
+			'SEK' => 'ECC', // Swedish Krona
+			'CHF' => 'ECU', // Swiss Franc
+			'TWD' => 'ECD', // Taiwan Dollar
+			'THB' => 'INA', // Thai Baht
+			'TRY' => 'IND', // Turkish Lira
+			'USD' => 'C8P', // US Dollar
+		);
+		if ( isset( $currency_codes[ $currency_to ] ) && function_exists( 'simplexml_load_file' ) ) {
+			for ( $i = 1; $i <= 7; $i++ ) {
+				$date         = time() - $i*24*60*60;
+				$date_from_d  = date( 'd', $date );
+				$date_from_m  = date( 'M', $date );
+				$date_from_y  = date( 'Y', $date );
+				$date_to_d    = date( 'd', $date );
+				$date_to_m    = date( 'M', $date );
+				$date_to_y    = date( 'Y', $date );
+				$date_url     = '&FD=' . $date_from_d . '&FM=' . $date_from_m . '&FY=' . $date_from_y . '&TD=' . $date_to_d . '&TM=' . $date_to_m . '&TY=' . $date_to_y;
+				$url          = 'http://www.bankofengland.co.uk/boeapps/iadb/fromshowcolumns.asp?Travel=NIxRSxSUx&FromSeries=1&ToSeries=50&DAT=RNG' . $date_url .
+					'&VFD=Y&xml.x=23&xml.y=18&CSVF=TT&C=' . $currency_codes[ $currency_to ] . '&Filter=N';
+				$xml          = simplexml_load_file( $url );
+				$json_string  = json_encode( $xml );
+				$result_array = json_decode( $json_string, true );
+				if ( isset( $result_array['Cube']['Cube'] ) ) {
+					$last_element_index = count( $result_array['Cube']['Cube'] ) - 1;
+					if ( isset( $result_array['Cube']['Cube'][ $last_element_index ]['@attributes']['OBS_VALUE'] ) ) {
+						return $result_array['Cube']['Cube'][ $last_element_index ]['@attributes']['OBS_VALUE'];
+					}
+				}
+			}
+		}
+		return $final_rate;
+	}
+}
+
+if ( ! function_exists( 'wpw_cs_boe_get_exchange_rate' ) ) {
+	/*
+	 * wpw_cs_boe_get_exchange_rate.
+	 *
+	 * @version 2.12.0
+	 * @since   2.12.0
+	 */
+	function wpw_cs_boe_get_exchange_rate( $currency_from, $currency_to ) {
+		if (
+			false != ( $gbp_currency_from = wpw_cs_boe_get_exchange_rate_gbp( $currency_from ) ) &&
+			false != ( $gbp_currency_to   = wpw_cs_boe_get_exchange_rate_gbp( $currency_to ) )
+		) {
+			return round( $gbp_currency_to / $gbp_currency_from, 6 );
+		}
+		return false;
+	}
+}
+
+if ( ! function_exists( 'wpw_cs_tcmb_get_exchange_rate_TRY' ) ) {
+	/*
+	 * wpw_cs_tcmb_get_exchange_rate_TRY.
+	 *
+	 * @version 2.12.0
+	 * @since   2.12.0
+	 */
+	function wpw_cs_tcmb_get_exchange_rate_TRY( $currency_from ) {
+		if ( 'TRY' === $currency_from ) {
+			return 1;
+		}
+		$xml = simplexml_load_file( 'http://www.tcmb.gov.tr/kurlar/today.xml' );
+		if ( isset( $xml->Currency ) ) {
+			foreach ( $xml->Currency as $the_rate ) {
+				$attributes = $the_rate->attributes();
+				if ( isset( $attributes['CurrencyCode'] ) ) {
+					$currency_code = (string) $attributes['CurrencyCode'];
+					if ( $currency_code === $currency_from  ) {
+						// Possible values: ForexSelling, ForexBuying, BanknoteSelling, BanknoteBuying. Not used: CrossRateUSD, CrossRateOther.
+						if ( '' != ( $property_to_check = apply_filters( 'wpw_cs_tcmb_property_to_check', '' ) ) ) {
+							if ( isset( $the_rate->{$property_to_check} ) ) {
+								$rate = (float) $the_rate->{$property_to_check};
+							} else {
+								continue;
+							}
+						} else {
+							if ( isset( $the_rate->ForexSelling ) ) {
+								$rate = (float) $the_rate->ForexSelling;
+							} elseif ( isset( $the_rate->ForexBuying ) ) {
+								$rate = (float) $the_rate->ForexBuying;
+							} elseif ( isset( $the_rate->BanknoteSelling ) ) {
+								$rate = (float) $the_rate->BanknoteSelling;
+							} elseif ( isset( $the_rate->BanknoteBuying ) ) {
+								$rate = (float) $the_rate->BanknoteBuying;
+							} else {
+								continue;
+							}
+						}
+						$unit = ( isset( $the_rate->Unit ) ) ? (float) $the_rate->Unit : 1;
+						return ( $rate / $unit );
+					}
+				}
+			}
+		}
+		return false;
+	}
+}
+
+if ( ! function_exists( 'wpw_cs_tcmb_get_exchange_rate' ) ) {
+	/*
+	 * wpw_cs_tcmb_get_exchange_rate.
+	 *
+	 * @version 2.12.0
+	 * @since   2.12.0
+	 */
+	function wpw_cs_tcmb_get_exchange_rate( $currency_from, $currency_to ) {
+		$currency_from_TRY = wpw_cs_tcmb_get_exchange_rate_TRY( strtoupper( $currency_from ) );
+		if ( false == $currency_from_TRY  ) {
+			return false;
+		}
+		$currency_to_TRY = wpw_cs_tcmb_get_exchange_rate_TRY( strtoupper( $currency_to )  );
+		if ( false == $currency_to_TRY ) {
+			return false;
+		}
+		if ( 1 == $currency_to_TRY ) {
+			return round( $currency_from_TRY, 6 );
+		}
+		return round( ( $currency_from_TRY / $currency_to_TRY ), 6 );
 	}
 }
