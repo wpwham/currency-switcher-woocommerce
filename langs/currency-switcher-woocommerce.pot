@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Currency Switcher for WooCommerce\n"
-"POT-Creation-Date: 2019-07-23 03:52-0700\n"
+"POT-Creation-Date: 2020-05-27 03:35-0700\n"
 "PO-Revision-Date: 2019-07-23 03:52-0700\n"
 "Last-Translator: \n"
 "Language-Team: WP Wham <support@wpwham.com>\n"
@@ -422,40 +422,49 @@ msgid "Exchange rates server"
 msgstr ""
 
 #: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:203
+msgid "Free Currency Converter API Key"
+msgstr ""
+
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:205
+#, php-format
+msgid "Free Currency Converter now requires an API key.  Get your key at %s"
+msgstr ""
+
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:212
 msgid "Exchange rates offset"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:204
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:254
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:213
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:263
 msgid "percent"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:223
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:232
 #, php-format
 msgid "Grab %s rate"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:226
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:235
 msgid "Exchange Rates Server"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:233
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:242
 msgid "Default server"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:240
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:249
 msgid "Exchange Rates Offset"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:246
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:255
 msgid "Default offset"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:248
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:257
 msgid "Custom offset"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:253
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:262
 msgid "Custom Offset"
 msgstr ""
 
@@ -789,7 +798,7 @@ msgstr ""
 msgid "Once a Minute"
 msgstr ""
 
-#: includes/class-alg-wc-currency-switcher.php:207
+#: includes/class-alg-wc-currency-switcher.php:210
 msgid "Order Currency"
 msgstr ""
 
@@ -1818,23 +1827,31 @@ msgstr ""
 msgid "Zimbabwe"
 msgstr ""
 
-#: includes/functions/alg-switcher-exchange-rates-functions.php:137
-msgid "European Central Bank"
+#: includes/functions/alg-switcher-exchange-rates-functions.php:23
+msgid "European Central Bank (ECB) [recommended]"
 msgstr ""
 
-#: includes/functions/alg-switcher-exchange-rates-functions.php:138
-msgid "Free Currency Converter"
+#: includes/functions/alg-switcher-exchange-rates-functions.php:24
+msgid "The Free Currency Converter API"
 msgstr ""
 
-#: includes/functions/alg-switcher-exchange-rates-functions.php:139
+#: includes/functions/alg-switcher-exchange-rates-functions.php:25
+msgid "Bank of England"
+msgstr ""
+
+#: includes/functions/alg-switcher-exchange-rates-functions.php:26
 msgid "National Bank of Georgia"
 msgstr ""
 
-#: includes/functions/alg-switcher-exchange-rates-functions.php:140
+#: includes/functions/alg-switcher-exchange-rates-functions.php:27
+msgid "Türkiye Cumhuriyet Merkez Bankası (TCMB)"
+msgstr ""
+
+#: includes/functions/alg-switcher-exchange-rates-functions.php:28
 msgid "Coinbase"
 msgstr ""
 
-#: includes/functions/alg-switcher-exchange-rates-functions.php:141
+#: includes/functions/alg-switcher-exchange-rates-functions.php:29
 msgid "CoinMarketCap (for Cryptocurrencies)"
 msgstr ""
 
