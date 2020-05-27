@@ -2,8 +2,8 @@
 Contributors: wpwham
 Tags: woocommerce, currency switcher, multicurrency, currency, switcher, woo commerce
 Requires at least: 4.4
-Tested up to: 5.3
-Stable tag: 2.11.5
+Tested up to: 5.4
+Stable tag: 2.12.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -64,7 +64,7 @@ Currency Switcher for WooCommerce.
 == Frequently Asked Questions ==
 = Issues regarding Paypal =
 
-* If you are experiencing some sort of issue regarding paypal, like incorrect currency code displayed in notification emails or anything else, please try to disable the default paypal component bundled with WooCommerce and use [this plugin instead](https://wordpress.org/plugins/paypal-for-woocommerce/)
+* If you are experiencing some sort of issue regarding paypal, like incorrect currency code displayed in notification emails or anything else, please try to disable the default paypal component bundled with WooCommerce and use [this plugin instead](https://www.angelleye.com/product/woocommerce-paypal-plugin/)
 
 = How to get the converted price =
 If you are trying to display the converted price on a custom template for example you can use our `alg_get_product_price_by_currency()` function.
@@ -112,6 +112,13 @@ http://www.yoursite.com?alg_currency=USD
 `
 
 == Changelog ==
+
+= 2.12.0 - 2020-05-27 =
+* NEW: added new exchange rate servers: Bank of England, TCMP.
+* UPDATE: updated Free Currency Converter API to v7, including new API Key requirement.  (Free Currency Converter now requires an API Key -- if you are using this service, you must obtain a key and enter it in the settings under WooCommerce / Settings / Currency Switcher / Exchange Rates).
+* UPDATE: removed Google Finance API (service was discontinued).
+* UPDATE: miscellaneous refactoring.
+* UPDATE: updated .pot file for translations.
 
 = 2.11.5 - 2019-12-17 =
 * UPDATE: bump tested versions
