@@ -247,4 +247,12 @@ if ( ! function_exists( 'alg_wc_currency_switcher_plugin' ) ) {
 	}
 }
 
-alg_wc_currency_switcher_plugin();
+/*
+ * Load the plugin.
+ * Note: ( plugins_loaded, 2 ) here makes us load immediately after polylang loads, but it's filterable if need-be.
+ */
+add_action(
+	apply_filters( 'wpw_cs_loading_hook', 'plugins_loaded' ),
+	'alg_wc_currency_switcher_plugin',
+	apply_filters( 'wpw_cs_loading_priority', 2 )
+);
