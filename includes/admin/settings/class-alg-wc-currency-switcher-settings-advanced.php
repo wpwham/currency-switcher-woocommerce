@@ -91,6 +91,7 @@ class Alg_WC_Currency_Switcher_Settings_Advanced extends Alg_WC_Currency_Switche
 			array(
 				'title'    => __( 'Disable on URI', 'currency-switcher-woocommerce' ),
 				'desc'     => __( 'List URIs where you want switcher functionality to be disabled. One per line. Leave blank if not sure.', 'currency-switcher-woocommerce' ),
+				'desc_tip' => __( 'Enter only the part AFTER your domain. For example if the URL is https://example.com/product/widget/, the URI to enter here is /product/widget/', 'currency-switcher-woocommerce' ),
 				'id'       => 'alg_currency_switcher_disable_uri',
 				'default'  => '',
 				'type'     => 'textarea',
