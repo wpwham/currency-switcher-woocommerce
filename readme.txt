@@ -3,7 +3,7 @@ Contributors: wpwham
 Tags: woocommerce, currency switcher, multicurrency, currency, switcher, woo commerce
 Requires at least: 4.4
 Tested up to: 5.4
-Stable tag: 2.12.0
+Stable tag: 2.12.1
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -112,6 +112,11 @@ http://www.yoursite.com?alg_currency=USD
 `
 
 == Changelog ==
+
+= 2.12.1 - 2020-06-13 =
+* FIX: possible conflict with Polylang (i.e. our plugin loading too early, before Polylang is ready)
+* UPDATE: minor text change.
+* UPDATE: updated .pot file for translations.
 
 = 2.12.0 - 2020-05-27 =
 * NEW: added new exchange rate servers: Bank of England, TCMP.

@@ -2,9 +2,10 @@
 /**
  * Currency Switcher - Advanced Section Settings
  *
- * @version 2.8.7
+ * @version 2.12.1
  * @since   2.8.3
  * @author  Tom Anbinder
+ * @author  WP Wham
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
