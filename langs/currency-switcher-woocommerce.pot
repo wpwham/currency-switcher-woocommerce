@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Currency Switcher for WooCommerce\n"
-"POT-Creation-Date: 2020-05-27 03:35-0700\n"
+"POT-Creation-Date: 2020-06-13 01:35-0700\n"
 "PO-Revision-Date: 2019-07-23 03:52-0700\n"
 "Last-Translator: \n"
 "Language-Team: WP Wham <support@wpwham.com>\n"
@@ -58,81 +58,81 @@ msgstr ""
 msgid "Currency Switcher"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:24
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:25
 msgid "Advanced"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:41
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:42
 msgid "Advanced Options"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:46
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:47
 msgid "Default customer location"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:48
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:49
 msgid ""
 "This option determines a customers default location. The MaxMind GeoLite "
 "Database will be periodically downloaded to your wp-content directory if "
 "using geolocation."
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:53
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:54
 msgid "No location by default"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:54
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:55
 msgid "Shop base address"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:55
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:56
 msgid "Geolocate"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:56
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:60
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:57
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:61
 msgid "Geolocate (with page caching support)"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:59
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:60
 #, php-format
 msgid ""
 "Select %s, if you have any caching plugins installed, and experiencing "
 "issues with the switcher."
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:61
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:62
 #, php-format
 msgid "It's the same option as in %s."
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:62
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:63
 msgid "WooCommerce > Settings > General"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:65
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:66
 msgid "Price conversion method"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:66
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:67
 msgid ""
 "This may help if you are experiencing compatibility issues with other "
 "plugins."
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:72
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:73
 msgid "Simple"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:73
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:74
 msgid "Save prices in array"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:77
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:78
 msgid "Fix mini cart"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:78
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:79
 #: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-countries.php:104
 #: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-locales.php:97
 #: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-locales.php:105
@@ -150,49 +150,55 @@ msgstr ""
 msgid "Enable"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:79
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:80
 msgid ""
 "Enable this option if you have issues with currencies in mini cart. It will "
 "recalculate cart totals on each page load."
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:92
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:93
 msgid "Disable on URI"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:93
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:94
 msgid ""
 "List URIs where you want switcher functionality to be disabled. One per "
 "line. Leave blank if not sure."
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:100
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:95
+msgid ""
+"Enter only the part AFTER your domain. For example if the URL is https://"
+"example.com/product/widget/, the URI to enter here is /product/widget/"
+msgstr ""
+
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:102
 msgid "Additional price filters"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:101
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:103
 msgid ""
 "List additional price filters to apply price conversion by currency. One per "
 "line. Leave blank if not sure."
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:108
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:110
 msgid "Price filters to remove"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:109
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:111
 msgid "List price filters to remove. One per line. Leave blank if not sure."
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:116
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:118
 msgid "Session save path"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:117
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:119
 msgid "Leave blank to use standard session save path."
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:119
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:121
 #, php-format
 msgid "Currently: %s."
 msgstr ""
