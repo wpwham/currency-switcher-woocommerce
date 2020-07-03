@@ -630,7 +630,7 @@ if ( ! function_exists( 'alg_convert_price' ) ) {
 	/**
 	 * alg_convert_price.
 	 *
-	 * @version 2.8.6
+	 * @version 2.12.2
 	 * @since   2.4.1
 	 */
 	function alg_convert_price( $atts ) {
@@ -650,7 +650,7 @@ if ( ! function_exists( 'alg_convert_price' ) ) {
 			if ( 0 != $rate ) {
 				$rate = 1 / $rate;
 			}
-			$atts['price'] = $atts['price'] * $rate;
+			$atts['price'] = floatval( $atts['price'] ) * $rate;
 		}
 		if ( ! isset( $atts['currency'] ) ) {
 			$atts['currency'] = alg_get_current_currency_code();
