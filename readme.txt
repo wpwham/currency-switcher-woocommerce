@@ -114,8 +114,7 @@ http://www.yoursite.com?alg_currency=USD
 == Changelog ==
 
 = 2.12.2 - 2020-08-07 =
-* FIX: issue where changing back to default locale does not also switch back to default currency. (When using "
-Currency Languages (Locales)" feature).
+* FIX: issue where changing back to default locale does not also switch back to default currency. (When using "Currency Languages (Locales)" feature).
 * FIX: PHP notice.
 * UPDATE: display our settings in WC status report.
 
