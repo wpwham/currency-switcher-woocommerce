@@ -85,7 +85,7 @@ class Alg_WC_Currency_Switcher_Settings_Flags extends Alg_WC_Currency_Switcher_S
 	 * @version 2.8.3
 	 * @since   2.4.4
 	 */
-	function get_flags_settings( $settings ) {
+	public static function get_flags_settings( $settings ) {
 		$all_currencies = get_woocommerce_currencies();
 		$settings = array_merge( $settings, array(
 			array(

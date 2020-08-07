@@ -44,7 +44,7 @@ class Alg_WC_Currency_Switcher_Settings_General extends Alg_WC_Currency_Switcher
 	 * @todo    styling
 	 * @todo    add more placement options
 	 */
-	function get_general_settings( $settings ) {
+	public static function get_general_settings( $settings ) {
 		$settings = array_merge( $settings, array(
 			array(
 				'title'    => __( 'Currency Switcher Plugin Options', 'currency-switcher-woocommerce' ),

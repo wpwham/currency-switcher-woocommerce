@@ -33,7 +33,7 @@ class Alg_WC_Currency_Switcher_Settings_Price_Formats extends Alg_WC_Currency_Sw
 	 * @todo    spaces in separators
 	 * @todo    WPML (check Booster)
 	 */
-	function get_price_formats_settings( $settings ) {
+	public static function get_price_formats_settings( $settings ) {
 		$all_currencies = get_woocommerce_currencies();
 		$settings = array_merge( $settings, array(
 			array(

@@ -62,7 +62,7 @@ class Alg_WC_Currency_Switcher_Settings_Currency_Locales extends Alg_WC_Currency
 	 * @since   2.5.0
 	 * @todo    add more info (WPML, Polylang etc.)
 	 */
-	function get_currency_locales_settings( $settings ) {
+	public static function get_currency_locales_settings( $settings ) {
 		$all_currencies = get_woocommerce_currencies();
 		$settings = array_merge( $settings, array(
 			array(

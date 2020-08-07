@@ -63,7 +63,7 @@ class Alg_WC_Currency_Switcher_Settings_Currency_Countries extends Alg_WC_Curren
 	 * @todo    check if "geolocate" option in WooCommerce is really required, if so - fix the message
 	 * @todo    (maybe) fix/expand description for "alg_wc_currency_switcher_currency_countries_options"
 	 */
-	function get_currency_countries_settings( $settings ) {
+	public static function get_currency_countries_settings( $settings ) {
 		$desc = '';
 		if ( ! in_array( get_option( 'woocommerce_default_customer_address' ), array( 'geolocation_ajax', 'geolocation' ) ) ) {
 			$desc = '<br>' . '<em>' . sprintf(

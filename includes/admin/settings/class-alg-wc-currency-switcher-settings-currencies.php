@@ -98,7 +98,7 @@ class Alg_WC_Currency_Switcher_Settings_Currencies extends Alg_WC_Currency_Switc
 	 * @since   1.0.0
 	 * @todo    (maybe) add "generate all world currencies" - makes sense only for Pro version
 	 */
-	function get_currencies_settings( $settings ) {
+	public static function get_currencies_settings( $settings ) {
 		$currency_from  = get_option( 'woocommerce_currency' );
 		$all_currencies = get_woocommerce_currencies();
 		$all_currencies_modified = array();

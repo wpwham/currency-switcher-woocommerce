@@ -105,6 +105,7 @@ final class Alg_WC_Currency_Switcher {
 		if ( is_admin() ) {
 			add_filter( 'woocommerce_get_settings_pages', array( $this, 'add_woocommerce_settings_tab' ) );
 			add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'action_links' ) );
+			add_action( 'woocommerce_system_status_report', array( $this, 'add_settings_to_status_report' ) );
 		}
 	}	
 
@@ -195,6 +196,66 @@ final class Alg_WC_Currency_Switcher {
 
 		// Core
 		$this->core = require_once( 'includes/class-alg-wc-currency-switcher.php' );
+	}
+
+	/**
+	 * add settings to WC status report
+	 *
+	 * @version 2.12.2
+	 * @since   2.12.2
+	 * @author  WP Wham
+	 */
+	public static function add_settings_to_status_report() {
+		#region add_settings_to_status_report
+		$protected_settings      = array( 'wpwham_currency_switcher_license', 'wpw_cs_fcc_api_key' );
+		$settings_general        = Alg_WC_Currency_Switcher_Settings_General::get_general_settings( array() );
+		$settings_currencies     = Alg_WC_Currency_Switcher_Settings_Currencies::get_currencies_settings( array() );
+		$settings_exchange_rates = Alg_WC_Currency_Switcher_Settings_Exchange_Rates::get_exchange_rates_settings( array() );
+		$settings_countries      = Alg_WC_Currency_Switcher_Settings_Currency_Countries::get_currency_countries_settings( array() );
+		$settings_languages      = Alg_WC_Currency_Switcher_Settings_Currency_Locales::get_currency_locales_settings( array() );
+		$settings_price_formats  = Alg_WC_Currency_Switcher_Settings_Price_Formats::get_price_formats_settings( array() );
+		$settings_flags          = Alg_WC_Currency_Switcher_Settings_Flags::get_flags_settings( array() );
+		$settings_advanced       = Alg_WC_Currency_Switcher_Settings_Advanced::get_advanced_settings( array() );
+		$settings                = array_merge(
+			$settings_general, $settings_currencies, $settings_exchange_rates,
+			$settings_countries, $settings_languages, $settings_price_formats,
+			$settings_flags, $settings_advanced
+		);
+		?>
+		<table class="wc_status_table widefat" cellspacing="0">
+			<thead>
+				<tr>
+					<th colspan="3" data-export-label="Currency Switcher Settings"><h2><?php esc_html_e( 'Currency Switcher Settings', 'currency-switcher-woocommerce' ); ?></h2></th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php foreach ( $settings as $setting ): ?>
+				<?php 
+				if ( in_array( $setting['type'], array( 'title', 'sectionend' ) ) ) { 
+					continue;
+				}
+				if ( isset( $setting['title'] ) ) {
+					$title = $setting['title'];
+				} elseif ( isset( $setting['desc'] ) ) {
+					$title = $setting['desc'];
+				} else {
+					$title = $setting['id'];
+				}
+				$value = get_option( $setting['id'] ); 
+				if ( in_array( $setting['id'], $protected_settings ) ) {
+					$value = $value > '' ? '(set)' : 'not set';
+				}
+				?>
+				<tr>
+					<td data-export-label="<?php echo esc_attr( $title ); ?>"><?php esc_html_e( $title, 'currency-switcher-woocommerce' ); ?>:</td>
+					<td class="help">&nbsp;</td>
+					<td><?php echo is_array( $value ) ? print_r( $value, true ) : $value; ?></td>
+				</tr>
+				<?php endforeach; ?>
+			</tbody>
+		</table>
+		<?php
+		#endregion add_settings_to_status_report
 	}
 
 	/**

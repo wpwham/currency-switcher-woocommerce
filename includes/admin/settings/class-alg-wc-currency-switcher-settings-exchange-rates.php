@@ -143,7 +143,7 @@ class Alg_WC_Currency_Switcher_Settings_Exchange_Rates extends Alg_WC_Currency_S
 	 * @todo    show custom offset input field only if "Custom Offset" is selected as "type"
 	 * @todo    (maybe) optional additional "fixed" offset
 	 */
-	function get_exchange_rates_settings( $settings ) {
+	public static function get_exchange_rates_settings( $settings ) {
 		$all_currencies = get_woocommerce_currencies();
 		$currency_from = get_option( 'woocommerce_currency' );
 		$desc = '';

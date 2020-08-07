@@ -36,7 +36,7 @@ class Alg_WC_Currency_Switcher_Settings_Advanced extends Alg_WC_Currency_Switche
 	 * @todo    (maybe) "Session Save Path" - a) `unclean_text`; b) reload after change;
 	 * @todo    (maybe) re-enable "Show Flags in Admin Settings Section" option
 	 */
-	function get_advanced_settings( $settings ) {
+	public static function get_advanced_settings( $settings ) {
 		$settings = array_merge( $settings, array(
 			array(
 				'title'     => __( 'Advanced Options', 'currency-switcher-woocommerce' ),
