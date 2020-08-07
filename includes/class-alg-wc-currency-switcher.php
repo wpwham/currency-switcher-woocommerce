@@ -286,9 +286,20 @@ class Alg_WC_Currency_Switcher_Main {
 	 * @since   2.5.0
 	 */
 	function set_currency_by_locale() {
-		$locale = get_locale();
-		foreach ( alg_get_enabled_currencies( false ) as $currency ) {
-			if ( '' != $currency ) {
+		
+		$currency_set     = false;
+		$currencies       = alg_get_enabled_currencies( false );
+		$default_currency = get_option( 'woocommerce_currency' );
+		$locale           = get_locale();
+		$session_locale   = alg_wc_cs_session_get( 'alg_locale' );
+		
+		if ( $locale === $session_locale ) {
+			// nothing to do
+			return;
+		}
+		
+		foreach ( $currencies as $currency ) {
+			if ( $currency > '' ) {
 				$locales = get_option( 'alg_wc_currency_switcher_currency_locales_' . $currency, '' );
 				if ( ! empty( $locales ) ) {
 					if ( ! is_array( $locales ) ) {
@@ -296,11 +307,20 @@ class Alg_WC_Currency_Switcher_Main {
 					}
 					if ( in_array( $locale, $locales ) ) {
 						alg_wc_cs_session_set( 'alg_currency', $currency );
+						alg_wc_cs_session_set( 'alg_locale', $locale );
+						$currency_set = true;
 						break;
 					}
 				}
 			}
 		}
+		
+		if ( ! $currency_set ) {
+			// if no match found, revert to shop default currency
+			alg_wc_cs_session_set( 'alg_currency', $default_currency );
+			alg_wc_cs_session_set( 'alg_locale', $locale );
+		}
+		
 	}
 
 	/**
