@@ -2,9 +2,10 @@
 /**
  * Currency Switcher - Price Formats Section Settings
  *
- * @version 2.6.0
+ * @version 2.12.2
  * @since   2.4.0
  * @author  Tom Anbinder
+ * @author  WP Wham
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -28,7 +29,7 @@ class Alg_WC_Currency_Switcher_Settings_Price_Formats extends Alg_WC_Currency_Sw
 	/**
 	 * get_price_formats_settings.
 	 *
-	 * @version 2.6.0
+	 * @version 2.12.2
 	 * @since   2.4.0
 	 * @todo    spaces in separators
 	 * @todo    WPML (check Booster)

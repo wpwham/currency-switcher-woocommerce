@@ -2,9 +2,10 @@
 /**
  * Currency Switcher Plugin - Core Class
  *
- * @version 2.9.7
+ * @version 2.12.2
  * @since   1.0.0
  * @author  Tom Anbinder
+ * @author  WP Wham
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -282,7 +283,7 @@ class Alg_WC_Currency_Switcher_Main {
 	/**
 	 * set_currency_by_locale.
 	 *
-	 * @version 2.7.0
+	 * @version 2.12.2
 	 * @since   2.5.0
 	 */
 	function set_currency_by_locale() {

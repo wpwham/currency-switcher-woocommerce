@@ -2,9 +2,10 @@
 /**
  * Currency Switcher - General Section Settings
  *
- * @version 2.9.6
+ * @version 2.12.2
  * @since   1.0.0
  * @author  Tom Anbinder
+ * @author  WP Wham
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -39,7 +40,7 @@ class Alg_WC_Currency_Switcher_Settings_General extends Alg_WC_Currency_Switcher
 	/**
 	 * get_general_settings.
 	 *
-	 * @version 2.9.6
+	 * @version 2.12.2
 	 * @since   1.0.0
 	 * @todo    styling
 	 * @todo    add more placement options

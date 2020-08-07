@@ -2,7 +2,7 @@
 /**
  * Currency Switcher - Advanced Section Settings
  *
- * @version 2.12.1
+ * @version 2.12.2
  * @since   2.8.3
  * @author  Tom Anbinder
  * @author  WP Wham
@@ -29,7 +29,7 @@ class Alg_WC_Currency_Switcher_Settings_Advanced extends Alg_WC_Currency_Switche
 	/**
 	 * get_advanced_settings.
 	 *
-	 * @version 2.8.7
+	 * @version 2.12.2
 	 * @since   2.8.3
 	 * @todo    "Session Type" - finish (now problem is that `WC()` is called too early, so probably all sessions related code must be moved to e.g. `init` hook)
 	 * @todo    "Price Conversion Method" - maybe set `save_in_array` as default value

@@ -2,8 +2,8 @@
 Contributors: wpwham
 Tags: woocommerce, currency switcher, multicurrency, currency, switcher, woo commerce
 Requires at least: 4.4
-Tested up to: 5.4
-Stable tag: 2.12.1
+Tested up to: 5.5
+Stable tag: 2.12.2
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -112,6 +112,12 @@ http://www.yoursite.com?alg_currency=USD
 `
 
 == Changelog ==
+
+= 2.12.2 - 2020-08-07 =
+* FIX: issue where changing back to default locale does not also switch back to default currency. (When using "
+Currency Languages (Locales)" feature).
+* FIX: PHP notice.
+* UPDATE: display our settings in WC status report.
 
 = 2.12.1 - 2020-06-13 =
 * FIX: possible conflict with Polylang (i.e. our plugin loading too early, before Polylang is ready)

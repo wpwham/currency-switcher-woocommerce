@@ -2,9 +2,10 @@
 /**
  * Currency Switcher - Flags Section Settings
  *
- * @version 2.8.3
+ * @version 2.12.2
  * @since   2.4.4
  * @author  Tom Anbinder
+ * @author  WP Wham
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -82,7 +83,7 @@ class Alg_WC_Currency_Switcher_Settings_Flags extends Alg_WC_Currency_Switcher_S
 	/**
 	 * get_flags_settings.
 	 *
-	 * @version 2.8.3
+	 * @version 2.12.2
 	 * @since   2.4.4
 	 */
 	public static function get_flags_settings( $settings ) {

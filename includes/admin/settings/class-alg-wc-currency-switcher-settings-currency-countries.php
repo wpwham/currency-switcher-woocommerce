@@ -2,9 +2,10 @@
 /**
  * Currency Switcher - Currency Countries Section Settings
  *
- * @version 2.8.7
+ * @version 2.12.2
  * @since   2.0.0
  * @author  Tom Anbinder
+ * @author  WP Wham
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -58,7 +59,7 @@ class Alg_WC_Currency_Switcher_Settings_Currency_Countries extends Alg_WC_Curren
 	/**
 	 * get_currency_countries_settings.
 	 *
-	 * @version 2.8.7
+	 * @version 2.12.2
 	 * @since   2.0.0
 	 * @todo    check if "geolocate" option in WooCommerce is really required, if so - fix the message
 	 * @todo    (maybe) fix/expand description for "alg_wc_currency_switcher_currency_countries_options"

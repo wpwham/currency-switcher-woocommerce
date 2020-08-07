@@ -2,9 +2,10 @@
 /**
  * Currency Switcher - Currency Locales Section Settings
  *
- * @version 2.8.7
+ * @version 2.12.2
  * @since   2.5.0
  * @author  Tom Anbinder
+ * @author  WP Wham
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -58,7 +59,7 @@ class Alg_WC_Currency_Switcher_Settings_Currency_Locales extends Alg_WC_Currency
 	/**
 	 * get_currency_locales_settings.
 	 *
-	 * @version 2.8.7
+	 * @version 2.12.2
 	 * @since   2.5.0
 	 * @todo    add more info (WPML, Polylang etc.)
 	 */
