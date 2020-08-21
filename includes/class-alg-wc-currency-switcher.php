@@ -97,6 +97,7 @@ class Alg_WC_Currency_Switcher_Main {
 				$currencies = alg_get_enabled_currencies();
 				if ( in_array( $_REQUEST['alg_currency'], $currencies ) ) {
 					alg_wc_cs_session_set( 'alg_currency', $_REQUEST['alg_currency'] );
+					add_filter( 'woocommerce_cart_shipping_packages', array( $this, 'disable_shipping_rates_cache' ), 10, 2 );
 					add_action( 'wp_footer', array( $this, 'update_mini_cart' ), PHP_INT_MAX );
 				}
 			}
@@ -281,6 +282,24 @@ class Alg_WC_Currency_Switcher_Main {
 	 */
 	function change_currency_symbol( $currency_symbol, $currency ) {
 		return get_option( 'alg_wc_currency_switcher_price_formats_currency_code_' . $currency, $currency_symbol );
+	}
+	
+	/**
+	 * disable_shipping_rates_cache.
+	 * 
+	 * The 'woocommerce_package_rates' is not always being triggered, i.e. https://github.com/grantalltodavid/wpwham-issues/issues/22.
+	 * This is because of the following ~~bug~~feature in woocommerce: https://github.com/woocommerce/woocommerce/issues/22100
+	 * The following solves it by forcing a cache refresh (thanks to @gillesgoetsch for this solution)
+	 *
+	 * @version 2.12.3
+	 * @since   2.12.3
+	 */
+	function disable_shipping_rates_cache($packages) {
+		// add random value to existing array to disable cache
+		$key = rand();
+		$value = rand();
+		$packages[0][$key] = $value;
+		return $packages;
 	}
 
 	/**
