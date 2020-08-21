@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Currency Switcher for WooCommerce\n"
-"POT-Creation-Date: 2020-06-13 01:35-0700\n"
+"POT-Creation-Date: 2020-08-20 23:10-0700\n"
 "PO-Revision-Date: 2019-07-23 03:52-0700\n"
 "Last-Translator: \n"
 "Language-Team: WP Wham <support@wpwham.com>\n"
@@ -20,12 +20,16 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: currency-switcher-woocommerce.php:120
+#: currency-switcher-woocommerce.php:121
 msgid "Settings"
 msgstr ""
 
-#: currency-switcher-woocommerce.php:122
+#: currency-switcher-woocommerce.php:123
 msgid "Unlock all"
+msgstr ""
+
+#: currency-switcher-woocommerce.php:228
+msgid "Currency Switcher Settings"
 msgstr ""
 
 #: includes/admin/class-alg-currency-reports.php:47
@@ -67,204 +71,160 @@ msgid "Advanced Options"
 msgstr ""
 
 #: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:47
-msgid "Default customer location"
-msgstr ""
-
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:49
-msgid ""
-"This option determines a customers default location. The MaxMind GeoLite "
-"Database will be periodically downloaded to your wp-content directory if "
-"using geolocation."
-msgstr ""
-
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:54
-msgid "No location by default"
-msgstr ""
-
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:55
-msgid "Shop base address"
-msgstr ""
-
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:56
-msgid "Geolocate"
-msgstr ""
-
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:57
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:61
-msgid "Geolocate (with page caching support)"
-msgstr ""
-
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:60
-#, php-format
-msgid ""
-"Select %s, if you have any caching plugins installed, and experiencing "
-"issues with the switcher."
-msgstr ""
-
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:62
-#, php-format
-msgid "It's the same option as in %s."
-msgstr ""
-
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:63
-msgid "WooCommerce > Settings > General"
-msgstr ""
-
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:66
 msgid "Price conversion method"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:67
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:48
 msgid ""
 "This may help if you are experiencing compatibility issues with other "
 "plugins."
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:73
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:54
 msgid "Simple"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:74
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:55
 msgid "Save prices in array"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:78
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:59
 msgid "Fix mini cart"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:79
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-countries.php:104
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-locales.php:97
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-locales.php:105
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:73
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:81
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:88
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:95
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:103
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:110
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:169
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:207
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:215
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:222
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:238
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:60
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-countries.php:105
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-locales.php:98
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-locales.php:106
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:74
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:82
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:89
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:96
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:104
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:111
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:170
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:208
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:216
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:223
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:239
 msgid "Enable"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:80
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:61
 msgid ""
 "Enable this option if you have issues with currencies in mini cart. It will "
 "recalculate cart totals on each page load."
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:93
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:74
 msgid "Disable on URI"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:94
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:75
 msgid ""
 "List URIs where you want switcher functionality to be disabled. One per "
 "line. Leave blank if not sure."
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:95
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:76
 msgid ""
 "Enter only the part AFTER your domain. For example if the URL is https://"
 "example.com/product/widget/, the URI to enter here is /product/widget/"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:102
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:83
 msgid "Additional price filters"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:103
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:84
 msgid ""
 "List additional price filters to apply price conversion by currency. One per "
 "line. Leave blank if not sure."
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:110
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:91
 msgid "Price filters to remove"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:111
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:92
 msgid "List price filters to remove. One per line. Leave blank if not sure."
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:118
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:99
 msgid "Session save path"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:119
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:100
 msgid "Leave blank to use standard session save path."
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:121
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php:102
 #, php-format
 msgid "Currently: %s."
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currencies.php:24
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currencies.php:112
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currencies.php:25
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currencies.php:113
 msgid "Currencies"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currencies.php:42
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currencies.php:43
 msgid "Save changes"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currencies.php:114
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currencies.php:115
 #, php-format
 msgid ""
 "Select <strong>additional</strong> currencies here. Your shop's default "
 "currency [%s] will be added automatically."
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currencies.php:115
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currencies.php:116
 #, php-format
 msgid ""
 "If some currencies are missing from the list, we suggest using <a target="
 "\"_blank\" href=\"%s\">All Currencies for WooCommerce</a> plugin."
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currencies.php:121
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currencies.php:122
 msgid "Auto generate PayPal supported currencies"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currencies.php:127
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currencies.php:128
 msgid "Currency (shop's default)"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currencies.php:137
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currencies.php:138
 msgid "Total additional currencies"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currencies.php:138
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currencies.php:139
 msgid "Save changes after you update this number."
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currencies.php:144
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currencies.php:145
 #, php-format
 msgid "To add more than two additional currencies, you will need %s plugin."
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currencies.php:146
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-flags.php:105
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currencies.php:147
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-flags.php:106
 msgid "Currency Switcher for WooCommerce Pro"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currencies.php:156
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currencies.php:157
 msgid "Additional currency"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currencies.php:157
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currencies.php:158
 msgid "Enabled"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-countries.php:24
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-countries.php:25
 msgid "Countries"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-countries.php:70
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-countries.php:71
 #, php-format
 msgid ""
 "Important: \"Default Customer Location\" is not set to \"Geolocate\" or "
@@ -272,491 +232,491 @@ msgid ""
 "Settings > General</a>."
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-countries.php:77
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-countries.php:95
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-countries.php:78
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-countries.php:96
 msgid "Currency Countries (by IP)"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-countries.php:79
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-countries.php:80
 msgid ""
 "All not selected countries, will be assigned your shop's default currency."
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-countries.php:85
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-countries.php:86
 msgid "Auto assign countries"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-countries.php:90
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-countries.php:91
 msgid "Reset countries"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-countries.php:97
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-locales.php:90
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-flags.php:99
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:47
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-countries.php:98
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-locales.php:91
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-flags.php:100
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:48
 msgid "Enable section"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-countries.php:102
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-countries.php:103
 msgid "Enter countries as comma separated text"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-countries.php:105
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-locales.php:98
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-countries.php:106
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-locales.php:99
 msgid "To see different input fields, save changes after you set this option."
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-countries.php:110
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-countries.php:111
 msgid "Override country"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-countries.php:116
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-countries.php:117
 msgid "Override disabled"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-countries.php:117
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-countries.php:118
 msgid "Override with billing country on checkout page only"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-countries.php:118
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-countries.php:119
 msgid "Override with billing country on all site"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-countries.php:119
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-countries.php:120
 msgid "Override with shipping country on checkout page only"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-countries.php:120
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-countries.php:121
 msgid "Override with shipping country on all site"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-locales.php:24
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-locales.php:25
 msgid "Languages"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-locales.php:69
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-locales.php:88
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-locales.php:70
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-locales.php:89
 msgid "Currency Languages (Locales)"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-locales.php:71
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-locales.php:72
 msgid ""
 "In this section you can set currencies to be automatically assigned "
 "depending on user's language."
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-locales.php:72
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-locales.php:73
 msgid ""
 "Your shop's default currency will be assigned to all not selected locales."
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-locales.php:78
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-locales.php:79
 msgid "Auto assign locales"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-locales.php:83
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-locales.php:84
 msgid "Reset locales"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-locales.php:95
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-locales.php:96
 msgid "Enter locales as comma separated text"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-locales.php:103
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-locales.php:104
 msgid "Always use locale to assign currency"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-locales.php:106
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-locales.php:107
 msgid ""
 "If disabled - currency will be assigned by locale only once (on first "
 "visit), then standard session value will be used."
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:24
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:162
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:25
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:163
 msgid "Exchange Rates"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:154
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:155
 #, php-format
 msgid "%s till next update."
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:156
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:157
 #, php-format
 msgid "%s seconds till next update."
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:170
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:171
 msgid "Update all exchange rates now"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:175
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:176
 msgid "Reset all rates"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:180
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:181
 msgid "Exchange rates updates"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:186
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:187
 msgid "Enter Rates Manually"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:187
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:188
 msgid "Update Automatically Every Minute"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:188
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:189
 msgid "Update Automatically Hourly"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:189
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:190
 msgid "Update Automatically Twice Daily"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:190
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:191
 msgid "Update Automatically Daily"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:191
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:192
 msgid "Update Automatically Weekly"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:195
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:196
 msgid "Exchange rates server"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:203
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:204
 msgid "Free Currency Converter API Key"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:205
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:206
 #, php-format
 msgid "Free Currency Converter now requires an API key.  Get your key at %s"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:212
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:213
 msgid "Exchange rates offset"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:213
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:263
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:214
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:264
 msgid "percent"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:232
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:233
 #, php-format
 msgid "Grab %s rate"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:235
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:236
 msgid "Exchange Rates Server"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:242
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:243
 msgid "Default server"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:249
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:250
 msgid "Exchange Rates Offset"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:255
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:256
 msgid "Default offset"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:257
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:258
 msgid "Custom offset"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:262
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php:263
 msgid "Custom Offset"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-flags.php:24
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-flags.php:97
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-flags.php:25
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-flags.php:98
 msgid "Flags"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-flags.php:92
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-flags.php:93
 msgid "Country Flags & Icons"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-flags.php:103
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-flags.php:104
 #, php-format
 msgid "To enable flags, you will need %s plugin."
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-flags.php:125
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-flags.php:126
 msgid "European Union"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-flags.php:127
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-flags.php:128
 msgid "World"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-flags.php:129
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-flags.php:130
 msgid "N/A"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:24
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:25
 msgid "General"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:50
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:51
 msgid "Currency Switcher Plugin Options"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:55
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:56
 msgid "WooCommerce Currency Switcher Plugin"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:56
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:57
 msgid "Enable plugin"
 msgstr ""
 
 #. Plugin Name of the plugin/theme
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:57
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:58
 msgid "Currency Switcher for WooCommerce"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:67
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:68
 msgid "General Options"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:72
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:73
 msgid "Currency switcher on per product basis"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:74
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:75
 msgid "This will add meta boxes in product edit."
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:80
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:81
 msgid "Revert currency to default on checkout"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:87
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:88
 msgid "Apply currency conversion for fixed amount coupons"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:94
-msgid "Add base currency for fixed amount coupons"
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:95
+msgid "Add currency selector for fixed amount coupons"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:96
-msgid "This will add meta box to each coupon's admin edit page."
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:97
+msgid "This will add a meta box to each coupon's admin edit page."
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:102
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:103
 msgid "Apply currency conversion for free shipping minimum order amount"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:109
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:110
 msgid "Apply currency conversion for cart fees"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:120
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:121
 msgid "Switcher Placement and Format Options"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:125
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:126
 msgid "Switcher placement"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:126
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:127
 #, php-format
 msgid ""
 "You can also use <strong>switcher widget</strong>, %s <strong>shortcodes</"
 "strong> or %s <strong>PHP function</strong>."
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:135
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:136
 msgid "Product Single Page - After Price - Radio"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:136
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:137
 msgid "Product Single Page - After Price - Drop Down"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:137
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:138
 msgid "Product Single Page - After Price - Links"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:141
-msgid "Switcher wrapper"
-msgstr ""
-
 #: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:142
-#, php-format
-msgid "Replaced value: %s."
+msgid "Switcher wrapper"
 msgstr ""
 
 #: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:143
 #, php-format
+msgid "Replaced value: %s."
+msgstr ""
+
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:144
+#, php-format
 msgid "You can wrap switcher in HTML here, e.g.: %s"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:151
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:152
 msgid "Switcher item format"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:152
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:153
 #, php-format
 msgid "Replaced values: %s"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:160
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:161
 msgid "Link list switcher separator"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:167
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:168
 msgid "Reposition page after currency switch"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:168
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:169
 msgid "Focus currency switcher after switch (with JavaScript)"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:179
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:180
 msgid "Exchange Rates Final Price Correction Options"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:184
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:185
 msgid "Rounding"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:185
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:186
 msgid "If using exchange rates, choose rounding here."
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:191
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:192
 msgid "No rounding"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:192
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:193
 msgid "Round"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:193
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:194
 msgid "Round up"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:194
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:195
 msgid "Round down"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:198
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:96
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:157
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:199
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:97
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:158
 msgid "Number of decimals"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:199
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:200
 msgid "If rounding enabled, set precision here."
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:206
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:207
 msgid "Make \"pretty price\""
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:208
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:209
 msgid ""
 "If enabled, this will be applied if exchange rates are used. Final converted "
 "price will be rounded, then decreased by smallest possible value. For "
 "example: $9,75 -> $10,00 -> $9,99."
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:214
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:215
 msgid "Apply rounding and \"pretty price\" to shipping rates"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:221
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:222
 msgid "Apply rounding and \"pretty price\" to shop's default currency"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:232
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:233
 msgid "Order Options"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:237
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:238
 msgid "Order currency"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:239
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:240
 msgid "Adds \"Order Currency\" switcher to admin order edit page."
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:245
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:246
 msgid "Format price"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:246
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php:247
 msgid "Format prices on admin order edit page"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:24
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:40
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:45
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:25
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:41
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:46
 msgid "Price Formats"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:57
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:118
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:58
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:119
 msgid "Currency position"
-msgstr ""
-
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:63
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:77
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:124
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:138
-msgid "Left"
 msgstr ""
 
 #: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:64
 #: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:78
 #: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:125
 #: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:139
-msgid "Right"
+msgid "Left"
 msgstr ""
 
 #: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:65
 #: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:79
 #: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:126
 #: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:140
-msgid "Left with space"
+msgid "Right"
 msgstr ""
 
 #: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:66
 #: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:80
 #: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:127
 #: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:141
+msgid "Left with space"
+msgstr ""
+
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:67
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:81
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:128
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:142
 msgid "Right with space"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:70
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:131
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:71
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:132
 msgid "Additional currency code position (optional)"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:76
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:137
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:77
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:138
 msgid "Do not add currency code"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:84
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:145
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:85
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:146
 msgid "Thousand separator"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:90
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:151
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:91
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:152
 msgid "Decimal separator"
 msgstr ""
 
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:106
-#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:164
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:107
+#: includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php:165
 msgid "Currency Symbol"
 msgstr ""
 
@@ -804,7 +764,7 @@ msgstr ""
 msgid "Once a Minute"
 msgstr ""
 
-#: includes/class-alg-wc-currency-switcher.php:210
+#: includes/class-alg-wc-currency-switcher.php:215
 msgid "Order Currency"
 msgstr ""
 
