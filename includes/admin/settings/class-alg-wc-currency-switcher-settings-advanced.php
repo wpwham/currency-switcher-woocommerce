@@ -44,25 +44,6 @@ class Alg_WC_Currency_Switcher_Settings_Advanced extends Alg_WC_Currency_Switche
 				'id'        => 'alg_wc_currency_switcher_advanced_options',
 			),
 			array(
-				'title'    => __( 'Default customer location', 'woocommerce' ),
-				'id'       => 'woocommerce_default_customer_address',
-				'desc_tip' => __( 'This option determines a customers default location. The MaxMind GeoLite Database will be periodically downloaded to your wp-content directory if using geolocation.', 'woocommerce' ),
-				'default'  => 'geolocation',
-				'type'     => 'select',
-				'class'    => 'wc-enhanced-select',
-				'options'  => array(
-					''                 => __( 'No location by default', 'woocommerce' ),
-					'base'             => __( 'Shop base address', 'woocommerce' ),
-					'geolocation'      => __( 'Geolocate', 'woocommerce' ),
-					'geolocation_ajax' => __( 'Geolocate (with page caching support)', 'woocommerce' ),
-				),
-				'desc'     => '<br>' .
-					sprintf( __( 'Select %s, if you have any caching plugins installed, and experiencing issues with the switcher.', 'currency-switcher-woocommerce' ),
-						'<code>' . __( 'Geolocate (with page caching support)', 'woocommerce' ) . '</code>' ) . ' ' .
-					sprintf( __( 'It\'s the same option as in %s.', 'currency-switcher-woocommerce' ),
-						'<a href="' . admin_url( 'admin.php?page=wc-settings&tab=general' ) . '">' . __( 'WooCommerce > Settings > General', 'currency-switcher-woocommerce' ) . '</a>' ),
-			),
-			array(
 				'title'    => __( 'Price conversion method', 'currency-switcher-woocommerce' ),
 				'desc_tip' => __( 'This may help if you are experiencing compatibility issues with other plugins.', 'currency-switcher-woocommerce' ),
 				'id'       => 'alg_wc_currency_switcher_price_conversion_method',
