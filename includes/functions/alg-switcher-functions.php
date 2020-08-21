@@ -3,7 +3,8 @@
  * Currency Switcher Functions
  *
  * @since   1.0.0
- * @todo    change prefix from `agl_` to `alg_wc_cs_` for all functions
+ * @todo    ~~change prefix from `agl_` to `alg_wc_cs_` for all functions~~
+ * @todo    change prefix to 'wpw_cs_'
  */
 
 if ( ! function_exists( 'alg_wc_cs_session_maybe_start' ) ) {
@@ -12,9 +13,10 @@ if ( ! function_exists( 'alg_wc_cs_session_maybe_start' ) ) {
 	 *
 	 * @version 2.8.1
 	 * @since   2.7.0
-	 * @todo    Investigate why it's slow
 	 */
 	function alg_wc_cs_session_maybe_start() {
+		global $wpw_cs_local_session_started;
+		$wpw_cs_local_session_started = false;
 		switch ( ALG_WC_CS_SESSION_TYPE ) {
 			case 'wc':
 				if ( function_exists( 'WC' ) && WC()->session && ! WC()->session->has_session() ) {
@@ -22,13 +24,29 @@ if ( ! function_exists( 'alg_wc_cs_session_maybe_start' ) ) {
 				}
 				break;
 			default: // 'standard'
-				if ( ! session_id() ) {
+				if ( ! session_id() && ! headers_sent() ) {
 					if ( '' != ( $session_save_path = get_option( 'alg_wc_currency_switcher_session_save_path', '' ) ) ) {
 						session_save_path( $session_save_path );
 					}
 					session_start();
+					$wpw_cs_local_session_started = true;
 				}
 				break;
+		}
+	}
+}
+
+if ( ! function_exists( 'wpw_cs_session_maybe_stop' ) ) {
+	/**
+	 * wpw_cs_session_maybe_stop.
+	 *
+	 * @version 2.12.3
+	 * @since   2.12.3
+	 */
+	function wpw_cs_session_maybe_stop() {
+		global $wpw_cs_local_session_started;
+		if ( ALG_WC_CS_SESSION_TYPE === 'standard' && $wpw_cs_local_session_started ) {
+			session_write_close();
 		}
 	}
 }

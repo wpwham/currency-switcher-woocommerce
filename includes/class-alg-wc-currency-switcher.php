@@ -191,6 +191,7 @@ class Alg_WC_Currency_Switcher_Main {
 					}
 				}
 			}
+			wpw_cs_session_maybe_stop();
 		}
 		/* if ( is_admin() && 'yes' === get_option( 'alg_currency_switcher_show_flags_in_admin_settings_enabled', 'no' ) ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_wselect_scripts' ) ); // for Flags Settings
