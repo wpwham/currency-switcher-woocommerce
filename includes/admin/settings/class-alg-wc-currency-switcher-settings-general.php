@@ -92,9 +92,9 @@ class Alg_WC_Currency_Switcher_Settings_General extends Alg_WC_Currency_Switcher
 				'type'     => 'checkbox',
 			),
 			array(
-				'title'    => __( 'Add base currency for fixed amount coupons', 'currency-switcher-woocommerce' ),
+				'title'    => __( 'Add currency selector for fixed amount coupons', 'currency-switcher-woocommerce' ),
 				'desc'     => __( 'Enable', 'currency-switcher-woocommerce' ),
-				'desc_tip' => __( 'This will add meta box to each coupon\'s admin edit page.', 'currency-switcher-woocommerce' ),
+				'desc_tip' => __( 'This will add a meta box to each coupon\'s admin edit page.', 'currency-switcher-woocommerce' ),
 				'id'       => 'alg_currency_switcher_fixed_coupons_base_currency_enabled',
 				'default'  => 'no',
 				'type'     => 'checkbox',
