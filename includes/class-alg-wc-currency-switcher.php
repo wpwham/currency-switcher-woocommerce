@@ -147,7 +147,9 @@ class Alg_WC_Currency_Switcher_Main {
 				// Coupons
 				if ( 'yes' === get_option( 'alg_currency_switcher_fixed_amount_coupons_enabled', 'yes' ) ) {
 					if ( ALG_IS_WC_VERSION_AT_LEAST_3_2 ) {
-						add_filter( 'woocommerce_coupon_get_amount',          array( $this, 'change_coupon_price_by_currency_wc_3_2' ), PHP_INT_MAX, 2 );
+						add_filter( 'woocommerce_coupon_get_amount',         array( $this, 'change_coupon_price_by_currency_wc_3_2' ), PHP_INT_MAX, 2 );
+						add_filter( 'woocommerce_coupon_get_maximum_amount', array( $this, 'change_coupon_min_max_by_currency' ), PHP_INT_MAX, 2 );
+						add_filter( 'woocommerce_coupon_get_minimum_amount', array( $this, 'change_coupon_min_max_by_currency' ), PHP_INT_MAX, 2 );
 					} else {
 						add_filter( 'woocommerce_coupon_get_discount_amount', array( $this, 'change_coupon_price_by_currency' ), PHP_INT_MAX, 5 );
 					}
@@ -607,6 +609,31 @@ class Alg_WC_Currency_Switcher_Main {
 			$modified_package_rates[ $id ] = $package_rate;
 		}
 		return $modified_package_rates;
+	}
+
+	/**
+	 * change_coupon_min_max_by_currency.
+	 *
+	 * @version 2.12.3
+	 * @since   2.12.3
+	 * @todo    (maybe) rounding in `alg_currency_switcher_fixed_coupons_base_currency_enabled`
+	 */
+	function change_coupon_min_max_by_currency( $value, $_coupon ) {
+		if ( in_array( $_coupon->get_discount_type(), array( 'fixed_cart', 'fixed_product' ) ) ) {
+			if ( 'yes' === get_option( 'alg_currency_switcher_fixed_coupons_base_currency_enabled', 'no' ) ) {
+				$coupon_currency = get_post_meta( $_coupon->get_id(), '_' . 'alg_wc_currency_switcher_coupon_base_currency', true );
+				if ( 'default' != $coupon_currency && '' != $coupon_currency ) {
+					if ( $coupon_currency === alg_get_current_currency_code() && ! $this->do_revert() ) {
+						return $value;
+					} elseif ( 0 != ( $rate = alg_wc_cs_get_currency_exchange_rate( $coupon_currency ) ) ) {
+						$value = $value * ( 1 / $rate );
+					}
+				}
+			}
+			return $this->change_price_by_currency( $value );
+		} else {
+			return $value;
+		};
 	}
 
 	/**
