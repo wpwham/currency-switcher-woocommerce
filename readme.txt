@@ -3,7 +3,7 @@ Contributors: wpwham
 Tags: woocommerce, currency switcher, multicurrency, currency, switcher, woo commerce
 Requires at least: 4.4
 Tested up to: 5.5
-Stable tag: 2.12.3
+Stable tag: 2.12.4
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -112,6 +112,9 @@ http://www.yoursite.com?alg_currency=USD
 `
 
 == Changelog ==
+
+= 2.12.4 - 2020-09-17 =
+* UPDATE: bump tested versions
 
 = 2.12.3 - 2020-08-20 =
 * FIX: apply currency conversion to coupon min/max thresholds.
