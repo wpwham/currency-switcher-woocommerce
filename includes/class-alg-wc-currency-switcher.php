@@ -21,22 +21,27 @@ class Alg_WC_Currency_Switcher_Main {
 	 * @since   2.9.6
 	 */
 	public function is_admin_order_page() {
+		
 		if ( ! is_admin() ) {
 			return false;
 		}
-
-		if ( isset( $_REQUEST['screen_id'] ) && $_REQUEST['screen_id'] == 'shop_order' ) {
+		
+		if (
+			isset( $_REQUEST['screen_id'] ) && $_REQUEST['screen_id'] === 'shop_order' ||
+			isset( $_REQUEST['post_type'] ) && $_REQUEST['post_type'] === 'shop_order'
+		) {
 			return true;
 		}
-
+		
 		$post_id = 0;
 		$post_id = isset( $_REQUEST['post'] ) ? $_REQUEST['post'] : $post_id;
 		$post_id = isset( $_REQUEST['post_ID'] ) ? $_REQUEST['post_ID'] : $post_id;
 		$post_id = isset( $_REQUEST['post_id'] ) ? $_REQUEST['post_id'] : $post_id;
-
-		if ( ! empty( $post_id ) && get_post_type( $post_id ) == 'shop_order' ) {
+		
+		if ( ! empty( $post_id ) && get_post_type( $post_id ) === 'shop_order' ) {
 			return true;
 		}
+		
 		return false;
 	}
 
