@@ -367,8 +367,8 @@ class Alg_WC_Currency_Switcher_Main {
 	 * @since   2.4.0
 	 */
 	function price_format( $args ) {
-		$currency = get_woocommerce_currency();
-		if ( $currency == get_option( 'woocommerce_currency' ) ) {
+		$currency = ( isset( $args['currency'] ) && $args['currency'] > '' ) ? $args['currency'] : get_woocommerce_currency();
+		if ( $currency === get_option( 'woocommerce_currency' ) ) {
 			$args['price_format'] = $this->get_woocommerce_price_format_currency_code( get_option( 'alg_wc_currency_switcher_price_formats_currency_code_pos_' . $currency, 'none' ), $currency, $args['price_format'] );
 			return $args;
 		}
