@@ -295,7 +295,6 @@ if ( ! function_exists( 'alg_get_product_price_by_currency_per_product' ) ) {
 		if ( in_array( $_current_filter,
 			array( 'woocommerce_get_price_including_tax', 'woocommerce_get_price_excluding_tax' )
 		) ) {
-			var_dump('1');
 			return alg_get_product_display_price( $_product );
 		}
 
