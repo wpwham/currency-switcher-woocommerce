@@ -186,9 +186,7 @@ final class Alg_WC_Currency_Switcher {
 			if ( 'manual' != get_option( 'alg_currency_switcher_exchange_rate_update', 'manual' ) ) {
 				require_once( 'includes/class-alg-exchange-rates-crons.php' );
 			}
-			if ( is_admin() ) {
-				require_once( 'includes/admin/class-alg-currency-reports.php' );
-			}
+			require_once( 'includes/admin/class-alg-currency-reports.php' );
 		}
 
 		// Widget
