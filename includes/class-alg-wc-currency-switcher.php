@@ -2,7 +2,7 @@
 /**
  * Currency Switcher Plugin - Core Class
  *
- * @version 2.12.3
+ * @version 2.13.0
  * @since   1.0.0
  * @author  Tom Anbinder
  * @author  WP Wham
@@ -17,7 +17,7 @@ class Alg_WC_Currency_Switcher_Main {
 	/**
 	 * Check if is on admin order page
 	 *
-	 * @version 2.9.6
+	 * @version 2.13.0
 	 * @since   2.9.6
 	 */
 	public function is_admin_order_page() {
@@ -111,7 +111,7 @@ class Alg_WC_Currency_Switcher_Main {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.12.3
+	 * @version 2.13.0
 	 * @since   1.0.0
 	 * @todo    move "JS Repositioning", "Switcher" (and maybe something else) to `! is_admin()` section (as "Flags")
 	 */
@@ -387,7 +387,7 @@ class Alg_WC_Currency_Switcher_Main {
 	/**
 	 * price_format.
 	 *
-	 * @version 2.4.3
+	 * @version 2.13.0
 	 * @since   2.4.0
 	 */
 	function price_format( $args ) {

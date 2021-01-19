@@ -1,9 +1,9 @@
 === Currency Switcher for WooCommerce ===
 Contributors: wpwham
-Tags: woocommerce, currency switcher, multicurrency, currency, switcher, woo commerce
+Tags: currency switcher, multicurrency, multi currency, currency, switcher
 Requires at least: 4.4
-Tested up to: 5.5
-Stable tag: 2.12.4
+Tested up to: 5.6
+Stable tag: 2.13.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -112,6 +112,12 @@ http://www.yoursite.com?alg_currency=USD
 `
 
 == Changelog ==
+
+= 2.13.0 - 2021-01-19 =
+* NEW: Ability to filter WooCommerce Analytics by currency.
+* FIX: add 'post_type==shop_order' check to function 'is_admin_order_page' (thanks to Pablo).
+* FIX: include 'currency' argument in function 'price_format' (thanks to Pablo).
+* FIX: issue on product edit page where variations tab shows the current currency code from the frontend, instead of the shop default.
 
 = 2.12.4 - 2020-09-17 =
 * UPDATE: bump tested versions
