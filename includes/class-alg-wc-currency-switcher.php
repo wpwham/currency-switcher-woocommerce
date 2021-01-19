@@ -44,6 +44,27 @@ class Alg_WC_Currency_Switcher_Main {
 		
 		return false;
 	}
+	
+	/**
+	 * Check if request is from frontend.
+	 * Takes into account known backend-only AJAX requests, since is_admin() is not useful for detecting this.
+	 *
+	 * @return boolean
+	 *
+	 * @version 2.13.0
+	 * @since  2.13.0
+	 */
+	public function is_frontend() {
+		if ( ! is_admin() ) {
+			return true;
+		} elseif ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+			return ( ! isset( $_REQUEST['action'] ) || ! is_string( $_REQUEST['action'] ) || ! in_array( $_REQUEST['action'], array(
+					'woocommerce_load_variations',
+				) ) );
+		} else {
+			return false;
+		}
+	}
 
 	/**
 	 * Sets currency on order edit page
@@ -127,10 +148,8 @@ class Alg_WC_Currency_Switcher_Main {
 			$format_price_on_admin_order = get_option( 'alg_wc_currency_switcher_order_admin_format', 'no' );
 			// Format and convert
 			if (
-				( $format_price_on_admin_order === 'no' && ! is_admin() ) ||
-				( $format_price_on_admin_order === 'yes' && ! is_admin() ) ||
-				( $format_price_on_admin_order === 'yes' && is_admin() && $this->is_admin_order_page() ) ||
-				( defined( 'DOING_AJAX' ) && DOING_AJAX )
+				$this->is_frontend() ||
+				( $format_price_on_admin_order === 'yes' && $this->is_admin_order_page() )
 			) {
 				// Disable on URI
 				$disable_on_uri = get_option( 'alg_currency_switcher_disable_uri', '' );
