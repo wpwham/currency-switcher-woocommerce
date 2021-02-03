@@ -99,11 +99,11 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rate_ecb' ) ) {
 	 */
 	function alg_wc_cs_get_exchange_rate_ecb( $currency_from, $currency_to ) {
 		$final_rate = 0;
+		$url = 'http://www.ecb.int/stats/eurofxref/eurofxref-daily.xml';
 		if ( function_exists( 'simplexml_load_file' ) ) {
-			if ( WP_DEBUG === true ) {
-				$xml = simplexml_load_file( 'http://www.ecb.int/stats/eurofxref/eurofxref-daily.xml' );
-			} else {
-				$xml = @simplexml_load_file( 'http://www.ecb.int/stats/eurofxref/eurofxref-daily.xml' );
+			$xml = simplexml_load_file( $url );
+			if ( ! $xml ) {
+				$xml = simplexml_load_string( alg_wc_cs_get_currency_exchange_rates_url_response( $url, false ) );
 			}
 			if ( isset( $xml->Cube->Cube->Cube ) ) {
 				if ( 'EUR' === $currency_from ) {
@@ -354,7 +354,10 @@ if ( ! function_exists( 'wpw_cs_boe_get_exchange_rate_gbp' ) ) {
 				$date_url     = '&FD=' . $date_from_d . '&FM=' . $date_from_m . '&FY=' . $date_from_y . '&TD=' . $date_to_d . '&TM=' . $date_to_m . '&TY=' . $date_to_y;
 				$url          = 'http://www.bankofengland.co.uk/boeapps/iadb/fromshowcolumns.asp?Travel=NIxRSxSUx&FromSeries=1&ToSeries=50&DAT=RNG' . $date_url .
 					'&VFD=Y&xml.x=23&xml.y=18&CSVF=TT&C=' . $currency_codes[ $currency_to ] . '&Filter=N';
-				$xml          = simplexml_load_file( $url );
+				$xml = simplexml_load_file( $url );
+				if ( ! $xml ) {
+					$xml = simplexml_load_string( alg_wc_cs_get_currency_exchange_rates_url_response( $url, false ) );
+				}
 				$json_string  = json_encode( $xml );
 				$result_array = json_decode( $json_string, true );
 				if ( isset( $result_array['Cube']['Cube'] ) ) {
@@ -398,7 +401,11 @@ if ( ! function_exists( 'wpw_cs_tcmb_get_exchange_rate_TRY' ) ) {
 		if ( 'TRY' === $currency_from ) {
 			return 1;
 		}
-		$xml = simplexml_load_file( 'http://www.tcmb.gov.tr/kurlar/today.xml' );
+		$url = 'http://www.tcmb.gov.tr/kurlar/today.xml';
+		$xml = simplexml_load_file( $url );
+		if ( ! $xml ) {
+			$xml = simplexml_load_string( alg_wc_cs_get_currency_exchange_rates_url_response( $url, false ) );
+		}
 		if ( isset( $xml->Currency ) ) {
 			foreach ( $xml->Currency as $the_rate ) {
 				$attributes = $the_rate->attributes();
