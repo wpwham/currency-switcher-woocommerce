@@ -50,10 +50,10 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rate_georgia' ) ) {
 		if ( is_array( $result->GetCurrentRatesResult->CurrencyRate ) ) {
 			foreach ( $result->GetCurrentRatesResult->CurrencyRate as $currency ) {
 				if ( $currency->Code === $currency_from ) {
-					$rate_from = $currency->Rate;
+					$rate_from = $currency->Rate / $currency->Quantity;
 				}
 				if ( $currency->Code === $currency_to ) {
-					$rate_to = $currency->Rate;
+					$rate_to = $currency->Rate / $currency->Quantity;
 				}
 			}
 		} else {
