@@ -48,15 +48,21 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rate_georgia' ) ) {
 		$result     = $client->GetCurrentRates( array( 'Currencies' => $currencies ) );
 
 		if ( is_array( $result->GetCurrentRatesResult->CurrencyRate ) ) {
-			$rate_from = $result->GetCurrentRatesResult->CurrencyRate[0]->Rate;
-			$rate_to   = $result->GetCurrentRatesResult->CurrencyRate[1]->Rate;
+			foreach ( $result->GetCurrentRatesResult->CurrencyRate as $currency ) {
+				if ( $currency->Code === $currency_from ) {
+					$rate_from = $currency->Rate;
+				}
+				if ( $currency->Code === $currency_to ) {
+					$rate_to = $currency->Rate;
+				}
+			}
 		} else {
 			// if its not an array then NBG does not have the currency pair
 			$rate_from = 0;
 			$rate_to   = 0;
 		}
 		if ( ! empty( $rate_from ) && ! empty( $rate_to ) ) {
-			$final_rate = round( $rate_to / $rate_from, ALG_WC_CS_EXCHANGE_RATES_PRECISION );
+			$final_rate = round( $rate_from / $rate_to, ALG_WC_CS_EXCHANGE_RATES_PRECISION );
 		} else {
 			$final_rate = 0;
 		}
