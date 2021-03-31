@@ -197,7 +197,7 @@ class Alg_WC_Currency_Switcher_Settings_Exchange_Rates extends Alg_WC_Currency_S
 				'id'        => 'alg_currency_switcher_exchange_rate_server',
 				'default'   => 'ecb',
 				'type'      => 'select',
-				'class'     => 'wc-enhanced-select',
+				'class'     => 'alg-currency-switcher-exchange-rate-server wc-enhanced-select',
 				'options'   => alg_wc_cs_get_exchange_rates_servers(),
 			),
 			array(
@@ -237,7 +237,7 @@ class Alg_WC_Currency_Switcher_Settings_Exchange_Rates extends Alg_WC_Currency_S
 						'id'        => 'alg_currency_switcher_exchange_rate_server_' . $currency_from . '_' . $currency_to,
 						'default'   => 'default',
 						'type'      => 'select',
-						'class'     => 'wc-enhanced-select',
+						'class'     => 'alg-currency-switcher-exchange-rate-server wc-enhanced-select',
 						'options'   => array_replace(
 							array(
 								'default' => __( 'Default server', 'currency-switcher-woocommerce' ) .

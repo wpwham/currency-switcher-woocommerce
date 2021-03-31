@@ -32,13 +32,20 @@
 		});
 		
 		var toggleFreeCurrencyConverterApi = function() {
-			if ( $( '#alg_currency_switcher_exchange_rate_server' ).val() === 'free_cur_api' ) {
+			var show = false;
+			$( '.alg-currency-switcher-exchange-rate-server' ).each( function(){
+				if ( $( this ).val() === 'free_cur_api' ) {
+					show = true;
+					return false;
+				}
+			});
+			if ( show ) {
 				$( '#wpw_cs_fcc_api_key' ).attr( 'required', true ).closest( 'tr' ).show();
 			} else {
 				$( '#wpw_cs_fcc_api_key' ).removeAttr( 'required' ).closest( 'tr' ).hide();
 			}
 		}
-		$( '#alg_currency_switcher_exchange_rate_server' ).on( 'change', toggleFreeCurrencyConverterApi );
+		$( '.alg-currency-switcher-exchange-rate-server' ).on( 'change', toggleFreeCurrencyConverterApi );
 		toggleFreeCurrencyConverterApi();
 		
 	});
