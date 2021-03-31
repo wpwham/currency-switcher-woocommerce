@@ -6,6 +6,9 @@
  * @since   2.8.0
  * @author  Tom Anbinder
  * @author  David Grant
+ *
+ * @todo show an admin notice if Free Currency Coverter API key is invalid.
+ * @todo show an admin notice if libxml is missing (impacts the XML-based APIs: ECB, BoE, TCMB)
  */
 
 if ( ! function_exists( 'alg_wc_cs_get_exchange_rates_servers' ) ) {
@@ -221,20 +224,20 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rate_coinmarketcap' ) ) {
 	 */
 	function alg_wc_cs_get_exchange_rate_coinmarketcap( $currency_from, $currency_to, $try_reverse = true ) {
 		$return = 0;
-		if ( false != ( $response = alg_wc_cs_get_currency_exchange_rates_url_response( 'https://api.coinmarketcap.com/v1/ticker/?convert=' . $currency_to ) ) && is_array( $response ) ) {
-			foreach ( $response as $pair ) {
-				if ( isset( $pair->symbol ) && $currency_from === $pair->symbol ) {
-					$att = 'price_' . strtolower( $currency_to );
-					$return = ( isset( $pair->{$att} ) ? $pair->{$att} : 0 );
-					break;
-				}
-			}
+		$api_key  = get_option( 'wpw_currency_switcher_coinmarketcap_api_key' );
+		$response = alg_wc_cs_get_currency_exchange_rates_url_response(
+			"https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=$currency_to&convert=$currency_from",
+			array(
+				'Accepts' => 'application/json',
+				'X-CMC_PRO_API_KEY' => $api_key,
+			)
+		);
+		if ( isset( $response->data->{$currency_to}->quote->{$currency_from}->price ) ) {
+			$return = $response->data->{$currency_to}->quote->{$currency_from}->price;
+			$return = round( ( 1 / $return ), ALG_WC_CS_EXCHANGE_RATES_PRECISION );
 		}
-		if ( 0 == $return && $try_reverse ) {
+		if ( $return === 0 && $try_reverse ) {
 			$return = alg_wc_cs_get_exchange_rate_coinmarketcap( $currency_to, $currency_from, false );
-			if ( 0 != $return ) {
-				$return = round( ( 1 / $return ), ALG_WC_CS_EXCHANGE_RATES_PRECISION );
-			}
 		}
 		return $return;
 	}

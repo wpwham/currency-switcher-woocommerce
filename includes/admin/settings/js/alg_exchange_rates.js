@@ -51,6 +51,23 @@
 		$( '.alg-currency-switcher-exchange-rate-server' ).on( 'change', toggleFreeCurrencyConverterApi );
 		toggleFreeCurrencyConverterApi();
 		
+		var toggleCoinMarketCapApi = function() {
+			var show = false;
+			$( '.alg-currency-switcher-exchange-rate-server' ).each( function(){
+				if ( $( this ).val() === 'coinmarketcap' ) {
+					show = true;
+					return false;
+				}
+			});
+			if ( show ) {
+				$( '#wpw_currency_switcher_coinmarketcap_api_key' ).attr( 'required', true ).closest( 'tr' ).show();
+			} else {
+				$( '#wpw_currency_switcher_coinmarketcap_api_key' ).removeAttr( 'required' ).closest( 'tr' ).hide();
+			}
+		}
+		$( '.alg-currency-switcher-exchange-rate-server' ).on( 'change', toggleCoinMarketCapApi );
+		toggleCoinMarketCapApi();
+		
 	});
 
 })( jQuery );
