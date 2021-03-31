@@ -115,7 +115,7 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rate_ecb' ) ) {
 		if ( function_exists( 'simplexml_load_file' ) ) {
 			$xml = simplexml_load_file( $url );
 			if ( ! $xml ) {
-				$xml = simplexml_load_string( alg_wc_cs_get_currency_exchange_rates_url_response( $url, false ) );
+				$xml = simplexml_load_string( alg_wc_cs_get_currency_exchange_rates_url_response( $url, array(), false ) );
 			}
 			if ( isset( $xml->Cube->Cube->Cube ) ) {
 				if ( 'EUR' === $currency_from ) {
@@ -239,14 +239,15 @@ if ( ! function_exists( 'alg_wc_cs_get_currency_exchange_rates_url_response' ) )
 	 * @version 2.12.0
 	 * @since   2.8.0
 	 */
-	function alg_wc_cs_get_currency_exchange_rates_url_response( $url, $do_json_decode = true ) {
-		$response = apply_filters( 'wpw_cs_http_request', false, $url );
+	function alg_wc_cs_get_currency_exchange_rates_url_response( $url, $headers = array(), $do_json_decode = true ) {
+		$response = apply_filters( 'wpw_cs_http_request', false, $url, $headers );
 		if ( ! $response ) {
 			$response = wp_remote_get(
 				$url, 
 				array(
 					'sslverify' => false,
 					'timeout'   => 10,
+					'headers'   => $headers,
 				)
 			);
 			if ( ! is_wp_error( $response ) ) {
@@ -368,7 +369,7 @@ if ( ! function_exists( 'wpw_cs_boe_get_exchange_rate_gbp' ) ) {
 					'&VFD=Y&xml.x=23&xml.y=18&CSVF=TT&C=' . $currency_codes[ $currency_to ] . '&Filter=N';
 				$xml = simplexml_load_file( $url );
 				if ( ! $xml ) {
-					$xml = simplexml_load_string( alg_wc_cs_get_currency_exchange_rates_url_response( $url, false ) );
+					$xml = simplexml_load_string( alg_wc_cs_get_currency_exchange_rates_url_response( $url, array(), false ) );
 				}
 				$json_string  = json_encode( $xml );
 				$result_array = json_decode( $json_string, true );
@@ -416,7 +417,7 @@ if ( ! function_exists( 'wpw_cs_tcmb_get_exchange_rate_TRY' ) ) {
 		$url = 'http://www.tcmb.gov.tr/kurlar/today.xml';
 		$xml = simplexml_load_file( $url );
 		if ( ! $xml ) {
-			$xml = simplexml_load_string( alg_wc_cs_get_currency_exchange_rates_url_response( $url, false ) );
+			$xml = simplexml_load_string( alg_wc_cs_get_currency_exchange_rates_url_response( $url, array(), false ) );
 		}
 		if ( isset( $xml->Currency ) ) {
 			foreach ( $xml->Currency as $the_rate ) {
