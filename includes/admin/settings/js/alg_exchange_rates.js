@@ -13,10 +13,13 @@
 		$(".alg_grab_exchage_rate_button").click(function(){
 			var id = $( this ).attr( 'id' );
 			var input_id = '#'+this.getAttribute('exchange_rates_field_id');
+			var currencyFrom = this.getAttribute('currency_from');
+			var currencyTo   = this.getAttribute('currency_to');
 			var data = {
 				'action': 'alg_wc_cs_get_exchange_rate',
-				'alg_currency_from': this.getAttribute('currency_from'),
-				'alg_currency_to': this.getAttribute('currency_to')
+				'alg_currency_from': currencyFrom,
+				'alg_currency_to': currencyTo,
+				'wpw_currency_server': $( '#alg_currency_switcher_exchange_rate_server_' + currencyFrom + '_' + currencyTo ).val()
 			};
 			$( this ).after( '<div class="spinner" style="visibility: visible; float: left;"></div>' );
 			$.ajax({

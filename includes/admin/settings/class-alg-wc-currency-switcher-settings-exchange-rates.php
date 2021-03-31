@@ -38,7 +38,10 @@ class Alg_WC_Currency_Switcher_Settings_Exchange_Rates extends Alg_WC_Currency_S
 	 * @since   2.2.0
 	 */
 	function get_exchange_rate_ajax() {
-		echo alg_wc_cs_get_exchange_rate( $_POST['alg_currency_from'], $_POST['alg_currency_to'] );
+		$currency_from   = sanitize_text_field( $_POST['alg_currency_from'] );
+		$currency_to     = sanitize_text_field( $_POST['alg_currency_to'] );
+		$server_override = $_POST['wpw_currency_server'] ? sanitize_text_field( $_POST['wpw_currency_server'] ) : false;
+		echo alg_wc_cs_get_exchange_rate( $currency_from, $currency_to, $server_override );
 		die();
 	}
 

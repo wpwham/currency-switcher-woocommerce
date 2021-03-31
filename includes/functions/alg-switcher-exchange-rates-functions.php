@@ -165,11 +165,19 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rate' ) ) {
 	 * @since   2.0.0
 	 * @return  float rate on success, else 0
 	 */
-	function alg_wc_cs_get_exchange_rate( $currency_from, $currency_to ) {
-		if ( 'default' === ( $server = get_option( 'alg_currency_switcher_exchange_rate_server_' . $currency_from . '_' . $currency_to, 'default' ) ) ) {
+	function alg_wc_cs_get_exchange_rate( $currency_from, $currency_to, $server_override = false ) {
+		
+		$return = 0;
+		
+		if ( $server_override ) {
+			$server = $server_override;
+		} else {
+			$server = get_option( 'alg_currency_switcher_exchange_rate_server_' . $currency_from . '_' . $currency_to, 'default' );
+		}
+		if ( $server === 'default' ) {
 			$server = get_option( 'alg_currency_switcher_exchange_rate_server', 'ecb' );
 		}
-		$return = 0;
+		
 		switch ( $server ) {
 			case 'coinmarketcap':
 				$return = alg_wc_cs_get_exchange_rate_coinmarketcap( $currency_from, $currency_to );
