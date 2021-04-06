@@ -634,7 +634,10 @@ class Alg_WC_Currency_Switcher_Main {
 		$currency_exchange_rate = alg_wc_cs_get_currency_exchange_rate( $currency_code );
 		$modified_package_rates = array();
 		foreach ( $package_rates as $id => $package_rate ) {
-			if ( isset( $package_rate->cost ) ) {
+			if (
+				apply_filters( 'wpw_currency_switcher_adjust_package_rate', true, $package_rate ) &&
+				isset( $package_rate->cost )
+			) {
 				$package_rate->cost = $this->maybe_round_and_pretty_shipping_rate( $package_rate->cost * $currency_exchange_rate, $currency_code );
 				if ( isset( $package_rate->taxes ) && ! empty( $package_rate->taxes ) ) {
 					if ( $this->do_round_or_pretty_shipping_rate( $currency_code ) ) {
