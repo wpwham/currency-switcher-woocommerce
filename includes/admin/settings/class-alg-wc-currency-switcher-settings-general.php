@@ -100,6 +100,13 @@ class Alg_WC_Currency_Switcher_Settings_General extends Alg_WC_Currency_Switcher
 				'type'     => 'checkbox',
 			),
 			array(
+				'title'    => __( 'Apply currency conversion to shipping amount', 'currency-switcher-woocommerce' ),
+				'desc'     => __( 'Enable', 'currency-switcher-woocommerce' ),
+				'id'       => 'wpw_currency_switcher_shipping_enabled',
+				'default'  => 'yes',
+				'type'     => 'checkbox',
+			),
+			array(
 				'title'    => __( 'Apply currency conversion for free shipping minimum order amount', 'currency-switcher-woocommerce' ),
 				'desc'     => __( 'Enable', 'currency-switcher-woocommerce' ),
 				'id'       => 'alg_currency_switcher_free_shipping_min_amount_enabled',

@@ -180,7 +180,10 @@ class Alg_WC_Currency_Switcher_Main {
 					}
 				}
 				// Shipping
-				add_filter( 'woocommerce_package_rates',                  array( $this, 'change_shipping_price_by_currency' ), PHP_INT_MAX, 2 );
+				if ( get_option( 'wpw_currency_switcher_shipping_enabled', 'yes' ) === 'yes' ) {
+					add_filter( 'woocommerce_package_rates',
+						array( $this, 'change_shipping_price_by_currency' ), PHP_INT_MAX, 2 );
+				}
 				if ( 'yes' === get_option( 'alg_currency_switcher_free_shipping_min_amount_enabled', 'yes' ) ) {
 					add_action( 'woocommerce_load_shipping_methods',      array( $this, 'change_free_shipping_min_amount_by_currency' ), PHP_INT_MAX );
 				}
