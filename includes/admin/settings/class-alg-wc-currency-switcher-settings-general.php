@@ -121,6 +121,13 @@ class Alg_WC_Currency_Switcher_Settings_General extends Alg_WC_Currency_Switcher
 				'type'     => 'checkbox',
 			),
 			array(
+				'title'    => __( 'Apply currency conversion to WooCommerce Price Filter Widget', 'currency-switcher-woocommerce' ),
+				'desc'     => __( 'Enable', 'currency-switcher-woocommerce' ),
+				'id'       => 'wpw_currency_switcher_price_filter_widget_enabled',
+				'default'  => 'yes',
+				'type'     => 'checkbox',
+			),
+			array(
 				'type'     => 'sectionend',
 				'id'       => 'alg_wc_currency_switcher_general_options',
 			),

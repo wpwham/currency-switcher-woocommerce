@@ -680,3 +680,55 @@ if ( ! function_exists( 'alg_convert_price' ) ) {
 	}
 }
 add_shortcode( 'woocommerce_currency_switcher_convert_price', 'alg_convert_price' );
+
+if ( ! function_exists( 'wpw_cs_remove_class_filter' ) ) {
+	/**
+	 * Remove filter added with a callback to a class without access.
+	 *
+	 * @see https://gist.github.com/tripflex/c6518efc1753cf2392559866b4bd1a53
+	 *
+	 * @version 2.14.0
+	 * @since   2.14.0
+	 *
+	 * @param $tag
+	 * @param string $class_name
+	 * @param string $method_name
+	 * @param int $priority
+	 *
+	 * @return bool
+	 */
+	function wpw_cs_remove_class_filter( $tag, $class_name = '', $method_name = '', $priority = 10 ) {
+		global $wp_filter;
+		$is_hook_removed = false;
+		if ( ! empty( $wp_filter[ $tag ]->callbacks[ $priority ] ) ) {
+			$methods     = wp_list_pluck( $wp_filter[ $tag ]->callbacks[ $priority ], 'function' );
+			$found_hooks = ! empty( $methods ) ? wp_list_filter( $methods, array( 1 => $method_name ) ) : array();
+			foreach ( $found_hooks as $hook_key => $hook ) {
+				if ( ! empty( $hook[0] ) && is_object( $hook[0] ) && get_class( $hook[0] ) === $class_name ) {
+					$wp_filter[ $tag ]->remove_filter( $tag, $hook, $priority );
+					$is_hook_removed = true;
+				}
+			}
+		}
+		return $is_hook_removed;
+	}
+}
+
+if ( ! function_exists( 'wpw_cs_remove_class_action' ) ) {
+	/**
+	 * Remove action added with a callback to a class without access.
+	 *
+	 * @see https://gist.github.com/tripflex/c6518efc1753cf2392559866b4bd1a53
+	 *
+	 * @version 2.14.0
+	 * @since   2.14.0
+	 *
+	 * @param $tag
+	 * @param string $class_name
+	 * @param string $method_name
+	 * @param int $priority
+	 */
+	function wpw_cs_remove_class_action( $tag, $class_name = '', $method_name = '', $priority = 10 ) {
+		wpw_cs_remove_class_filter( $tag, $class_name, $method_name, $priority );
+	}
+}
