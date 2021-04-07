@@ -5,17 +5,16 @@ const namespace = "wpwham/currency-switcher-woocommerce/analytics";
 
 const addCurrencyFilters = (filters) => {
 
-	return [
-		{
-			label: P.getLabel(),
-			staticParams: [],
-			param: 'currency',
-			showFilters: () => true,
-			defaultValue: P.getStoreCurrency(),
-			filters: [...(P.getCurrencies() || [])],
-		},
-		...filters,
-	];
+	let filterByCurrency = {
+		label: P.getLabel(),
+		staticParams: [],
+		param: 'currency',
+		showFilters: () => true,
+		defaultValue: P.getStoreCurrency(),
+		filters: [...(P.getCurrencies() || [])],
+	};
+
+	return [...filters, filterByCurrency];
 };
 
 P.getPages().forEach(page => {
@@ -63,11 +62,15 @@ const addTableColumn = (reportTableData) => {
 	];
 	const newRows = reportTableData.rows.map((row, index) => {
 		const item = reportTableData.items.data[index];
+		const currency =
+			reportTableData.endpoint === 'revenue'
+				? item.subtotals.currency
+				: item.currency;
 		return [
 			...row,
 			{
-				display: item.currency,
-				value: item.currency,
+				display: currency,
+				value: currency,
 			},
 		];
 	});
