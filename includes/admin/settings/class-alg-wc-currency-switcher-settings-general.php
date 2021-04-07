@@ -78,14 +78,14 @@ class Alg_WC_Currency_Switcher_Settings_General extends Alg_WC_Currency_Switcher
 				'type'     => 'checkbox',
 			),
 			array(
-				'title'    => __( 'Revert currency to default on checkout', 'currency-switcher-woocommerce' ),
+				'title'    => __( 'Revert to shop\'s default currency on checkout', 'currency-switcher-woocommerce' ),
 				'desc'     => __( 'Enable', 'currency-switcher-woocommerce' ),
 				'id'       => 'alg_currency_switcher_revert',
 				'default'  => 'no',
 				'type'     => 'checkbox',
 			),
 			array(
-				'title'    => __( 'Apply currency conversion for fixed amount coupons', 'currency-switcher-woocommerce' ),
+				'title'    => __( 'Apply currency conversion to fixed amount coupons', 'currency-switcher-woocommerce' ),
 				'desc'     => __( 'Enable', 'currency-switcher-woocommerce' ),
 				'id'       => 'alg_currency_switcher_fixed_amount_coupons_enabled',
 				'default'  => 'yes',
@@ -107,14 +107,14 @@ class Alg_WC_Currency_Switcher_Settings_General extends Alg_WC_Currency_Switcher
 				'type'     => 'checkbox',
 			),
 			array(
-				'title'    => __( 'Apply currency conversion for free shipping minimum order amount', 'currency-switcher-woocommerce' ),
+				'title'    => __( 'Apply currency conversion to minimum order amount required for free shipping', 'currency-switcher-woocommerce' ),
 				'desc'     => __( 'Enable', 'currency-switcher-woocommerce' ),
 				'id'       => 'alg_currency_switcher_free_shipping_min_amount_enabled',
 				'default'  => 'yes',
 				'type'     => 'checkbox',
 			),
 			array(
-				'title'    => __( 'Apply currency conversion for cart fees', 'currency-switcher-woocommerce' ),
+				'title'    => __( 'Apply currency conversion to cart fees', 'currency-switcher-woocommerce' ),
 				'desc'     => __( 'Enable', 'currency-switcher-woocommerce' ),
 				'id'       => 'alg_currency_switcher_cart_fees_enabled',
 				'default'  => 'yes',
