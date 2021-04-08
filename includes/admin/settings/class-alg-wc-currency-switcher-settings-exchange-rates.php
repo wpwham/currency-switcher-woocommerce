@@ -2,7 +2,7 @@
 /**
  * Currency Switcher - Exchange Rates Section Settings
  *
- * @version 2.12.2
+ * @version 2.14.0
  * @since   1.0.0
  * @author  Tom Anbinder
  * @author  WP Wham
@@ -34,7 +34,7 @@ class Alg_WC_Currency_Switcher_Settings_Exchange_Rates extends Alg_WC_Currency_S
 	/**
 	 * get_exchange_rate_ajax.
 	 *
-	 * @version 2.2.0
+	 * @version 2.14.0
 	 * @since   2.2.0
 	 */
 	function get_exchange_rate_ajax() {
@@ -142,7 +142,7 @@ class Alg_WC_Currency_Switcher_Settings_Exchange_Rates extends Alg_WC_Currency_S
 	/**
 	 * get_exchange_rates_settings.
 	 *
-	 * @version 2.12.2
+	 * @version 2.14.0
 	 * @since   1.0.0
 	 * @todo    show custom offset input field only if "Custom Offset" is selected as "type"
 	 * @todo    (maybe) optional additional "fixed" offset

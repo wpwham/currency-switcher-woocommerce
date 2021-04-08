@@ -4,9 +4,10 @@
  *
  * Adds compatibility with other third party plugins, like Product Addons
  *
- * @version 2.9.3
+ * @version 2.14.0
  * @since   2.8.8
  * @author  Tom Anbinder
+ * @author  WP Wham
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -45,7 +46,7 @@ if ( ! class_exists( 'Alg_Switcher_Third_Party_Compatibility' ) ) :
 
 		/**
 		 * Adds compatibility with WooCommerce Price Filter widget
-		 * @version 2.9.3
+		 * @version 2.14.0
 		 * @since   2.8.9
 		 */
 		private function handle_price_filter() {
@@ -94,7 +95,7 @@ if ( ! class_exists( 'Alg_Switcher_Third_Party_Compatibility' ) ) :
 
 		/**
 		 * Adds compatibility with WooCommerce Price Filter widget
-		 * @version 2.9.3
+		 * @version 2.14.0
 		 * @since   2.8.9
 		 */
 		public function add_compatibility_with_price_filter_widget() {

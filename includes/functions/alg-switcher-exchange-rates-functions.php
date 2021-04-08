@@ -2,10 +2,10 @@
 /**
  * Currency Switcher Functions - Exchange Rates
  *
- * @version 2.12.0
+ * @version 2.14.0
  * @since   2.8.0
  * @author  Tom Anbinder
- * @author  David Grant
+ * @author  WP Wham
  *
  * @todo show an admin notice if Free Currency Coverter API key is invalid.
  * @todo show an admin notice if libxml is missing (impacts the XML-based APIs: ECB, BoE, TCMB)
@@ -38,7 +38,7 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rate_georgia' ) ) {
 	/*
 	 * alg_wc_cs_get_exchange_rate_georgia.
 	 *
-	 * @version 2.9.0
+	 * @version 2.14.0
 	 * @since   2.9.0
 	 */
 	function alg_wc_cs_get_exchange_rate_georgia( $currency_from, $currency_to ) {
@@ -83,7 +83,7 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rate_free_currency_api' ) ) {
 	 * @since   2.9.1
 	 *
 	 * @author  Algoritmika Ltd.
-	 * @author  David Grant
+	 * @author  WP Wham
 	 */
 	function alg_wc_cs_get_exchange_rate_free_currency_api( $currency_from, $currency_to ) {
 		$pair    = $currency_from . '_' . $currency_to;
@@ -106,11 +106,11 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rate_ecb' ) ) {
 	/*
 	 * alg_wc_cs_get_exchange_rate_ecb.
 	 *
-	 * @version 2.12.0
+	 * @version 2.14.0
 	 * @since   2.2.0
 	 *
 	 * @author  Algoritmika Ltd.
-	 * @author  David Grant
+	 * @author  WP Wham
 	 */
 	function alg_wc_cs_get_exchange_rate_ecb( $currency_from, $currency_to ) {
 		$final_rate = 0;
@@ -164,7 +164,7 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rate' ) ) {
 	/*
 	 * alg_wc_cs_get_exchange_rate.
 	 *
-	 * @version 2.9.1
+	 * @version 2.14.0
 	 * @since   2.0.0
 	 * @return  float rate on success, else 0
 	 */
@@ -217,10 +217,8 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rate_coinmarketcap' ) ) {
 	/*
 	 * alg_wc_cs_get_exchange_rate_coinmarketcap.
 	 *
-	 * @version 2.8.0
+	 * @version 2.14.0
 	 * @since   2.8.0
-	 * @see     https://coinmarketcap.com/api/
-	 * @todo    (maybe) `limit=0`
 	 */
 	function alg_wc_cs_get_exchange_rate_coinmarketcap( $currency_from, $currency_to, $try_reverse = true ) {
 		$return = 0;
@@ -247,7 +245,7 @@ if ( ! function_exists( 'alg_wc_cs_get_currency_exchange_rates_url_response' ) )
 	/*
 	 * alg_wc_cs_get_currency_exchange_rates_url_response.
 	 *
-	 * @version 2.12.0
+	 * @version 2.14.0
 	 * @since   2.8.0
 	 */
 	function alg_wc_cs_get_currency_exchange_rates_url_response( $url, $headers = array(), $do_json_decode = true ) {
@@ -330,7 +328,7 @@ if ( ! function_exists( 'wpw_cs_boe_get_exchange_rate_gbp' ) ) {
 	/*
 	 * wpw_cs_boe_get_exchange_rate_gbp.
 	 *
-	 * @version 2.12.0
+	 * @version 2.14.0
 	 * @since   2.12.0
 	 */
 	function wpw_cs_boe_get_exchange_rate_gbp( $currency_to ) {
@@ -418,7 +416,7 @@ if ( ! function_exists( 'wpw_cs_tcmb_get_exchange_rate_TRY' ) ) {
 	/*
 	 * wpw_cs_tcmb_get_exchange_rate_TRY.
 	 *
-	 * @version 2.12.0
+	 * @version 2.14.0
 	 * @since   2.12.0
 	 */
 	function wpw_cs_tcmb_get_exchange_rate_TRY( $currency_from ) {

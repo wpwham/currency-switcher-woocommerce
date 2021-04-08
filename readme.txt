@@ -2,8 +2,8 @@
 Contributors: wpwham
 Tags: currency switcher, multicurrency, multi currency, currency, switcher
 Requires at least: 4.4
-Tested up to: 5.6
-Stable tag: 2.13.0
+Tested up to: 5.7
+Stable tag: 2.14.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -112,6 +112,19 @@ http://www.yoursite.com?alg_currency=USD
 `
 
 == Changelog ==
+
+= 2.14.0 - 2021-04-07 =
+* NEW: added a setting "Apply Currency Conversion to Shipping Amount". (Previously, the shipping amount was always adjusted).
+* NEW: added a setting "Apply Currency Conversion to WooCommerce Price Filter Widget". (Previously, the price filters were always adjusted).
+* NEW: added filter 'wpw_currency_switcher_adjust_package_rate' so you can disable currency conversion on shipping programmatically, either for one shipping method or for all.
+* FIX: added a fallback method to try and fetch exchange rates a different way if simplexml_load_file fails (e.g. simplexml_load_file will fail if the server configuration has allow_url_fopen=0).
+* FIX: analytics currency filters updated to work with newer versions of Woo Admin.
+* FIX: make WooCommerce Price Filter Widget apply currency conversion when filtering.
+* FIX: updated CoinMarketCap to use latest API version. (NOTE: CoinMarketCap now requires an API Key -- if you are using this service, you must obtain a key and enter it in the settings under WooCommerce / Settings / Currency Switcher / Exchange Rates).
+* FIX: various issues with National Bank of Georgia exchange rates: error when a certain currency pair is not available; results not always returned in the same order; exchange rates which are quoted in quantities other than 1.
+* UPDATE: added support for custom headers in remote API calls (necessary now for CoinMarketCap).
+* UPDATE: improved UI on exchange rate settings page: you can now test different servers' exchange rates without having to save your settings between each one.
+* UPDATE: updated .pot file for translations.
 
 = 2.13.0 - 2021-01-19 =
 * NEW: Ability to filter WooCommerce Analytics by currency.
