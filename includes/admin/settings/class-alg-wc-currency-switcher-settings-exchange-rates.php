@@ -52,10 +52,19 @@ class Alg_WC_Currency_Switcher_Settings_Exchange_Rates extends Alg_WC_Currency_S
 	 * @since   1.0.0
 	 */
 	function enqueue_script() {
-		wp_enqueue_script( 'alg-exchange-rates', plugin_dir_url( __FILE__ ) . 'js/alg_exchange_rates.js', array( 'jquery' ), alg_wc_currency_switcher_plugin()->version, true );
-		wp_localize_script( 'alg-exchange-rates', 'ajax_object', array(
-			'ajax_url' => admin_url( 'admin-ajax.php' ),
-		) );
+		global $pagenow;
+		
+		// check we are on the settings page
+		if (
+			$pagenow === 'admin.php'
+			&& isset( $_REQUEST['tab'] ) && $_REQUEST['tab'] === 'alg_wc_currency_switcher'
+			&& isset( $_REQUEST['section'] ) && $_REQUEST['section'] === 'exchange_rates'
+		) {
+			wp_enqueue_script( 'alg-exchange-rates', plugin_dir_url( __FILE__ ) . 'js/alg_exchange_rates.js', array( 'jquery' ), alg_wc_currency_switcher_plugin()->version, true );
+			wp_localize_script( 'alg-exchange-rates', 'ajax_object', array(
+				'ajax_url' => admin_url( 'admin-ajax.php' ),
+			) );
+		}
 	}
 
 	/**
