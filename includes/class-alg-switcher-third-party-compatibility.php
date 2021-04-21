@@ -37,20 +37,8 @@ if ( ! class_exists( 'Alg_Switcher_Third_Party_Compatibility' ) ) :
 		 * @since   2.8.9
 		 */
 		function init() {
-			// Adds compatibility with WooCommerce Product Addons plugin
-			//$this->handle_product_addons_plugin();
 
-			// Adds compatibility with WooCommerce Price Filter widget
-			$this->handle_price_filter();
-		}
-
-		/**
-		 * Adds compatibility with WooCommerce Price Filter widget
-		 * @version 2.14.0
-		 * @since   2.8.9
-		 */
-		private function handle_price_filter() {
-			// WooCommerce Price Filter Widget
+			// Add compatibility with WooCommerce Price Filter widget
 			if ( get_option( 'wpw_currency_switcher_price_filter_widget_enabled', 'yes' ) === 'yes' ) {
 				
 				// @todo idea for the future:
@@ -64,8 +52,138 @@ if ( ! class_exists( 'Alg_Switcher_Third_Party_Compatibility' ) ) :
 					return $step;
 				} );
 			}
+			
+			// Add compatibility for WooCommerce Product Add-ons plugin
+			// https://woocommerce.com/products/product-add-ons/
+			if ( apply_filters( 'wpwham_currency_switcher_compatibility_product_addons', true ) ) {
+				add_filter( 'get_product_addons', array( $this, 'product_addons_convert_addon_prices' ) );
+				add_filter( 'woocommerce_get_item_data', array( $this, 'product_addons_fix_addon_prices_for_display' ), 11, 2 );
+			}
+		
+			// Add compatibility with PPOM for WooCommerce plugin
+			// https://wordpress.org/plugins/woocommerce-product-addon/
+			if ( apply_filters( 'wpwham_currency_switcher_compatibility_ppom', false ) ) {
+				add_filter( 'ppom_option_price', array( $this, 'product_addons_convert_option_price' ), 10, 4 );
+				add_filter( 'ppom_cart_line_total', array( $this, 'product_addons_convert_price_back' ) );
+				add_filter( 'ppom_cart_fixed_fee', array( $this, 'product_addons_convert_price_back' ) );
+				add_filter( 'ppom_add_cart_item_data', array( $this, 'ppom_woocommerce_add_cart_item_data' ), 10, 2 );
+				add_filter( 'ppom_product_price', array( $this, 'ppom_product_price' ) );
+				add_filter( 'woocommerce_get_cart_item_from_session', array( $this, 'ppom_get_cart_item_from_session' ), 1 );
+			}
+			
 		}
+		
+		/**
+         * Adds compatibility with WooCommerce Product Add-ons plugin, converting addon prices
+		 *
+		 * @version 2.14.1
+		 * @since   2.14.1
+		 * @link https://woocommerce.com/products/product-add-ons/
+		 */
+		function product_addons_convert_addon_prices( $addons ) {
+			
+			if (
+				isset( $_POST['add-to-cart'] )
+				&& ! empty( $_POST['add-to-cart'] )
+			) {
+				// don't adjust when adding to cart... conversion will happen later.
+				$backtrace = debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS );
+				foreach ( $backtrace as $call ) {
+					if (
+						$call['function'] === 'add_cart_item_data'
+						&& $call['class'] === 'WC_Product_Addons_Cart'
+					) {
+						return $addons;
+					}
+				}
+			}
+			
+			$current_currency_code = alg_get_current_currency_code();
+			$default_currency      = get_option( 'woocommerce_currency' );
+			
+			foreach ( $addons as $addon_key => $addon ) {
+				foreach ( $addon['options'] as $option_key => $option ) {
+					if ( $option['price_type'] === 'percentage_based' ) {
+						continue;
+					}
+					if (
+						isset( $option['wpwham_price_curr'] )
+						&& $option['wpwham_price_curr'] === $current_currency_code
+					) {
+						continue;
+					}
+					$addons[ $addon_key ]['options'][ $option_key ]['price'] = alg_convert_price( array(
+						'price'         => $option['price'],
+						'currency_from' => $default_currency,
+						'currency'      => $current_currency_code,
+						'format_price'  => 'no'
+					) );
+					$addons[ $addon_key ]['options'][ $option_key ]['wpwham_price_curr'] = $current_currency_code;
+				}
+			}
+			
+			return $addons;
+		}
+		
+		/**
+         * Adds compatibility with WooCommerce Product Add-ons plugin, fixing addon prices for display
+		 *
+		 * @version 2.14.1
+		 * @since   2.14.1
+		 * @link https://woocommerce.com/products/product-add-ons/
+		 */
+		function product_addons_fix_addon_prices_for_display( $other_data, $cart_item ) {
+			
+			if ( ! is_callable( array( 'WC_Product_Addons_Helper', 'get_product_addon_price_for_display' ) ) ) {
+				return;
+			}
+			
+			$current_currency_code = alg_get_current_currency_code();
+			$default_currency      = get_option( 'woocommerce_currency' );
+			
+			if ( ! empty( $cart_item['addons'] ) ) {
+				foreach ( $cart_item['addons'] as $addon ) {
+					$price = isset( $cart_item['addons_price_before_calc'] ) ? $cart_item['addons_price_before_calc'] : $addon['price'];
+					$original_name = $addon['name'];
+					$replaced_name = $addon['name'];
+					
+					if ( $addon['price_type'] !== 'percentage_based' ) {
+						$replaced_price = alg_convert_price( array(
+							'price'         => $addon['price'],
+							'currency_from' => $default_currency,
+							'currency'      => $current_currency_code,
+							'format_price'  => 'no'
+						) );
+					}
 
+					if ( 0 == $addon['price'] ) {
+						$original_name .= '';
+						$replaced_name .= '';
+					} elseif ( 'percentage_based' === $addon['price_type'] && 0 == $price ) {
+						$original_name .= '';
+						$replaced_name .= '';
+					} elseif ( 'percentage_based' !== $addon['price_type'] && $addon['price'] && apply_filters( 'woocommerce_addons_add_price_to_name', '__return_true' ) ) {
+						$original_name .= ' (' . wc_price( WC_Product_Addons_Helper::get_product_addon_price_for_display( $addon['price'], $cart_item['data'], true ) ) . ')';
+						$replaced_name .= ' (' . wc_price( WC_Product_Addons_Helper::get_product_addon_price_for_display( $replaced_price, $cart_item['data'], true ) ) . ')';
+					} else {
+						$_product = wc_get_product( $cart_item['product_id'] );
+						$_product->set_price( $price * ( $addon['price'] / 100 ) );
+						$original_name .= ' (' . WC()->cart->get_product_price( $_product ) . ')';
+						$replaced_name .= ' (' . WC()->cart->get_product_price( $_product ) . ')';
+					}
+					
+					foreach ( $other_data as $key => $value ) {
+						if ( $value['name'] === $original_name ) {
+							$other_data[ $key ]['name'] = $replaced_name;
+						}
+					}
+				}
+			}
+
+			return $other_data;
+			
+		}
+		
 		/**
          * Fixes price filter widget currency format
          *
@@ -369,22 +487,9 @@ if ( ! class_exists( 'Alg_Switcher_Third_Party_Compatibility' ) ) :
 			// return $args;
 		}
 
-		/**
-		 * Add compatibility with WooCommerce Product Addons plugin
-		 * @version 2.8.9
-		 * @since   2.8.9
-		 */
-		private function handle_product_addons_plugin(){
-			add_filter( 'ppom_option_price', array( $this, 'product_addons_convert_option_price' ), 10, 4 );
-			add_filter( 'ppom_cart_line_total', array( $this, 'product_addons_convert_price_back' ) );
-			add_filter( 'ppom_cart_fixed_fee', array( $this, 'product_addons_convert_price_back' ) );
-			add_filter( 'ppom_add_cart_item_data', array( $this, 'ppom_woocommerce_add_cart_item_data' ), 10, 2 );
-			add_filter( 'ppom_product_price', array( $this, 'ppom_product_price' ) );
-			add_filter( 'woocommerce_get_cart_item_from_session', array( $this, 'ppom_get_cart_item_from_session' ), 1 );
-		}
 
 		/**
-		 * Adds compatibility with WooCommerce Product Addons plugin, converting values back from plugin, if session was updated
+		 * Adds compatibility with PPOM for WooCommerce plugin, converting values back from plugin, if session was updated
 		 *
 		 * @version 2.8.8
 		 * @since   2.8.8
@@ -399,7 +504,7 @@ if ( ! class_exists( 'Alg_Switcher_Third_Party_Compatibility' ) ) :
 		}
 
 		/**
-		 * Fixes product price on Product Addons plugin
+		 * Fixes product price on PPOM for WooCommerce plugin
 		 *
 		 * @version 2.8.8
 		 * @since   2.8.8
@@ -439,7 +544,7 @@ if ( ! class_exists( 'Alg_Switcher_Third_Party_Compatibility' ) ) :
 		}
 
 		/**
-		 * Adds currency meta to Product Addons plugin
+		 * Adds currency meta to PPOM for WooCommerce plugin
 		 *
 		 * @version 2.8.8
 		 * @since   2.8.8
@@ -459,7 +564,7 @@ if ( ! class_exists( 'Alg_Switcher_Third_Party_Compatibility' ) ) :
 		}
 
 		/**
-		 * Adds compatibility with WooCommerce Product Addons plugin, converting values back from plugin
+		 * Adds compatibility with PPOM for WooCommerce plugin, converting values back from plugin
 		 *
 		 * @version 2.8.8
 		 * @since   2.8.8
@@ -488,7 +593,7 @@ if ( ! class_exists( 'Alg_Switcher_Third_Party_Compatibility' ) ) :
 		}
 
 		/**
-		 * Adds compatibility with WooCommerce Product Addons plugin, converting values from plugin
+		 * Adds compatibility with PPOM for WooCommerce plugin, converting values from plugin
 		 *
 		 * @version 2.8.8
 		 * @since   2.8.8
