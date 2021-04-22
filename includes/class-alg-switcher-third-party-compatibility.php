@@ -135,7 +135,7 @@ if ( ! class_exists( 'Alg_Switcher_Third_Party_Compatibility' ) ) :
 		function product_addons_fix_addon_prices_for_display( $other_data, $cart_item ) {
 			
 			if ( ! is_callable( array( 'WC_Product_Addons_Helper', 'get_product_addon_price_for_display' ) ) ) {
-				return;
+				return $other_data;
 			}
 			
 			$current_currency_code = alg_get_current_currency_code();
