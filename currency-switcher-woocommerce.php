@@ -33,6 +33,12 @@ if ( 'currency-switcher-woocommerce.php' === basename( __FILE__ ) ) {
 	) return;
 }
 
+if ( ! defined( 'WPWHAM_CURRENCY_SWITCHER_VERSION' ) ) {
+	define( 'WPWHAM_CURRENCY_SWITCHER_VERSION', '2.14.0' );
+}
+
+
+
 // Constants
 require_once( 'includes/alg-constants.php' );
 
