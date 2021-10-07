@@ -107,6 +107,10 @@ final class Alg_WC_Currency_Switcher {
 			add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'action_links' ) );
 			add_action( 'woocommerce_system_status_report', array( $this, 'add_settings_to_status_report' ) );
 		}
+		
+		// WooCommerce scheduled tasks
+		add_action( 'wc_after_products_ending_sales', array( $this, 'cleanup_ended_sales_prices' ) );
+		
 	}	
 
 	/**
@@ -124,6 +128,21 @@ final class Alg_WC_Currency_Switcher {
 		$custom_links    = ( PHP_INT_MAX === apply_filters( 'alg_wc_currency_switcher_plugin_option', 2 ) ) ?
 			array( $settings_link ) : array( $settings_link, $unlock_all_link );
 		return array_merge( $custom_links, $links );
+	}
+	
+	/**
+	 * @since   2.x.x
+	 */
+	public function cleanup_ended_sales_prices( $product_ids ) {
+		if ( ! apply_filters( 'wpwham_currency_switcher_cleanup_ended_sales_prices', true ) ) {
+			return;
+		}
+		$currencies = alg_get_enabled_currencies( false );
+		foreach ( $product_ids as $product_id ) {
+			foreach ( $currencies as $currency ) {
+				update_post_meta( $product_id, '_alg_currency_switcher_per_product_sale_price_' . $currency, '' );
+			}
+		}
 	}
 
 	/**
