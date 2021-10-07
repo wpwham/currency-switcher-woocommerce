@@ -40,17 +40,12 @@ if ( ! class_exists( 'Alg_Switcher_Third_Party_Compatibility' ) ) :
 
 			// Add compatibility with WooCommerce Price Filter widget
 			if ( get_option( 'wpw_currency_switcher_price_filter_widget_enabled', 'yes' ) === 'yes' ) {
-				
-				// @todo idea for the future:
-				// add_action( 'woocommerce_product_query', array( $this, 'modify_default_price_filter_hook' ), PHP_INT_MAX );
-				
 				add_action( 'wp_footer', array( $this, 'add_compatibility_with_price_filter_widget' ) );
 				add_action( 'wp_footer', array( $this, 'fix_price_filter_widget_currency_format' ) );
+				add_action( 'init', array( $this, 'fix_price_filter_widget_query_args' ) );
 				add_filter( 'posts_clauses', array( $this, 'posts_clauses_price_filter_compatible' ), 11, 2 );
-				add_filter( 'woocommerce_price_filter_widget_step', function ( $step ) {
-					$step = 1;
-					return $step;
-				} );
+				// @todo just an idea for the future, maybe a better way to address per-product price overrides:
+				// add_action( 'woocommerce_product_query', array( $this, 'modify_default_price_filter_hook' ), PHP_INT_MAX );
 			}
 			
 			// Add compatibility for WooCommerce Product Add-ons plugin
@@ -185,7 +180,7 @@ if ( ! class_exists( 'Alg_Switcher_Third_Party_Compatibility' ) ) :
 		}
 		
 		/**
-         * Fixes price filter widget currency format
+         * Fixes WooCommerce Price Filter widget's currency formatting.
          *
 		 * @version 2.9.3
 		 * @since   2.9.3
@@ -210,27 +205,128 @@ if ( ! class_exists( 'Alg_Switcher_Third_Party_Compatibility' ) ) :
 				)
 			);
 		}
-
+		
 		/**
-		 * Adds compatibility with WooCommerce Price Filter widget
+		 * Fixes query args set by WooCommerce Price Filter widget.
+		 *
+		 * These values will be picked up automatically by the JS price slider, so they must be correct at the start.
+		 *
+		 * @version 2.14.x
+		 * @since   2.14.x
+		 */
+		public function fix_price_filter_widget_query_args() {
+			if (
+				isset( $_GET['min_price'] ) && isset( $_GET['max_price'] ) && isset( $_GET['currency_code'] )
+				&& $_GET['currency_code'] !== alg_get_current_currency_code()
+			) {
+				$currency_from = alg_wc_cs_get_currency_exchange_rate( sanitize_text_field( $_GET['currency_code'] ) );
+				$currency_to   = alg_wc_cs_get_currency_exchange_rate( alg_get_current_currency_code() );
+				$exchange_rate = $currency_to / $currency_from;
+				wp_safe_redirect(
+					add_query_arg( 
+						array(
+							'min_price' => floatval( $_GET['min_price'] ) * $exchange_rate,
+							'max_price' => floatval( $_GET['max_price'] ) * $exchange_rate,
+							'currency_code' => alg_get_current_currency_code(),
+						),
+						remove_query_arg( array( 'min_price', 'max_price', 'currency_code' ) )
+					)
+				);
+				exit;
+			}
+		}
+		
+		/**
+		 * Adds compatibility with WooCommerce Price Filter widget.
+		 *
+		 * Outputs JS scripts necessary to update the price slider.
+		 *
 		 * @version 2.14.0
 		 * @since   2.8.9
 		 */
 		public function add_compatibility_with_price_filter_widget() {
 			#region add_compatibility_with_price_filter_widget
 			
+			if ( ! apply_filters( 'wpwham_currency_switcher_output_price_filter_js', true ) ) {
+				return;
+			}
+			
 			if ( ! is_active_widget( false, false, 'woocommerce_price_filter' ) ) {
 				return;
 			}
 			
 			$exchange_rate = alg_wc_cs_get_currency_exchange_rate( alg_get_current_currency_code() );
-			if ( $exchange_rate == 1 ) {
-				return;
+			
+			$convert_current_min_max = true;
+			if ( isset( $_REQUEST['min_price'] ) && isset( $_REQUEST['max_price'] ) && isset( $_GET['currency_code'] ) ) {
+				// if we're here a price filter has already been applied,
+				// so set this to avoid a double conversion.
+				$convert_current_min_max = false;
 			}
 			
 			?>
 			<input type="hidden" id="alg_wc_cs_exchange_rate" value="<?php echo esc_html( $exchange_rate ) ?>"/>
-			<script>
+			<script type="text/javascript">
+				
+				<?php if ( version_compare( get_option( 'woocommerce_version' ), '4.9.0', '>=' ) ): ?>
+				
+				(function( $ ){
+					
+					var exchangeRate = $( '#alg_wc_cs_exchange_rate' ).val();
+					
+					var originalMin  = $( '.price_slider_amount #min_price' ).data( 'min' ) || 0; // this is always in shop's default currency
+					var originalMax  = $( '.price_slider_amount #max_price' ).data( 'max' ) || 0; // this is always in shop's default currency
+					var originalStep = $( '.price_slider_amount' ).data( 'step' );
+					var originalCurrentMin  = $( '.price_slider_amount #min_price' ).val(); // this might be already converted, check $convert_current_min_max
+					var originalCurrentMax  = $( '.price_slider_amount #max_price' ).val(); // this might be already converted, check $convert_current_min_max
+					
+					var convertedMin = Math.floor( originalMin * exchangeRate );
+					var convertedMax = Math.ceil( originalMax * exchangeRate );
+					<?php if ( $convert_current_min_max ): ?>
+					var convertedCurrentMin = Math.floor( originalCurrentMin * exchangeRate );
+					var convertedCurrentMax = Math.ceil( originalCurrentMax * exchangeRate );
+					<?php else: ?>
+					var convertedCurrentMin = parseFloat( originalCurrentMin );
+					var convertedCurrentMax = parseFloat( originalCurrentMax );
+					<?php endif; ?>
+					
+					var convertedStep = originalStep; // WC default step is 10
+					if ( convertedMax - convertedMin <= 1 ) {
+						convertedStep = 0.00000001; // make it tiny steps for cryptocurrencies
+					} else if ( convertedMax - convertedMin < 10 ) {
+						convertedStep = 1; // make small steps if our range is less than 10
+					}
+					
+					if ( convertedMin % convertedStep ) {
+						convertedMin -= convertedMin % convertedStep; // round down to nearest step
+					}
+					if ( convertedMax % convertedStep ) {
+						convertedMax += convertedStep - ( convertedMax % convertedStep ); // round up to nearest step
+					}
+					if ( convertedCurrentMin % convertedStep ) {
+						convertedCurrentMin -= convertedCurrentMin % convertedStep; // round down to nearest step
+					}
+					if ( convertedCurrentMax % convertedStep ) {
+						convertedCurrentMax += convertedStep - ( convertedCurrentMax % convertedStep ); // round up to nearest step
+					}
+					
+					$( '.price_slider_amount #min_price' ).data( 'min', convertedMin );
+					$( '.price_slider_amount #max_price' ).data( 'max', convertedMax );
+					$( '.price_slider_amount' ).data( 'step', convertedStep );
+					$( '.price_slider_amount #min_price' ).val( convertedCurrentMin );
+					$( '.price_slider_amount #max_price' ).val( convertedCurrentMax );
+					
+					if ( ! $( '.price_slider_amount input[name="currency_code"]' ).length ) {
+						$( '.price_slider_amount' ).append( '<input name="currency_code" type="hidden" value="" />' ); 
+					}
+					$( '.price_slider_amount input[name="currency_code"]' ).val( '<?php echo alg_get_current_currency_code(); ?>' );
+					
+					$( document.body ).trigger( 'init_price_filter' );
+					
+				}( jQuery ));
+				
+				<?php else: ?>
+				
                 var awccs_slider = {
                     slider: null,
                     convert_rate: 1,
@@ -314,13 +410,19 @@ if ( ! class_exists( 'Alg_Switcher_Third_Party_Compatibility' ) ) :
                         awccs_pfc.init(price_filters);
                     }
                 });
+				
+				<?php endif; ?>
+				
 			</script>
 			<?php
 			#endregion add_compatibility_with_price_filter_widget
 		}
 		
 		/**
-		 * Makes Price Filter Widget apply currency conversion to filter
+		 * Ensure the widget filters products within the correct price range.
+		 *
+		 * Since product prices in the DB are always stored in the shop's default currency, we
+		 * have to reverse the currency conversion here for searching purposes.
 		 *
 		 * @version 2.14.0
 		 * @since   2.14.0
