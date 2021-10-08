@@ -2,7 +2,7 @@
 /**
  * Currency Switcher Functions - Exchange Rates
  *
- * @version 2.14.0
+ * @version 2.15.0
  * @since   2.8.0
  * @author  Tom Anbinder
  * @author  WP Wham
@@ -164,7 +164,7 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rate' ) ) {
 	/*
 	 * alg_wc_cs_get_exchange_rate.
 	 *
-	 * @version 2.14.0
+	 * @version 2.15.0
 	 * @since   2.0.0
 	 * @return  float rate on success, else 0
 	 */
@@ -203,6 +203,7 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rate' ) ) {
 			default: // 'ecb'
 				$return = alg_wc_cs_get_exchange_rate_ecb( $currency_from, $currency_to );
 		}
+		$return = number_format( floatval( $return ), 8, '.', '' ); // make sure its in a format we can handle
 		$return = apply_filters( 'alg_wc_cs_get_exchange_rate', $return, $server, $currency_from, $currency_to );
 		if ( 'default' === get_option( 'alg_currency_switcher_exchange_rate_offset_type_' . $currency_from . '_' . $currency_to, 'default' ) ) {
 			$offset = get_option( 'alg_currency_switcher_exchange_rate_offset', 0 );

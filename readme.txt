@@ -2,8 +2,8 @@
 Contributors: wpwham
 Tags: currency switcher, multicurrency, multi currency, currency, switcher
 Requires at least: 4.4
-Tested up to: 5.7
-Stable tag: 2.14.0
+Tested up to: 5.8
+Stable tag: 2.15.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -112,6 +112,14 @@ http://www.yoursite.com?alg_currency=USD
 `
 
 == Changelog ==
+
+= 2.15.0 - 2021-10-07 =
+* NEW: added compatibility with "WooCommerce Product Add-ons" plugin.
+* FIX: issue with WooCommerce Price Filter Widget min/max prices not applying exchange rate.
+* FIX: clear out per-product sale prices from all currencies after sale ends.  (WooCommerce automatically deletes the sale price in the shop's default currency; we added a hook to do the same thing for any additional currencies.  If you don't want this and want to keep the old prices, use the new hook 'wpwham_currency_switcher_cleanup_ended_sales_prices').
+* UPDATE: PHP 8 now officially supported.
+* UPDATE: performance improvement -- load our admin assets only when needed.
+* UPDATE: updated .pot file for translations.
 
 = 2.14.0 - 2021-04-07 =
 * NEW: added a setting "Apply Currency Conversion to Shipping Amount". (Previously, the shipping amount was always adjusted).

@@ -2,7 +2,7 @@
 /**
  * Currency Switcher - Exchange Rates Section Settings
  *
- * @version 2.14.0
+ * @version 2.15.0
  * @since   1.0.0
  * @author  Tom Anbinder
  * @author  WP Wham
@@ -48,7 +48,7 @@ class Alg_WC_Currency_Switcher_Settings_Exchange_Rates extends Alg_WC_Currency_S
 	/**
 	 * enqueue_script.
 	 *
-	 * @version 2.2.0
+	 * @version 2.15.0
 	 * @since   1.0.0
 	 */
 	function enqueue_script() {

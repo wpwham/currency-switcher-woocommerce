@@ -2,7 +2,7 @@
 /**
  * Currency Switcher - General Section Settings
  *
- * @version 2.14.0
+ * @version 2.15.0
  * @since   1.0.0
  * @author  Tom Anbinder
  * @author  WP Wham
@@ -40,7 +40,7 @@ class Alg_WC_Currency_Switcher_Settings_General extends Alg_WC_Currency_Switcher
 	/**
 	 * get_general_settings.
 	 *
-	 * @version 2.14.0
+	 * @version 2.15.0
 	 * @since   1.0.0
 	 * @todo    styling
 	 * @todo    add more placement options
@@ -55,7 +55,11 @@ class Alg_WC_Currency_Switcher_Settings_General extends Alg_WC_Currency_Switcher
 			array(
 				'title'    => __( 'WooCommerce Currency Switcher Plugin', 'currency-switcher-woocommerce' ),
 				'desc'     => '<strong>' . __( 'Enable plugin', 'currency-switcher-woocommerce' ) . '</strong>',
-				'desc_tip' => __( 'Currency Switcher for WooCommerce', 'currency-switcher-woocommerce' ) . ' [v' . get_option( 'alg_currency_switcher_version', '' ) . '].',
+				'desc_tip' => 
+					__( 'Currency Switcher for WooCommerce', 'currency-switcher-woocommerce' )
+					. ' v' . WPWHAM_CURRENCY_SWITCHER_VERSION . '.<br />'
+					. '<a href="https://wpwham.com/documentation/currency-switcher-for-woocommerce/?utm_source=documentation_link&utm_campaign=free&utm_medium=currency_switcher" target="_blank" class="button">' .
+					__( 'Documentation', 'currency-switcher-woocommerce' ) . '</a>',
 				'id'       => 'alg_wc_currency_switcher_enabled',
 				'default'  => 'yes',
 				'type'     => 'checkbox',

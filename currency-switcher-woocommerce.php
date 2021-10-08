@@ -3,12 +3,12 @@
 Plugin Name: Currency Switcher for WooCommerce
 Plugin URI: https://wpwham.com/products/currency-switcher-for-woocommerce/
 Description: Currency Switcher for WooCommerce.
-Version: 2.14.0
+Version: 2.15.0
 Author: WP Wham
 Author URI: https://wpwham.com
 Text Domain: currency-switcher-woocommerce
 Domain Path: /langs
-WC tested up to: 5.1
+WC tested up to: 5.7
 Copyright: © 2018-2021 WP Wham. All rights reserved.
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -33,6 +33,12 @@ if ( 'currency-switcher-woocommerce.php' === basename( __FILE__ ) ) {
 	) return;
 }
 
+if ( ! defined( 'WPWHAM_CURRENCY_SWITCHER_VERSION' ) ) {
+	define( 'WPWHAM_CURRENCY_SWITCHER_VERSION', '2.15.0' );
+}
+
+
+
 // Constants
 require_once( 'includes/alg-constants.php' );
 
@@ -42,7 +48,7 @@ if ( ! class_exists( 'Alg_WC_Currency_Switcher' ) ) :
  * Main Alg_WC_Currency_Switcher Class
  *
  * @class   Alg_WC_Currency_Switcher
- * @version 2.13.0
+ * @version 2.15.0
  * @since   1.0.0
  */
 final class Alg_WC_Currency_Switcher {
@@ -53,7 +59,7 @@ final class Alg_WC_Currency_Switcher {
 	 * @var   string
 	 * @since 1.0.0
 	 */
-	public $version = '2.14.0';
+	public $version = '2.15.0';
 
 	/**
 	 * @var   Alg_WC_Currency_Switcher The single instance of the class
@@ -81,7 +87,7 @@ final class Alg_WC_Currency_Switcher {
 	/**
 	 * Alg_WC_Currency_Switcher Constructor.
 	 *
-	 * @version 2.12.2
+	 * @version 2.15.0
 	 * @since   1.0.0
 	 * @access  public
 	 * @todo    (maybe) AJAX in admin "Currencies" settings section
@@ -107,23 +113,42 @@ final class Alg_WC_Currency_Switcher {
 			add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'action_links' ) );
 			add_action( 'woocommerce_system_status_report', array( $this, 'add_settings_to_status_report' ) );
 		}
+		
+		// WooCommerce scheduled tasks
+		add_action( 'wc_after_products_ending_sales', array( $this, 'cleanup_ended_sales_prices' ) );
+		
 	}	
 
 	/**
 	 * Show action links on the plugin screen
 	 *
-	 * @version 2.8.0
+	 * @version 2.15.0
 	 * @since   1.0.0
 	 * @param   mixed $links
 	 * @return  array
 	 */
 	function action_links( $links ) {
 		$settings_link   = '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=alg_wc_currency_switcher' ) . '">' . __( 'Settings', 'woocommerce' )   . '</a>';
-		$unlock_all_link = '<a target="_blank" href="' . esc_url( 'https://wpwham.com/products/currency-switcher-for-woocommerce/' ) . '">' .
+		$unlock_all_link = '<a target="_blank" href="' . esc_url( 'https://wpwham.com/products/currency-switcher-for-woocommerce/?utm_source=plugins_page&utm_campaign=free&utm_medium=currency_switcher' ) . '">' .
 			__( 'Unlock all', 'currency-switcher-woocommerce' ) . '</a>';
 		$custom_links    = ( PHP_INT_MAX === apply_filters( 'alg_wc_currency_switcher_plugin_option', 2 ) ) ?
 			array( $settings_link ) : array( $settings_link, $unlock_all_link );
 		return array_merge( $custom_links, $links );
+	}
+	
+	/**
+	 * @since   2.15.0
+	 */
+	public function cleanup_ended_sales_prices( $product_ids ) {
+		if ( ! apply_filters( 'wpwham_currency_switcher_cleanup_ended_sales_prices', true ) ) {
+			return;
+		}
+		$currencies = alg_get_enabled_currencies( false );
+		foreach ( $product_ids as $product_id ) {
+			foreach ( $currencies as $currency ) {
+				update_post_meta( $product_id, '_alg_currency_switcher_per_product_sale_price_' . $currency, '' );
+			}
+		}
 	}
 
 	/**

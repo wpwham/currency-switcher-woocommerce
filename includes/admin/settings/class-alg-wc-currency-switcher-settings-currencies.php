@@ -2,7 +2,7 @@
 /**
  * Currency Switcher - Currencies Section Settings
  *
- * @version 2.12.2
+ * @version 2.15.0
  * @since   1.0.0
  * @author  Tom Anbinder
  * @author  WP Wham
@@ -95,7 +95,7 @@ class Alg_WC_Currency_Switcher_Settings_Currencies extends Alg_WC_Currency_Switc
 	/**
 	 * get_currencies_settings.
 	 *
-	 * @version 2.12.2
+	 * @version 2.15.0
 	 * @since   1.0.0
 	 * @todo    (maybe) add "generate all world currencies" - makes sense only for Pro version
 	 */
@@ -143,7 +143,7 @@ class Alg_WC_Currency_Switcher_Settings_Currencies extends Alg_WC_Currency_Switc
 				'desc'     => ( PHP_INT_MAX === apply_filters( 'alg_wc_currency_switcher_plugin_option', 2 ) ) ?
 					'' : sprintf(
 						'<p>' . __( 'To add more than two additional currencies, you will need %s plugin.', 'currency-switcher-woocommerce' ) . '</p>',
-						'<a target="_blank" href="' . esc_url( 'https://wpwham.com/products/currency-switcher-for-woocommerce/' ) . '">' .
+						'<a target="_blank" href="' . esc_url( 'https://wpwham.com/products/currency-switcher-for-woocommerce/?utm_source=settings_currencies&utm_campaign=free&utm_medium=currency_switcher' ) . '">' .
 							__( 'Currency Switcher for WooCommerce Pro', 'currency-switcher-woocommerce' ) . '</a>'
 						),
 				'custom_attributes' => ( PHP_INT_MAX === apply_filters( 'alg_wc_currency_switcher_plugin_option', 2 ) ) ?

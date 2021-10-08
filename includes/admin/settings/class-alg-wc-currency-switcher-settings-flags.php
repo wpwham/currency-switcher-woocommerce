@@ -2,7 +2,7 @@
 /**
  * Currency Switcher - Flags Section Settings
  *
- * @version 2.12.2
+ * @version 2.15.0
  * @since   2.4.4
  * @author  Tom Anbinder
  * @author  WP Wham
@@ -83,7 +83,7 @@ class Alg_WC_Currency_Switcher_Settings_Flags extends Alg_WC_Currency_Switcher_S
 	/**
 	 * get_flags_settings.
 	 *
-	 * @version 2.12.2
+	 * @version 2.15.0
 	 * @since   2.4.4
 	 */
 	public static function get_flags_settings( $settings ) {
@@ -102,7 +102,7 @@ class Alg_WC_Currency_Switcher_Settings_Flags extends Alg_WC_Currency_Switcher_S
 				'default'   => 'no',
 				'desc_tip'  => apply_filters( 'alg_wc_currency_switcher_plugin_option', sprintf(
 					__( 'To enable flags, you will need %s plugin.', 'currency-switcher-woocommerce' ),
-					'<a target="_blank" href="' . esc_url( 'https://wpwham.com/products/currency-switcher-for-woocommerce/' ) . '">' .
+					'<a target="_blank" href="' . esc_url( 'https://wpwham.com/products/currency-switcher-for-woocommerce/?utm_source=settings_flags&utm_campaign=free&utm_medium=currency_switcher' ) . '">' .
 						__( 'Currency Switcher for WooCommerce Pro', 'currency-switcher-woocommerce' ) . '</a>' ), 'settings' ),
 				'custom_attributes' => apply_filters( 'alg_wc_currency_switcher_plugin_option', array( 'disabled' => 'disabled' ), 'settings' ),
 			),

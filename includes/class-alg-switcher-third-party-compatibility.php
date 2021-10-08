@@ -4,7 +4,7 @@
  *
  * Adds compatibility with other third party plugins, like Product Addons
  *
- * @version 2.14.0
+ * @version 2.15.0
  * @since   2.8.8
  * @author  Tom Anbinder
  * @author  WP Wham
@@ -33,24 +33,19 @@ if ( ! class_exists( 'Alg_Switcher_Third_Party_Compatibility' ) ) :
 		/**
 		 * Initializes
 		 *
-		 * @version 2.8.9
+		 * @version 2.15.0
 		 * @since   2.8.9
 		 */
 		function init() {
 
 			// Add compatibility with WooCommerce Price Filter widget
 			if ( get_option( 'wpw_currency_switcher_price_filter_widget_enabled', 'yes' ) === 'yes' ) {
-				
-				// @todo idea for the future:
-				// add_action( 'woocommerce_product_query', array( $this, 'modify_default_price_filter_hook' ), PHP_INT_MAX );
-				
 				add_action( 'wp_footer', array( $this, 'add_compatibility_with_price_filter_widget' ) );
 				add_action( 'wp_footer', array( $this, 'fix_price_filter_widget_currency_format' ) );
+				add_action( 'init', array( $this, 'fix_price_filter_widget_query_args' ) );
 				add_filter( 'posts_clauses', array( $this, 'posts_clauses_price_filter_compatible' ), 11, 2 );
-				add_filter( 'woocommerce_price_filter_widget_step', function ( $step ) {
-					$step = 1;
-					return $step;
-				} );
+				// @todo just an idea for the future, maybe a better way to address per-product price overrides:
+				// add_action( 'woocommerce_product_query', array( $this, 'modify_default_price_filter_hook' ), PHP_INT_MAX );
 			}
 			
 			// Add compatibility for WooCommerce Product Add-ons plugin
@@ -74,163 +69,96 @@ if ( ! class_exists( 'Alg_Switcher_Third_Party_Compatibility' ) ) :
 		}
 		
 		/**
-         * Adds compatibility with WooCommerce Product Add-ons plugin, converting addon prices
+		 * Adds compatibility with WooCommerce Price Filter widget.
 		 *
-		 * @version 2.14.1
-		 * @since   2.14.1
-		 * @link https://woocommerce.com/products/product-add-ons/
-		 */
-		function product_addons_convert_addon_prices( $addons ) {
-			
-			if (
-				isset( $_POST['add-to-cart'] )
-				&& ! empty( $_POST['add-to-cart'] )
-			) {
-				// don't adjust when adding to cart... conversion will happen later.
-				$backtrace = debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS );
-				foreach ( $backtrace as $call ) {
-					if (
-						$call['function'] === 'add_cart_item_data'
-						&& $call['class'] === 'WC_Product_Addons_Cart'
-					) {
-						return $addons;
-					}
-				}
-			}
-			
-			$current_currency_code = alg_get_current_currency_code();
-			$default_currency      = get_option( 'woocommerce_currency' );
-			
-			foreach ( $addons as $addon_key => $addon ) {
-				foreach ( $addon['options'] as $option_key => $option ) {
-					if ( $option['price_type'] === 'percentage_based' ) {
-						continue;
-					}
-					if (
-						isset( $option['wpwham_price_curr'] )
-						&& $option['wpwham_price_curr'] === $current_currency_code
-					) {
-						continue;
-					}
-					$addons[ $addon_key ]['options'][ $option_key ]['price'] = alg_convert_price( array(
-						'price'         => $option['price'],
-						'currency_from' => $default_currency,
-						'currency'      => $current_currency_code,
-						'format_price'  => 'no'
-					) );
-					$addons[ $addon_key ]['options'][ $option_key ]['wpwham_price_curr'] = $current_currency_code;
-				}
-			}
-			
-			return $addons;
-		}
-		
-		/**
-         * Adds compatibility with WooCommerce Product Add-ons plugin, fixing addon prices for display
+		 * Outputs JS scripts necessary to update the price slider.
 		 *
-		 * @version 2.14.1
-		 * @since   2.14.1
-		 * @link https://woocommerce.com/products/product-add-ons/
-		 */
-		function product_addons_fix_addon_prices_for_display( $other_data, $cart_item ) {
-			
-			if ( ! is_callable( array( 'WC_Product_Addons_Helper', 'get_product_addon_price_for_display' ) ) ) {
-				return $other_data;
-			}
-			
-			$current_currency_code = alg_get_current_currency_code();
-			$default_currency      = get_option( 'woocommerce_currency' );
-			
-			if ( ! empty( $cart_item['addons'] ) ) {
-				foreach ( $cart_item['addons'] as $addon ) {
-					$price = isset( $cart_item['addons_price_before_calc'] ) ? $cart_item['addons_price_before_calc'] : $addon['price'];
-					$original_name = $addon['name'];
-					$replaced_name = $addon['name'];
-					
-					if ( $addon['price_type'] !== 'percentage_based' ) {
-						$replaced_price = alg_convert_price( array(
-							'price'         => $addon['price'],
-							'currency_from' => $default_currency,
-							'currency'      => $current_currency_code,
-							'format_price'  => 'no'
-						) );
-					}
-
-					if ( 0 == $addon['price'] ) {
-						$original_name .= '';
-						$replaced_name .= '';
-					} elseif ( 'percentage_based' === $addon['price_type'] && 0 == $price ) {
-						$original_name .= '';
-						$replaced_name .= '';
-					} elseif ( 'percentage_based' !== $addon['price_type'] && $addon['price'] && apply_filters( 'woocommerce_addons_add_price_to_name', '__return_true' ) ) {
-						$original_name .= ' (' . wc_price( WC_Product_Addons_Helper::get_product_addon_price_for_display( $addon['price'], $cart_item['data'], true ) ) . ')';
-						$replaced_name .= ' (' . wc_price( WC_Product_Addons_Helper::get_product_addon_price_for_display( $replaced_price, $cart_item['data'], true ) ) . ')';
-					} else {
-						$_product = wc_get_product( $cart_item['product_id'] );
-						$_product->set_price( $price * ( $addon['price'] / 100 ) );
-						$original_name .= ' (' . WC()->cart->get_product_price( $_product ) . ')';
-						$replaced_name .= ' (' . WC()->cart->get_product_price( $_product ) . ')';
-					}
-					
-					foreach ( $other_data as $key => $value ) {
-						if ( $value['name'] === $original_name ) {
-							$other_data[ $key ]['name'] = $replaced_name;
-						}
-					}
-				}
-			}
-
-			return $other_data;
-			
-		}
-		
-		/**
-         * Fixes price filter widget currency format
-         *
-		 * @version 2.9.3
-		 * @since   2.9.3
-		 */
-		public function fix_price_filter_widget_currency_format() {
-			$price_args = apply_filters( 'wc_price_args', array(
-				'ex_tax_label'       => false,
-				'currency'           => '',
-				'decimal_separator'  => wc_get_price_decimal_separator(),
-				'thousand_separator' => wc_get_price_thousand_separator(),
-				'decimals'           => wc_get_price_decimals(),
-				'price_format'       => get_woocommerce_price_format(),
-			) );
-			$symbol     = apply_filters( 'woocommerce_currency_symbol', get_woocommerce_currency_symbol(), get_woocommerce_currency() );
-			wp_localize_script(
-				'wc-price-slider', 'woocommerce_price_slider_params', array(
-					'currency_format_num_decimals' => $price_args['decimals'],
-					'currency_format_symbol'       => $symbol,
-					'currency_format_decimal_sep'  => esc_attr( $price_args['decimal_separator'] ),
-					'currency_format_thousand_sep' => esc_attr( $price_args['thousand_separator'] ),
-					'currency_format'              => esc_attr( str_replace( array( '%1$s', '%2$s' ), array( '%s', '%v' ), $price_args['price_format'] ) ),
-				)
-			);
-		}
-
-		/**
-		 * Adds compatibility with WooCommerce Price Filter widget
-		 * @version 2.14.0
+		 * @version 2.15.0
 		 * @since   2.8.9
 		 */
 		public function add_compatibility_with_price_filter_widget() {
 			#region add_compatibility_with_price_filter_widget
+			
+			if ( ! apply_filters( 'wpwham_currency_switcher_output_price_filter_js', true ) ) {
+				return;
+			}
 			
 			if ( ! is_active_widget( false, false, 'woocommerce_price_filter' ) ) {
 				return;
 			}
 			
 			$exchange_rate = alg_wc_cs_get_currency_exchange_rate( alg_get_current_currency_code() );
-			if ( $exchange_rate == 1 ) {
-				return;
+			
+			$convert_current_min_max = true;
+			if ( isset( $_REQUEST['min_price'] ) && isset( $_REQUEST['max_price'] ) && isset( $_GET['currency_code'] ) ) {
+				// if we're here a price filter has already been applied,
+				// so set this to avoid a double conversion.
+				$convert_current_min_max = false;
 			}
 			
 			?>
 			<input type="hidden" id="alg_wc_cs_exchange_rate" value="<?php echo esc_html( $exchange_rate ) ?>"/>
-			<script>
+			<script type="text/javascript">
+				
+				<?php if ( version_compare( get_option( 'woocommerce_version' ), '4.9.0', '>=' ) ): ?>
+				
+				(function( $ ){
+					
+					var exchangeRate = $( '#alg_wc_cs_exchange_rate' ).val();
+					
+					var originalMin  = $( '.price_slider_amount #min_price' ).data( 'min' ) || 0; // this is always in shop's default currency
+					var originalMax  = $( '.price_slider_amount #max_price' ).data( 'max' ) || 0; // this is always in shop's default currency
+					var originalStep = $( '.price_slider_amount' ).data( 'step' );
+					var originalCurrentMin  = $( '.price_slider_amount #min_price' ).val(); // this might be already converted, check $convert_current_min_max
+					var originalCurrentMax  = $( '.price_slider_amount #max_price' ).val(); // this might be already converted, check $convert_current_min_max
+					
+					var convertedMin = Math.floor( originalMin * exchangeRate );
+					var convertedMax = Math.ceil( originalMax * exchangeRate );
+					<?php if ( $convert_current_min_max ): ?>
+					var convertedCurrentMin = Math.floor( originalCurrentMin * exchangeRate );
+					var convertedCurrentMax = Math.ceil( originalCurrentMax * exchangeRate );
+					<?php else: ?>
+					var convertedCurrentMin = parseFloat( originalCurrentMin );
+					var convertedCurrentMax = parseFloat( originalCurrentMax );
+					<?php endif; ?>
+					
+					var convertedStep = originalStep; // WC default step is 10
+					if ( convertedMax - convertedMin <= 1 ) {
+						convertedStep = 0.00000001; // make it tiny steps for cryptocurrencies
+					} else if ( convertedMax - convertedMin < 10 ) {
+						convertedStep = 1; // make small steps if our range is less than 10
+					}
+					
+					if ( convertedMin % convertedStep ) {
+						convertedMin -= convertedMin % convertedStep; // round down to nearest step
+					}
+					if ( convertedMax % convertedStep ) {
+						convertedMax += convertedStep - ( convertedMax % convertedStep ); // round up to nearest step
+					}
+					if ( convertedCurrentMin % convertedStep ) {
+						convertedCurrentMin -= convertedCurrentMin % convertedStep; // round down to nearest step
+					}
+					if ( convertedCurrentMax % convertedStep ) {
+						convertedCurrentMax += convertedStep - ( convertedCurrentMax % convertedStep ); // round up to nearest step
+					}
+					
+					$( '.price_slider_amount #min_price' ).data( 'min', convertedMin );
+					$( '.price_slider_amount #max_price' ).data( 'max', convertedMax );
+					$( '.price_slider_amount' ).data( 'step', convertedStep );
+					$( '.price_slider_amount #min_price' ).val( convertedCurrentMin );
+					$( '.price_slider_amount #max_price' ).val( convertedCurrentMax );
+					
+					if ( ! $( '.price_slider_amount input[name="currency_code"]' ).length ) {
+						$( '.price_slider_amount' ).append( '<input name="currency_code" type="hidden" value="" />' ); 
+					}
+					$( '.price_slider_amount input[name="currency_code"]' ).val( '<?php echo alg_get_current_currency_code(); ?>' );
+					
+					$( document.body ).trigger( 'init_price_filter' );
+					
+				}( jQuery ));
+				
+				<?php else: ?>
+				
                 var awccs_slider = {
                     slider: null,
                     convert_rate: 1,
@@ -314,13 +242,76 @@ if ( ! class_exists( 'Alg_Switcher_Third_Party_Compatibility' ) ) :
                         awccs_pfc.init(price_filters);
                     }
                 });
+				
+				<?php endif; ?>
+				
 			</script>
 			<?php
 			#endregion add_compatibility_with_price_filter_widget
 		}
 		
 		/**
-		 * Makes Price Filter Widget apply currency conversion to filter
+         * Fixes WooCommerce Price Filter widget's currency formatting.
+         *
+		 * @version 2.9.3
+		 * @since   2.9.3
+		 */
+		public function fix_price_filter_widget_currency_format() {
+			$price_args = apply_filters( 'wc_price_args', array(
+				'ex_tax_label'       => false,
+				'currency'           => '',
+				'decimal_separator'  => wc_get_price_decimal_separator(),
+				'thousand_separator' => wc_get_price_thousand_separator(),
+				'decimals'           => wc_get_price_decimals(),
+				'price_format'       => get_woocommerce_price_format(),
+			) );
+			$symbol     = apply_filters( 'woocommerce_currency_symbol', get_woocommerce_currency_symbol(), get_woocommerce_currency() );
+			wp_localize_script(
+				'wc-price-slider', 'woocommerce_price_slider_params', array(
+					'currency_format_num_decimals' => $price_args['decimals'],
+					'currency_format_symbol'       => $symbol,
+					'currency_format_decimal_sep'  => esc_attr( $price_args['decimal_separator'] ),
+					'currency_format_thousand_sep' => esc_attr( $price_args['thousand_separator'] ),
+					'currency_format'              => esc_attr( str_replace( array( '%1$s', '%2$s' ), array( '%s', '%v' ), $price_args['price_format'] ) ),
+				)
+			);
+		}
+		
+		/**
+		 * Fixes query args set by WooCommerce Price Filter widget.
+		 *
+		 * These values will be picked up automatically by the JS price slider, so they must be correct at the start.
+		 *
+		 * @version 2.15.0
+		 * @since   2.15.0
+		 */
+		public function fix_price_filter_widget_query_args() {
+			if (
+				isset( $_GET['min_price'] ) && isset( $_GET['max_price'] ) && isset( $_GET['currency_code'] )
+				&& $_GET['currency_code'] !== alg_get_current_currency_code()
+			) {
+				$currency_from = alg_wc_cs_get_currency_exchange_rate( sanitize_text_field( $_GET['currency_code'] ) );
+				$currency_to   = alg_wc_cs_get_currency_exchange_rate( alg_get_current_currency_code() );
+				$exchange_rate = $currency_to / $currency_from;
+				wp_safe_redirect(
+					add_query_arg( 
+						array(
+							'min_price' => floatval( $_GET['min_price'] ) * $exchange_rate,
+							'max_price' => floatval( $_GET['max_price'] ) * $exchange_rate,
+							'currency_code' => alg_get_current_currency_code(),
+						),
+						remove_query_arg( array( 'min_price', 'max_price', 'currency_code' ) )
+					)
+				);
+				exit;
+			}
+		}
+		
+		/**
+		 * Ensure the widget filters products within the correct price range.
+		 *
+		 * Since product prices in the DB are always stored in the shop's default currency, we
+		 * have to reverse the currency conversion here for searching purposes.
 		 *
 		 * @version 2.14.0
 		 * @since   2.14.0
@@ -485,6 +476,117 @@ if ( ! class_exists( 'Alg_Switcher_Third_Party_Compatibility' ) ) :
 			// );
 			
 			// return $args;
+		}
+		
+		/**
+         * Adds compatibility with WooCommerce Product Add-ons plugin, converting addon prices
+		 *
+		 * @version 2.15.0
+		 * @since   2.15.0
+		 * @link https://woocommerce.com/products/product-add-ons/
+		 */
+		function product_addons_convert_addon_prices( $addons ) {
+			
+			if (
+				isset( $_POST['add-to-cart'] )
+				&& ! empty( $_POST['add-to-cart'] )
+			) {
+				// don't adjust when adding to cart... conversion will happen later.
+				$backtrace = debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS );
+				foreach ( $backtrace as $call ) {
+					if (
+						$call['function'] === 'add_cart_item_data'
+						&& $call['class'] === 'WC_Product_Addons_Cart'
+					) {
+						return $addons;
+					}
+				}
+			}
+			
+			$current_currency_code = alg_get_current_currency_code();
+			$default_currency      = get_option( 'woocommerce_currency' );
+			
+			foreach ( $addons as $addon_key => $addon ) {
+				foreach ( $addon['options'] as $option_key => $option ) {
+					if ( $option['price_type'] === 'percentage_based' ) {
+						continue;
+					}
+					if (
+						isset( $option['wpwham_price_curr'] )
+						&& $option['wpwham_price_curr'] === $current_currency_code
+					) {
+						continue;
+					}
+					$addons[ $addon_key ]['options'][ $option_key ]['price'] = alg_convert_price( array(
+						'price'         => $option['price'],
+						'currency_from' => $default_currency,
+						'currency'      => $current_currency_code,
+						'format_price'  => 'no'
+					) );
+					$addons[ $addon_key ]['options'][ $option_key ]['wpwham_price_curr'] = $current_currency_code;
+				}
+			}
+			
+			return $addons;
+		}
+		
+		/**
+         * Adds compatibility with WooCommerce Product Add-ons plugin, fixing addon prices for display
+		 *
+		 * @version 2.15.0
+		 * @since   2.15.0
+		 * @link https://woocommerce.com/products/product-add-ons/
+		 */
+		function product_addons_fix_addon_prices_for_display( $other_data, $cart_item ) {
+			
+			if ( ! is_callable( array( 'WC_Product_Addons_Helper', 'get_product_addon_price_for_display' ) ) ) {
+				return $other_data;
+			}
+			
+			$current_currency_code = alg_get_current_currency_code();
+			$default_currency      = get_option( 'woocommerce_currency' );
+			
+			if ( ! empty( $cart_item['addons'] ) ) {
+				foreach ( $cart_item['addons'] as $addon ) {
+					$price = isset( $cart_item['addons_price_before_calc'] ) ? $cart_item['addons_price_before_calc'] : $addon['price'];
+					$original_name = $addon['name'];
+					$replaced_name = $addon['name'];
+					
+					if ( $addon['price_type'] !== 'percentage_based' ) {
+						$replaced_price = alg_convert_price( array(
+							'price'         => $addon['price'],
+							'currency_from' => $default_currency,
+							'currency'      => $current_currency_code,
+							'format_price'  => 'no'
+						) );
+					}
+
+					if ( 0 == $addon['price'] ) {
+						$original_name .= '';
+						$replaced_name .= '';
+					} elseif ( 'percentage_based' === $addon['price_type'] && 0 == $price ) {
+						$original_name .= '';
+						$replaced_name .= '';
+					} elseif ( 'percentage_based' !== $addon['price_type'] && $addon['price'] && apply_filters( 'woocommerce_addons_add_price_to_name', '__return_true' ) ) {
+						$original_name .= ' (' . wc_price( WC_Product_Addons_Helper::get_product_addon_price_for_display( $addon['price'], $cart_item['data'], true ) ) . ')';
+						$replaced_name .= ' (' . wc_price( WC_Product_Addons_Helper::get_product_addon_price_for_display( $replaced_price, $cart_item['data'], true ) ) . ')';
+					} else {
+						$_product = wc_get_product( $cart_item['product_id'] );
+						$_product->set_price( $price * ( $addon['price'] / 100 ) );
+						$original_name .= ' (' . WC()->cart->get_product_price( $_product ) . ')';
+						$replaced_name .= ' (' . WC()->cart->get_product_price( $_product ) . ')';
+					}
+					
+					foreach ( $other_data as $key => $value ) {
+						if ( $value['name'] === $original_name ) {
+							$other_data[ $key ]['name'] = $replaced_name;
+						}
+					}
+				}
+			}
+
+			return $other_data;
+			
 		}
 
 
