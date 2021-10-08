@@ -4,7 +4,7 @@
  *
  * Adds compatibility with other third party plugins, like Product Addons
  *
- * @version 2.14.0
+ * @version 2.15.0
  * @since   2.8.8
  * @author  Tom Anbinder
  * @author  WP Wham
@@ -33,7 +33,7 @@ if ( ! class_exists( 'Alg_Switcher_Third_Party_Compatibility' ) ) :
 		/**
 		 * Initializes
 		 *
-		 * @version 2.8.9
+		 * @version 2.15.0
 		 * @since   2.8.9
 		 */
 		function init() {
@@ -73,7 +73,7 @@ if ( ! class_exists( 'Alg_Switcher_Third_Party_Compatibility' ) ) :
 		 *
 		 * Outputs JS scripts necessary to update the price slider.
 		 *
-		 * @version 2.14.0
+		 * @version 2.15.0
 		 * @since   2.8.9
 		 */
 		public function add_compatibility_with_price_filter_widget() {
@@ -282,8 +282,8 @@ if ( ! class_exists( 'Alg_Switcher_Third_Party_Compatibility' ) ) :
 		 *
 		 * These values will be picked up automatically by the JS price slider, so they must be correct at the start.
 		 *
-		 * @version 2.14.x
-		 * @since   2.14.x
+		 * @version 2.15.0
+		 * @since   2.15.0
 		 */
 		public function fix_price_filter_widget_query_args() {
 			if (
@@ -481,8 +481,8 @@ if ( ! class_exists( 'Alg_Switcher_Third_Party_Compatibility' ) ) :
 		/**
          * Adds compatibility with WooCommerce Product Add-ons plugin, converting addon prices
 		 *
-		 * @version 2.14.1
-		 * @since   2.14.1
+		 * @version 2.15.0
+		 * @since   2.15.0
 		 * @link https://woocommerce.com/products/product-add-ons/
 		 */
 		function product_addons_convert_addon_prices( $addons ) {
@@ -533,8 +533,8 @@ if ( ! class_exists( 'Alg_Switcher_Third_Party_Compatibility' ) ) :
 		/**
          * Adds compatibility with WooCommerce Product Add-ons plugin, fixing addon prices for display
 		 *
-		 * @version 2.14.1
-		 * @since   2.14.1
+		 * @version 2.15.0
+		 * @since   2.15.0
 		 * @link https://woocommerce.com/products/product-add-ons/
 		 */
 		function product_addons_fix_addon_prices_for_display( $other_data, $cart_item ) {

@@ -2,7 +2,7 @@
 /**
  * Currency Switcher - Currencies Section Settings
  *
- * @version 2.12.2
+ * @version 2.15.0
  * @since   1.0.0
  * @author  Tom Anbinder
  * @author  WP Wham
@@ -95,7 +95,7 @@ class Alg_WC_Currency_Switcher_Settings_Currencies extends Alg_WC_Currency_Switc
 	/**
 	 * get_currencies_settings.
 	 *
-	 * @version 2.12.2
+	 * @version 2.15.0
 	 * @since   1.0.0
 	 * @todo    (maybe) add "generate all world currencies" - makes sense only for Pro version
 	 */

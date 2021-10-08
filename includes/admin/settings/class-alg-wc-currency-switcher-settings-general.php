@@ -2,7 +2,7 @@
 /**
  * Currency Switcher - General Section Settings
  *
- * @version 2.14.0
+ * @version 2.15.0
  * @since   1.0.0
  * @author  Tom Anbinder
  * @author  WP Wham
@@ -40,7 +40,7 @@ class Alg_WC_Currency_Switcher_Settings_General extends Alg_WC_Currency_Switcher
 	/**
 	 * get_general_settings.
 	 *
-	 * @version 2.14.0
+	 * @version 2.15.0
 	 * @since   1.0.0
 	 * @todo    styling
 	 * @todo    add more placement options
