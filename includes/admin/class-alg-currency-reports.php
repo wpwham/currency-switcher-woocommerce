@@ -4,10 +4,10 @@
  *
  * The Currency Switcher Currency Reports class.
  *
- * @version  2.13.0
- * @since    1.0.0
- * @author   Algoritmika Ltd.
- * @author   WP Wham.
+ * @version 2.15.1
+ * @since   1.0.0
+ * @author  Algoritmika Ltd.
+ * @author  WP Wham.
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -19,7 +19,7 @@ class Alg_Currency_Switcher_Currency_Reports {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.13.0
+	 * @version 2.15.1
 	 * @since   1.0.0
 	 */
 	public function __construct() {
@@ -27,7 +27,7 @@ class Alg_Currency_Switcher_Currency_Reports {
 		// reports
 		if ( is_admin() ) {
 			add_filter(
-				'woocommerce_reports_get_order_report_data_args',
+				'woocommerce_reports_get_order_report_query',
 				array( $this, 'filter_reports'),
 				PHP_INT_MAX,
 				1
@@ -262,21 +262,29 @@ class Alg_Currency_Switcher_Currency_Reports {
 	/**
 	 * filter_reports.
 	 *
-	 * @version  2.0.0
-	 * @since    1.0.0
+	 * @version 2.15.1
+	 * @since   1.0.0
 	 */
-	public function filter_reports( $args ) {
+	public function filter_reports( $query ) {
+		global $wpdb;
+		
 		if ( isset( $_GET['currency'] ) && 'merge' === $_GET['currency'] ) {
-			return $args;
+			return $query;
 		}
-		$args['where_meta'] = array(
-			array(
-				'meta_key'   => '_order_currency',
-				'meta_value' => isset( $_GET['currency'] ) ? $_GET['currency'] : get_option( 'woocommerce_currency' ),
-				'operator'   => '=',
-			),
-		);
-		return $args;
+		
+		$report_currency = isset( $_GET['currency'] ) ? sanitize_text_field( $_GET['currency'] ) : get_option( 'woocommerce_currency' );
+		
+		if ( ! isset( $query['join'] ) ) {
+			$query['join'] = '';
+		}
+		$query['join'] .= " INNER JOIN {$wpdb->postmeta} AS wpw_order_currency ON posts.ID = wpw_order_currency.post_id";
+		
+		if ( ! isset( $query['where'] ) ) {
+			$query['where'] = '';
+		}
+		$query['where'] .= " AND ( wpw_order_currency.meta_key = '_order_currency' AND wpw_order_currency.meta_value = '$report_currency' )";
+		
+		return $query;
 	}
 	
 	/**
