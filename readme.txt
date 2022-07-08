@@ -2,8 +2,8 @@
 Contributors: wpwham
 Tags: currency switcher, multicurrency, multi currency, currency, switcher
 Requires at least: 4.4
-Tested up to: 5.8
-Stable tag: 2.15.0
+Tested up to: 6.0
+Stable tag: 2.15.1
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -112,6 +112,10 @@ http://www.yoursite.com?alg_currency=USD
 `
 
 == Changelog ==
+
+= 2.15.1 - 2022-07-07 =
+* FIX: conflict with WP block widgets.
+* FIX: various issues with WC reports filter.
 
 = 2.15.0 - 2021-10-07 =
 * NEW: added compatibility with "WooCommerce Product Add-ons" plugin.

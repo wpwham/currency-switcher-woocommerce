@@ -4,10 +4,10 @@
  *
  * The Currency Switcher Currency Reports class.
  *
- * @version  2.13.0
- * @since    1.0.0
- * @author   Algoritmika Ltd.
- * @author   WP Wham.
+ * @version 2.15.1
+ * @since   1.0.0
+ * @author  Algoritmika Ltd.
+ * @author  WP Wham.
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -19,7 +19,7 @@ class Alg_Currency_Switcher_Currency_Reports {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.13.0
+	 * @version 2.15.1
 	 * @since   1.0.0
 	 */
 	public function __construct() {
@@ -262,8 +262,8 @@ class Alg_Currency_Switcher_Currency_Reports {
 	/**
 	 * filter_reports.
 	 *
-	 * @version  2.0.0
-	 * @since    1.0.0
+	 * @version 2.15.1
+	 * @since   1.0.0
 	 */
 	public function filter_reports( $query ) {
 		global $wpdb;
