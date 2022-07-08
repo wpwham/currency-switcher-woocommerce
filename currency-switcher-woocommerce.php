@@ -154,17 +154,14 @@ final class Alg_WC_Currency_Switcher {
 	/**
 	 * Include required core files used in admin and on the frontend.
 	 *
-	 * @version 2.13.0
+	 * @version x.x.x
 	 * @since   1.0.0
 	 * @todo    (maybe) import/export all settings
 	 */
 	private function includes() {
 
 		// Functions
-		if ( ! is_admin() ) {
-			// Frontend
-			require_once( 'includes/functions/alg-switcher-selector-functions.php' );
-		}
+		require_once( 'includes/functions/alg-switcher-selector-functions.php' );
 		require_once( 'includes/functions/alg-switcher-functions.php' );
 		require_once( 'includes/functions/alg-switcher-exchange-rates-functions.php' );
 		require_once( 'includes/functions/alg-switcher-country-functions.php' );
