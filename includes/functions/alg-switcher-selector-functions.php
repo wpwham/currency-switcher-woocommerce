@@ -81,7 +81,9 @@ if ( ! function_exists( 'alg_get_currency_selector' ) ) {
 		}
 		if ( 'select' === $type ) {
 			$html .= '</select>';
-		}
+        }
+        // add noscript form submit function
+        $html .= '<noscript><input type="submit" value="Refresh"></noscript>';
 		$html .= '</form>';
 		return str_replace( '%currency_switcher%', $html, get_option( 'alg_currency_switcher_wrapper', '%currency_switcher%' ) );
 	}
