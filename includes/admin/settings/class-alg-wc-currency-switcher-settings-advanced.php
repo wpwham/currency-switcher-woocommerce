@@ -2,7 +2,7 @@
 /**
  * Currency Switcher - Advanced Section Settings
  *
- * @version 2.12.2
+ * @version 2.15.2
  * @since   2.8.3
  * @author  Tom Anbinder
  * @author  WP Wham
@@ -13,7 +13,10 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 if ( ! class_exists( 'Alg_WC_Currency_Switcher_Settings_Advanced' ) ) :
 
 class Alg_WC_Currency_Switcher_Settings_Advanced extends Alg_WC_Currency_Switcher_Settings_Section {
-
+	
+	public $id   = '';
+	public $desc = '';
+	
 	/**
 	 * Constructor.
 	 *

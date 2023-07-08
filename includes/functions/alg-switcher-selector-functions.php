@@ -2,7 +2,7 @@
 /**
  * Currency Switcher Selector Functions
  *
- * @version 2.8.4
+ * @version 2.15.2
  * @since   2.0.0
  * @author  Tom Anbinder
  */
@@ -40,7 +40,7 @@ if ( ! function_exists( 'alg_get_currency_selector' ) ) {
 	/**
 	 * alg_get_currency_selector.
 	 *
-	 * @version 2.8.3
+	 * @version 2.15.2
 	 * @since   1.0.0
 	 */
 	function alg_get_currency_selector( $type = 'select' ) {
@@ -82,6 +82,7 @@ if ( ! function_exists( 'alg_get_currency_selector' ) ) {
 		if ( 'select' === $type ) {
 			$html .= '</select>';
 		}
+		$html .= '<noscript><input type="submit" value="' . __( 'Refresh', 'currency-switcher-woocommerce' ) . '"></noscript>';
 		$html .= '</form>';
 		return str_replace( '%currency_switcher%', $html, get_option( 'alg_currency_switcher_wrapper', '%currency_switcher%' ) );
 	}

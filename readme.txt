@@ -2,8 +2,8 @@
 Contributors: wpwham
 Tags: currency switcher, multicurrency, multi currency, currency, switcher
 Requires at least: 4.4
-Tested up to: 6.0
-Stable tag: 2.15.1
+Tested up to: 6.2
+Stable tag: 2.15.2
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -112,6 +112,11 @@ http://www.yoursite.com?alg_currency=USD
 `
 
 == Changelog ==
+
+= 2.15.2 - 2023-07-07 =
+* FIX: PHP 8.2 notices.
+* NEW: added filter "wpwham_currency_switcher_change_shipping_price_by_currency" (thanks to Elias Chalhoub).
+* NEW: added submit button to allow for form submission with JS disabled (thanks to @jacobeva).
 
 = 2.15.1 - 2022-07-07 =
 * FIX: conflict with WP block widgets.
