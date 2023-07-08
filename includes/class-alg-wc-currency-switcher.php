@@ -627,7 +627,7 @@ class Alg_WC_Currency_Switcher_Main {
 	 * @todo    (maybe) always (i.e. not only on `do_round_or_pretty_shipping_rate()`) use `calc_shipping_tax()` (instead of re-calculating taxes manually with the exchange rate)
 	 */
 	function change_shipping_price_by_currency( $package_rates, $package ) {
-		if ( $this->do_revert() || false === apply_filters( 'alg_change_shipping_price_by_currency', true ) ) {
+		if ( $this->do_revert() || apply_filters( 'wpwham_currency_switcher_change_shipping_price_by_currency', true ) === false ) {
 			return $package_rates;
 		}
 		$currency_code          = alg_get_current_currency_code();
