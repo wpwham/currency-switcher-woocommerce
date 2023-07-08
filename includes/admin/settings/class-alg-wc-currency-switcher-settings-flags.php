@@ -13,7 +13,10 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 if ( ! class_exists( 'Alg_WC_Currency_Switcher_Settings_Flags' ) ) :
 
 class Alg_WC_Currency_Switcher_Settings_Flags extends Alg_WC_Currency_Switcher_Settings_Section {
-
+	
+	public $id   = '';
+	public $desc = '';
+	
 	/**
 	 * Constructor.
 	 *

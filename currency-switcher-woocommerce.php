@@ -52,6 +52,9 @@ if ( ! class_exists( 'Alg_WC_Currency_Switcher' ) ) :
  * @since   1.0.0
  */
 final class Alg_WC_Currency_Switcher {
+	
+	public $core     = null;
+	public $settings = null;
 
 	/**
 	 * Currency Switcher plugin version.

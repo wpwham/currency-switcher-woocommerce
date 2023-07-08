@@ -12,7 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 if ( ! class_exists( 'Alg_WC_Currency_Switcher_Per_Product_Settings' ) ) :
 
 class Alg_WC_Currency_Switcher_Per_Product_Settings {
-
+	
+	public $id = '';
+	
 	/**
 	 * Constructor.
 	 *
