@@ -2,7 +2,7 @@
 /**
  * Currency Switcher - Per Product Settings
  *
- * @version 2.3.0
+ * @version 2.15.2
  * @since   1.0.0
  * @author  Tom Anbinder
  */

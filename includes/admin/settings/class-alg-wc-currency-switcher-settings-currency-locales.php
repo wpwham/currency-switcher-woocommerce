@@ -2,7 +2,7 @@
 /**
  * Currency Switcher - Currency Locales Section Settings
  *
- * @version 2.12.2
+ * @version 2.15.2
  * @since   2.5.0
  * @author  Tom Anbinder
  * @author  WP Wham

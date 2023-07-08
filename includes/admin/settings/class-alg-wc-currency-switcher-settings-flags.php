@@ -2,7 +2,7 @@
 /**
  * Currency Switcher - Flags Section Settings
  *
- * @version 2.15.0
+ * @version 2.15.2
  * @since   2.4.4
  * @author  Tom Anbinder
  * @author  WP Wham

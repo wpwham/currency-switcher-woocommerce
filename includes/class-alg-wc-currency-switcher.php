@@ -2,7 +2,7 @@
 /**
  * Currency Switcher Plugin - Core Class
  *
- * @version 2.14.0
+ * @version 2.15.2
  * @since   1.0.0
  * @author  Tom Anbinder
  * @author  WP Wham
@@ -621,7 +621,7 @@ class Alg_WC_Currency_Switcher_Main {
 	/**
 	 * change_shipping_price_by_currency.
 	 *
-	 * @version 2.14.0
+	 * @version 2.15.2
 	 * @since   1.0.0
 	 * @todo    (maybe) re-check `calc_shipping_tax()`
 	 * @todo    (maybe) always (i.e. not only on `do_round_or_pretty_shipping_rate()`) use `calc_shipping_tax()` (instead of re-calculating taxes manually with the exchange rate)

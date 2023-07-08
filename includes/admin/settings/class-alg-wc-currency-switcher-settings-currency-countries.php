@@ -2,7 +2,7 @@
 /**
  * Currency Switcher - Currency Countries Section Settings
  *
- * @version 2.12.2
+ * @version 2.15.2
  * @since   2.0.0
  * @author  Tom Anbinder
  * @author  WP Wham

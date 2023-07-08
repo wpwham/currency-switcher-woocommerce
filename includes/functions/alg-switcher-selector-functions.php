@@ -2,7 +2,7 @@
 /**
  * Currency Switcher Selector Functions
  *
- * @version 2.8.4
+ * @version 2.15.2
  * @since   2.0.0
  * @author  Tom Anbinder
  */
@@ -40,7 +40,7 @@ if ( ! function_exists( 'alg_get_currency_selector' ) ) {
 	/**
 	 * alg_get_currency_selector.
 	 *
-	 * @version 2.8.3
+	 * @version 2.15.2
 	 * @since   1.0.0
 	 */
 	function alg_get_currency_selector( $type = 'select' ) {

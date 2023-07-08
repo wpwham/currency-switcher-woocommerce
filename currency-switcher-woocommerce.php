@@ -3,13 +3,13 @@
 Plugin Name: Currency Switcher for WooCommerce
 Plugin URI: https://wpwham.com/products/currency-switcher-for-woocommerce/
 Description: Currency Switcher for WooCommerce.
-Version: 2.15.1
+Version: 2.15.2
 Author: WP Wham
 Author URI: https://wpwham.com
 Text Domain: currency-switcher-woocommerce
 Domain Path: /langs
-WC tested up to: 6.6
-Copyright: © 2018-2022 WP Wham. All rights reserved.
+WC tested up to: 7.8
+Copyright: © 2018-2023 WP Wham. All rights reserved.
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 */
@@ -34,7 +34,7 @@ if ( 'currency-switcher-woocommerce.php' === basename( __FILE__ ) ) {
 }
 
 if ( ! defined( 'WPWHAM_CURRENCY_SWITCHER_VERSION' ) ) {
-	define( 'WPWHAM_CURRENCY_SWITCHER_VERSION', '2.15.1' );
+	define( 'WPWHAM_CURRENCY_SWITCHER_VERSION', '2.15.2' );
 }
 
 
@@ -48,7 +48,7 @@ if ( ! class_exists( 'Alg_WC_Currency_Switcher' ) ) :
  * Main Alg_WC_Currency_Switcher Class
  *
  * @class   Alg_WC_Currency_Switcher
- * @version 2.15.1
+ * @version 2.15.2
  * @since   1.0.0
  */
 final class Alg_WC_Currency_Switcher {
@@ -62,7 +62,7 @@ final class Alg_WC_Currency_Switcher {
 	 * @var   string
 	 * @since 1.0.0
 	 */
-	public $version = '2.15.1';
+	public $version = '2.15.2';
 
 	/**
 	 * @var   Alg_WC_Currency_Switcher The single instance of the class
