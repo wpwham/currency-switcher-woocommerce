@@ -2,8 +2,8 @@
 Contributors: wpwham
 Tags: currency switcher, multicurrency, multi currency, currency, switcher
 Requires at least: 4.4
-Tested up to: 6.2
-Stable tag: 2.15.2
+Tested up to: 6.6
+Stable tag: 2.16.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -112,6 +112,11 @@ http://www.yoursite.com?alg_currency=USD
 `
 
 == Changelog ==
+
+= 2.16.0 - 2024-08-29 =
+* NEW: added new exchange rate server: Currencyapi.com.
+* UPDATE: reorganize settings slightly for improved clarity.
+* UPDATE: updated .pot file for translations.
 
 = 2.15.2 - 2023-07-07 =
 * FIX: PHP 8.2 notices.
