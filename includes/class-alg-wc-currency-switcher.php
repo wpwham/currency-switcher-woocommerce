@@ -2,7 +2,7 @@
 /**
  * Currency Switcher Plugin - Core Class
  *
- * @version 2.15.2
+ * @version 2.16.0
  * @since   1.0.0
  * @author  Tom Anbinder
  * @author  WP Wham
@@ -111,7 +111,7 @@ class Alg_WC_Currency_Switcher_Main {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.14.0
+	 * @version 2.16.0
 	 * @since   1.0.0
 	 * @todo    move "JS Repositioning", "Switcher" (and maybe something else) to `! is_admin()` section (as "Flags")
 	 */
@@ -129,7 +129,7 @@ class Alg_WC_Currency_Switcher_Main {
 			}
 
 			$this->set_currency_on_order_edit_page();
-			if ( 'yes' === get_option( 'alg_wc_currency_switcher_currency_locales_enabled', 'no' ) ) {
+			if ( 'yes' === get_option( 'alg_wc_currency_switcher_currency_locales_enabled', 'no' ) && get_option( 'wpwham_currency_switcher_version' ) === 'legacy' ) {
 				if ( 'yes' === get_option( 'alg_wc_currency_switcher_currency_locales_use_always_enabled', 'yes' ) ) {
 					$this->set_currency_by_locale();
 				} elseif ( null === alg_wc_cs_session_get( 'alg_currency' ) ) {
@@ -216,32 +216,33 @@ class Alg_WC_Currency_Switcher_Main {
 				}
 				if ( ! is_admin() ) {
 					// Flags
-					if ( 'yes' === apply_filters( 'alg_wc_currency_switcher_plugin_option', 'no', 'value_flags' ) ) {
+					if ( 'yes' === get_option( 'alg_wc_currency_switcher_flags_enabled', 'no' ) && get_option( 'wpwham_currency_switcher_version' ) !== 'legacy' ) {
 						add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_wselect_scripts' ) );
 					}
 				}
 			}
 			wpw_cs_session_maybe_stop();
 		}
-		/* if ( is_admin() && 'yes' === get_option( 'alg_currency_switcher_show_flags_in_admin_settings_enabled', 'no' ) ) {
+		if ( is_admin() ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_wselect_scripts' ) ); // for Flags Settings
-		} */
+		}
 	}
 
 	/**
 	 * add_order_admin_currency_meta_box.
 	 *
-	 * @version 2.8.6
+	 * @version 2.16.0
 	 * @since   2.8.6
 	 * @todo    (pro) add price conversion (i.e. not currency symbol only)
 	 * @todo    (maybe) add "Order Currency" method (i.e. filter / permanent)
 	 */
 	function add_order_admin_currency_meta_box() {
+		$screen = function_exists( 'wc_get_page_screen_id' ) ? wc_get_page_screen_id( 'shop_order' ) : 'shop_order';
 		add_meta_box(
 			'alg-wc-currency-switcher-order-admin-currency',
 			__( 'Order Currency', 'currency-switcher-woocommerce' ),
 			array( $this, 'create_order_admin_currency_meta_box' ),
-			'shop_order',
+			$screen,
 			'side'
 		);
 	}
@@ -249,14 +250,15 @@ class Alg_WC_Currency_Switcher_Main {
 	/**
 	 * create_order_admin_currency_meta_box.
 	 *
-	 * @version 2.8.6
+	 * @version 2.16.0
 	 * @since   2.8.6
 	 */
 	function create_order_admin_currency_meta_box() {
-		$order_id            = get_the_ID();
-		$plugin_currencies   = alg_get_enabled_currencies();
-		$currencies          = get_woocommerce_currencies();
-		$order_currency      = get_post_meta( $order_id, '_order_currency', true );
+		$order_id          = isset( $_GET['post'] ) ? (int) $_GET['post'] : (int) $_GET['id'];
+		$plugin_currencies = alg_get_enabled_currencies();
+		$currencies        = get_woocommerce_currencies();
+		$order             = wc_get_order( $order_id );
+		$order_currency    = $order->get_currency();
 		if ( ! in_array( $order_currency, $plugin_currencies ) ) {
 			$plugin_currencies[] = $order_currency;
 		}

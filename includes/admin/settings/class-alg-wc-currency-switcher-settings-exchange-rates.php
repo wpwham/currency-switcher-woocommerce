@@ -2,7 +2,7 @@
 /**
  * Currency Switcher - Exchange Rates Section Settings
  *
- * @version 2.15.2
+ * @version 2.16.0
  * @since   1.0.0
  * @author  Tom Anbinder
  * @author  WP Wham
@@ -154,7 +154,7 @@ class Alg_WC_Currency_Switcher_Settings_Exchange_Rates extends Alg_WC_Currency_S
 	/**
 	 * get_exchange_rates_settings.
 	 *
-	 * @version 2.14.0
+	 * @version 2.16.0
 	 * @since   1.0.0
 	 * @todo    show custom offset input field only if "Custom Offset" is selected as "type"
 	 * @todo    (maybe) optional additional "fixed" offset
@@ -192,20 +192,32 @@ class Alg_WC_Currency_Switcher_Settings_Exchange_Rates extends Alg_WC_Currency_S
 					),
 				),
 			),
-			array(
-				'title'     => __( 'Exchange rates updates', 'currency-switcher-woocommerce' ),
-				'id'        => 'alg_currency_switcher_exchange_rate_update',
-				'default'   => 'manual',
-				'type'      => 'select',
-				'class'     => 'wc-enhanced-select',
-				'options'   => array(
-					'manual'     => __( 'Enter Rates Manually', 'currency-switcher-woocommerce' ),
-					'minutely'   => __( 'Update Automatically Every Minute', 'currency-switcher-woocommerce' ),
-					'hourly'     => __( 'Update Automatically Hourly', 'currency-switcher-woocommerce' ),
-					'twicedaily' => __( 'Update Automatically Twice Daily', 'currency-switcher-woocommerce' ),
-					'daily'      => __( 'Update Automatically Daily', 'currency-switcher-woocommerce' ),
-					'weekly'     => __( 'Update Automatically Weekly', 'currency-switcher-woocommerce' ),
+			array_merge(
+				array(
+					'title'     => __( 'Exchange rates updates', 'currency-switcher-woocommerce' ),
+					'id'        => 'alg_currency_switcher_exchange_rate_update',
+					'default'   => 'manual',
+					'type'      => 'select',
+					'class'     => 'wc-enhanced-select',
+					'options'   => array_merge(
+						array(
+							'manual'     => __( 'Enter Rates Manually', 'currency-switcher-woocommerce' ),
+							'weekly'     => __( 'Update Automatically Weekly', 'currency-switcher-woocommerce' ),
+						),
+						( get_option( 'wpwham_currency_switcher_version' ) === 'legacy' ? array(
+							'daily'      => __( 'Update Automatically Daily', 'currency-switcher-woocommerce' ),
+							'twicedaily' => __( 'Update Automatically Twice Daily', 'currency-switcher-woocommerce' ),
+							'hourly'     => __( 'Update Automatically Hourly', 'currency-switcher-woocommerce' ),
+							'minutely'   => __( 'Update Automatically Every Minute', 'currency-switcher-woocommerce' ),
+						) : array() )
+					),
 				),
+				( get_option( 'wpwham_currency_switcher_version' ) !== 'legacy' ? array(
+					'desc'  => apply_filters( 'alg_wc_currency_switcher_plugin_option', sprintf(
+						__( 'For faster updates, including daily, hourly, or minute-to-minute, you will need %s plugin.', 'currency-switcher-woocommerce' ),
+						'<a target="_blank" href="' . esc_url( 'https://wpwham.com/products/currency-switcher-for-woocommerce/?utm_source=settings_flags&utm_campaign=free&utm_medium=currency_switcher' ) . '">' .
+							__( 'Currency Switcher for WooCommerce Pro', 'currency-switcher-woocommerce' ) . '</a>' ), 'settings' ),
+				) : array() )
 			),
 			array(
 				'title'     => __( 'Exchange rates server', 'currency-switcher-woocommerce' ),
@@ -232,6 +244,15 @@ class Alg_WC_Currency_Switcher_Settings_Exchange_Rates extends Alg_WC_Currency_S
 				),
 				'type'     => 'text',
 				'id'       => 'wpw_currency_switcher_coinmarketcap_api_key',
+			),
+			array(
+				'title'    => __( 'Currencyapi.com API Key', 'currency-switcher-woocommerce' ),
+				'desc'     => sprintf(
+					__( 'Currencyapi.com requires an API key.  Get your key at %s', 'currency-switcher-woocommerce' ),
+					'<a target="_blank" href="https://currencyapi.com/pricing/">https://currencyapi.com/pricing/</a>'
+				),
+				'type'     => 'text',
+				'id'       => 'wpw_currency_switcher_currencyapi_api_key',
 			),
 			array(
 				'title'     => __( 'Exchange rates offset', 'currency-switcher-woocommerce' ),

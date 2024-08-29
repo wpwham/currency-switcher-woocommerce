@@ -210,7 +210,7 @@ if ( ! function_exists( 'alg_get_current_currency_code' ) ) {
 	 * @since   2.0.0
 	 */
 	function alg_get_current_currency_code( $default_currency = '' ) {
-		$is_currency_countries_enabled = ( 'yes' === get_option( 'alg_wc_currency_switcher_currency_countries_enabled', 'no' ) );
+		$is_currency_countries_enabled = ( 'yes' === get_option( 'alg_wc_currency_switcher_currency_countries_enabled', 'no' ) && get_option( 'wpwham_currency_switcher_version' ) === 'legacy' );
 		if ( $is_currency_countries_enabled && ( $customer_country = alg_get_customer_override_country() ) ) {
 			if ( $currency = alg_get_currency_by_country( $customer_country ) ) {
 				return $currency;

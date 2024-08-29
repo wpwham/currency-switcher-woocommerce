@@ -2,7 +2,7 @@
 /**
  * Currency Switcher - Currency Countries Section Settings
  *
- * @version 2.15.2
+ * @version 2.16.0
  * @since   2.0.0
  * @author  Tom Anbinder
  * @author  WP Wham
@@ -62,7 +62,7 @@ class Alg_WC_Currency_Switcher_Settings_Currency_Countries extends Alg_WC_Curren
 	/**
 	 * get_currency_countries_settings.
 	 *
-	 * @version 2.12.2
+	 * @version 2.16.0
 	 * @since   2.0.0
 	 * @todo    check if "geolocate" option in WooCommerce is really required, if so - fix the message
 	 * @todo    (maybe) fix/expand description for "alg_wc_currency_switcher_currency_countries_options"
@@ -75,32 +75,51 @@ class Alg_WC_Currency_Switcher_Settings_Currency_Countries extends Alg_WC_Curren
 				admin_url( 'admin.php?page=wc-settings&tab=general' ) )
 			. '</em>';
 		}
+		if ( get_option( 'wpwham_currency_switcher_version' ) !== 'legacy' ) {
+			$desc .= '<p>
+				<button class="button-primary" href="#" disabled="disabled">Auto assign countries</button> <button class="button-primary" href="#" disabled="disabled">Reset countries</button></p>
+			';
+		}
 		$all_currencies = get_woocommerce_currencies();
 		$settings = array_merge( $settings, array(
-			array(
-				'title'     => __( 'Currency Countries (by IP)', 'currency-switcher-woocommerce' ),
-				'type'      => 'alg_title',
-				'desc'      => __( 'All not selected countries, will be assigned your shop\'s default currency.', 'currency-switcher-woocommerce' ) . $desc,
-				'id'        => 'alg_wc_currency_switcher_currency_countries_options',
-				'buttons'  => array(
-					array(
-						'id'    => 'alg_auto_assign_countries_to_currencies',
-						'link'  => add_query_arg( 'alg_auto_assign_countries_to_currencies', '1' ),
-						'title' => __( 'Auto assign countries', 'currency-switcher-woocommerce' )
-					),
-					array(
-						'id'    => 'alg_reset_currencies_countries',
-						'link'  => add_query_arg( 'alg_reset_currencies_countries', '1' ),
-						'title' => __( 'Reset countries', 'currency-switcher-woocommerce' )
-					),
+			array_merge(
+				array(
+					'title'     => __( 'Set Currency by Country', 'currency-switcher-woocommerce' ),
+					'type'      => 'alg_title',
+					'desc'      => __( 'If enabled, automatically set the currency to match the country your visitor is in (based on the client\'s IP address).', 'currency-switcher-woocommerce' )
+						. '<br /><br />' . __( 'Any countries not entered below will be assigned your shop\'s default currency.', 'currency-switcher-woocommerce' ) . $desc,
+					'id'        => 'alg_wc_currency_switcher_currency_countries_options',
 				),
+				( get_option( 'wpwham_currency_switcher_version' ) === 'legacy' ? array(
+					'buttons'  => array(
+						array(
+							'id'    => 'alg_auto_assign_countries_to_currencies',
+							'link'  => add_query_arg( 'alg_auto_assign_countries_to_currencies', '1' ),
+							'title' => __( 'Auto assign countries', 'currency-switcher-woocommerce' )
+						),
+						array(
+							'id'    => 'alg_reset_currencies_countries',
+							'link'  => add_query_arg( 'alg_reset_currencies_countries', '1' ),
+							'title' => __( 'Reset countries', 'currency-switcher-woocommerce' )
+						),
+					),
+				) : array() )
 			),
-			array(
-				'title'     => __( 'Currency Countries (by IP)', 'currency-switcher-woocommerce' ),
-				'type'      => 'checkbox',
-				'desc'      => '<strong>' . __( 'Enable section', 'currency-switcher-woocommerce' ) . '</strong>',
-				'id'        => 'alg_wc_currency_switcher_currency_countries_enabled',
-				'default'   => 'no',
+			array_merge(
+				array(
+					'title'     => __( 'Set Currency by Country', 'currency-switcher-woocommerce' ),
+					'type'      => 'checkbox',
+					'desc'      => '<strong>' . __( 'Enable section', 'currency-switcher-woocommerce' ) . '</strong>',
+					'id'        => 'alg_wc_currency_switcher_currency_countries_enabled',
+					'default'   => 'no',
+				),
+				( get_option( 'wpwham_currency_switcher_version' ) !== 'legacy' ? array(
+					'desc_tip'  => apply_filters( 'alg_wc_currency_switcher_plugin_option', sprintf(
+						__( 'To enable countries, you will need %s plugin.', 'currency-switcher-woocommerce' ),
+						'<a target="_blank" href="' . esc_url( 'https://wpwham.com/products/currency-switcher-for-woocommerce/?utm_source=settings_countries&utm_campaign=free&utm_medium=currency_switcher' ) . '">' .
+							__( 'Currency Switcher for WooCommerce Pro', 'currency-switcher-woocommerce' ) . '</a>' ), 'settings' ),
+					'custom_attributes' => apply_filters( 'alg_wc_currency_switcher_plugin_option', array( 'disabled' => 'disabled' ), 'settings' ),
+				) : array() )
 			),
 			array(
 				'title'     => __( 'Enter countries as comma separated text', 'currency-switcher-woocommerce' ),

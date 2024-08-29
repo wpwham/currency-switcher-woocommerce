@@ -2,7 +2,7 @@
 /**
  * Currency Switcher - Currency Locales Section Settings
  *
- * @version 2.15.2
+ * @version 2.16.0
  * @since   2.5.0
  * @author  Tom Anbinder
  * @author  WP Wham
@@ -62,38 +62,57 @@ class Alg_WC_Currency_Switcher_Settings_Currency_Locales extends Alg_WC_Currency
 	/**
 	 * get_currency_locales_settings.
 	 *
-	 * @version 2.12.2
+	 * @version 2.16.0
 	 * @since   2.5.0
 	 * @todo    add more info (WPML, Polylang etc.)
 	 */
 	public static function get_currency_locales_settings( $settings ) {
+		$desc = '';
+		if ( get_option( 'wpwham_currency_switcher_version' ) !== 'legacy' ) {
+			$desc .= '<p>
+				<button class="button-primary" href="#" disabled="disabled">Auto assign languages</button> <button class="button-primary" href="#" disabled="disabled">Reset languages</button></p>
+			';
+		}
 		$all_currencies = get_woocommerce_currencies();
 		$settings = array_merge( $settings, array(
-			array(
-				'title'     => __( 'Currency Languages (Locales)', 'currency-switcher-woocommerce' ),
-				'type'      => 'alg_title',
-				'desc'      => __( 'In this section you can set currencies to be automatically assigned depending on user\'s language.', 'currency-switcher-woocommerce' ) . '<br>' . '<br>' .
-					__( 'Your shop\'s default currency will be assigned to all not selected locales.', 'currency-switcher-woocommerce' ),
-				'id'        => 'alg_wc_currency_switcher_currency_locales_options',
-				'buttons'  => array(
-					array(
-						'id'    => 'alg_auto_assign_locales_to_currencies',
-						'link'  => add_query_arg( 'alg_auto_assign_locales_to_currencies', '1' ),
-						'title' => __( 'Auto assign locales', 'currency-switcher-woocommerce' )
-					),
-					array(
-						'id'    => 'alg_reset_currencies_locales',
-						'link'  => add_query_arg( 'alg_reset_currencies_locales', '1' ),
-						'title' => __( 'Reset locales', 'currency-switcher-woocommerce' )
-					),
+			array_merge(
+				array(
+					'title'     => __( 'Set Currency by Language', 'currency-switcher-woocommerce' ),
+					'type'      => 'alg_title',
+					'desc'      => __( 'If enabled, automatically set the currency to match the language of your visitor (based on the client\'s locale settings).', 'currency-switcher-woocommerce' )
+						. '<br /><br />' . __( 'Any languages not entered below will be assigned your shop\'s default currency.', 'currency-switcher-woocommerce' ) . $desc,
+					'id'        => 'alg_wc_currency_switcher_currency_locales_options',
 				),
+				( get_option( 'wpwham_currency_switcher_version' ) === 'legacy' ? array(
+					'buttons'  => array(
+						array(
+							'id'    => 'alg_auto_assign_locales_to_currencies',
+							'link'  => add_query_arg( 'alg_auto_assign_locales_to_currencies', '1' ),
+							'title' => __( 'Auto assign languages', 'currency-switcher-woocommerce' )
+						),
+						array(
+							'id'    => 'alg_reset_currencies_locales',
+							'link'  => add_query_arg( 'alg_reset_currencies_locales', '1' ),
+							'title' => __( 'Reset languages', 'currency-switcher-woocommerce' )
+						),
+					),
+				) : array() )
 			),
-			array(
-				'title'     => __( 'Currency Languages (Locales)', 'currency-switcher-woocommerce' ),
-				'type'      => 'checkbox',
-				'desc'      => '<strong>' . __( 'Enable section', 'currency-switcher-woocommerce' ) . '</strong>',
-				'id'        => 'alg_wc_currency_switcher_currency_locales_enabled',
-				'default'   => 'no',
+			array_merge(
+				array(
+					'title'     => __( 'Set Currency by Language', 'currency-switcher-woocommerce' ),
+					'type'      => 'checkbox',
+					'desc'      => '<strong>' . __( 'Enable section', 'currency-switcher-woocommerce' ) . '</strong>',
+					'id'        => 'alg_wc_currency_switcher_currency_locales_enabled',
+					'default'   => 'no',
+				),
+				( get_option( 'wpwham_currency_switcher_version' ) !== 'legacy' ? array(
+					'desc_tip'  => apply_filters( 'alg_wc_currency_switcher_plugin_option', sprintf(
+						__( 'To enable countries, you will need %s plugin.', 'currency-switcher-woocommerce' ),
+						'<a target="_blank" href="' . esc_url( 'https://wpwham.com/products/currency-switcher-for-woocommerce/?utm_source=settings_languages&utm_campaign=free&utm_medium=currency_switcher' ) . '">' .
+							__( 'Currency Switcher for WooCommerce Pro', 'currency-switcher-woocommerce' ) . '</a>' ), 'settings' ),
+					'custom_attributes' => apply_filters( 'alg_wc_currency_switcher_plugin_option', array( 'disabled' => 'disabled' ), 'settings' ),
+				) : array() )
 			),
 			array(
 				'title'     => __( 'Enter locales as comma separated text', 'currency-switcher-woocommerce' ),

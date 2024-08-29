@@ -2,7 +2,7 @@
 /**
  * Currency Switcher Functions - Exchange Rates
  *
- * @version 2.15.0
+ * @version 2.16.0
  * @since   2.8.0
  * @author  Tom Anbinder
  * @author  WP Wham
@@ -15,7 +15,7 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rates_servers' ) ) {
 	/*
 	 * alg_wc_cs_get_exchange_rates_servers.
 	 *
-	 * @version 2.12.0
+	 * @version 2.16.0
 	 * @since   2.8.0
 	 *
 	 * @author  Algoritmika Ltd.
@@ -23,13 +23,14 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rates_servers' ) ) {
 	 */
 	function alg_wc_cs_get_exchange_rates_servers() {
 		return array(
-			'ecb'             => __( 'European Central Bank (ECB) [recommended]', 'currency-switcher-woocommerce' ),
-			'free_cur_api'    => __( 'The Free Currency Converter API', 'currency-switcher-woocommerce' ),
 			'boe'             => __( 'Bank of England', 'currency-switcher-woocommerce' ),
-			'georgia'         => __( 'National Bank of Georgia', 'currency-switcher-woocommerce' ),
-			'tcmb'            => __( 'Türkiye Cumhuriyet Merkez Bankası (TCMB)', 'currency-switcher-woocommerce' ),
-			'coinbase'        => __( 'Coinbase', 'currency-switcher-woocommerce' ),
+			'coinbase'        => __( 'Coinbase (for Cryptocurrencies)', 'currency-switcher-woocommerce' ),
 			'coinmarketcap'   => __( 'CoinMarketCap (for Cryptocurrencies)', 'currency-switcher-woocommerce' ),
+			'currencyapi'     => __( 'Currencyapi.com', 'currency-switcher-woocommerce' ),
+			'ecb'             => __( 'European Central Bank [recommended]', 'currency-switcher-woocommerce' ),
+			'free_cur_api'    => __( 'Free Currency Converter API', 'currency-switcher-woocommerce' ),
+			'georgia'         => __( 'National Bank of Georgia', 'currency-switcher-woocommerce' ),
+			'tcmb'            => __( 'Türkiye Cumhuriyet Merkez Bankası', 'currency-switcher-woocommerce' ),
 		);
 	}
 }
@@ -188,6 +189,9 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rate' ) ) {
 			case 'coinbase':
 				$return = alg_wc_cs_get_exchange_rate_coinbase( $currency_from, $currency_to );
 				break;
+			case 'currencyapi':
+				$return = alg_wc_cs_get_exchange_rate_currencyapi( $currency_from, $currency_to );
+				break;
 			case 'tcmb':
 				$return = wpw_cs_tcmb_get_exchange_rate( $currency_from, $currency_to );
 				break;
@@ -283,6 +287,25 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rate_coinbase' ) ) {
 	function alg_wc_cs_get_exchange_rate_coinbase( $currency_from, $currency_to ) {
 		$response = alg_wc_cs_get_currency_exchange_rates_url_response( "https://api.coinbase.com/v2/exchange-rates?currency=$currency_from" );
 		return ( isset( $response->data->rates->{$currency_to} ) ? $response->data->rates->{$currency_to} : 0 );
+	}
+}
+
+if ( ! function_exists( 'alg_wc_cs_get_exchange_rate_currencyapi' ) ) {
+	/*
+	 * alg_wc_cs_get_exchange_rate_currencyapi.
+	 *
+	 * @version 2.16.0
+	 * @since   2.16.0
+	 */
+	function alg_wc_cs_get_exchange_rate_currencyapi( $currency_from, $currency_to ) {
+		$api_key  = get_option( 'wpw_currency_switcher_currencyapi_api_key' );
+		$response = alg_wc_cs_get_currency_exchange_rates_url_response(
+			"https://api.currencyapi.com/v3/latest?base_currency=$currency_from&currencies=$currency_to",
+			array(
+				'apikey' => $api_key,
+			)
+		);
+		return ( isset( $response->data->{$currency_to}->value ) ? $response->data->{$currency_to}->value : 0 );
 	}
 }
 

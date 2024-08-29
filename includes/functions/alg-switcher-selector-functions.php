@@ -44,7 +44,7 @@ if ( ! function_exists( 'alg_get_currency_selector' ) ) {
 	 * @since   1.0.0
 	 */
 	function alg_get_currency_selector( $type = 'select' ) {
-		$flags_enabled = ( 'yes' === apply_filters( 'alg_wc_currency_switcher_plugin_option', 'no', 'value_flags' ) );
+		$flags_enabled = ( 'yes' === get_option( 'alg_wc_currency_switcher_flags_enabled', 'no' ) && get_option( 'wpwham_currency_switcher_version' ) !== 'legacy' );
 		$html = '';
 		$html .= '<form action="" method="post" id="alg_currency_selector">';
 		if ( 'select' === $type ) {
@@ -120,7 +120,7 @@ if ( ! function_exists( 'alg_currency_select_link_list' ) ) {
 	 * @since   1.0.0
 	 */
 	function alg_currency_select_link_list( $atts = array() ) {
-		$flags_enabled       = ( 'yes' === apply_filters( 'alg_wc_currency_switcher_plugin_option', 'no', 'value_flags' ) );
+		$flags_enabled       = ( 'yes' === get_option( 'alg_wc_currency_switcher_flags_enabled', 'no' ) && get_option( 'wpwham_currency_switcher_version' ) !== 'legacy' );
 		$function_currencies = alg_get_enabled_currencies();
 		$currencies          = get_woocommerce_currencies();
 		$selected_currency   = alg_get_current_currency_code();
