@@ -2,7 +2,7 @@
 /**
  * Currency Switcher - Flags Section Settings
  *
- * @version 2.15.2
+ * @version 2.16.0
  * @since   2.4.4
  * @author  Tom Anbinder
  * @author  WP Wham
@@ -86,7 +86,7 @@ class Alg_WC_Currency_Switcher_Settings_Flags extends Alg_WC_Currency_Switcher_S
 	/**
 	 * get_flags_settings.
 	 *
-	 * @version 2.15.0
+	 * @version 2.16.0
 	 * @since   2.4.4
 	 */
 	public static function get_flags_settings( $settings ) {

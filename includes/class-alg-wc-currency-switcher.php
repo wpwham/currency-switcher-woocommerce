@@ -2,7 +2,7 @@
 /**
  * Currency Switcher Plugin - Core Class
  *
- * @version 2.15.2
+ * @version 2.16.0
  * @since   1.0.0
  * @author  Tom Anbinder
  * @author  WP Wham
@@ -111,7 +111,7 @@ class Alg_WC_Currency_Switcher_Main {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.14.0
+	 * @version 2.16.0
 	 * @since   1.0.0
 	 * @todo    move "JS Repositioning", "Switcher" (and maybe something else) to `! is_admin()` section (as "Flags")
 	 */
@@ -231,7 +231,7 @@ class Alg_WC_Currency_Switcher_Main {
 	/**
 	 * add_order_admin_currency_meta_box.
 	 *
-	 * @version 2.8.6
+	 * @version 2.16.0
 	 * @since   2.8.6
 	 * @todo    (pro) add price conversion (i.e. not currency symbol only)
 	 * @todo    (maybe) add "Order Currency" method (i.e. filter / permanent)
@@ -250,7 +250,7 @@ class Alg_WC_Currency_Switcher_Main {
 	/**
 	 * create_order_admin_currency_meta_box.
 	 *
-	 * @version 2.8.6
+	 * @version 2.16.0
 	 * @since   2.8.6
 	 */
 	function create_order_admin_currency_meta_box() {

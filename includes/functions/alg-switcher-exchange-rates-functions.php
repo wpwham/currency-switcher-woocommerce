@@ -2,7 +2,7 @@
 /**
  * Currency Switcher Functions - Exchange Rates
  *
- * @version 2.15.0
+ * @version 2.16.0
  * @since   2.8.0
  * @author  Tom Anbinder
  * @author  WP Wham
@@ -15,7 +15,7 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rates_servers' ) ) {
 	/*
 	 * alg_wc_cs_get_exchange_rates_servers.
 	 *
-	 * @version 2.12.0
+	 * @version 2.16.0
 	 * @since   2.8.0
 	 *
 	 * @author  Algoritmika Ltd.
@@ -294,8 +294,8 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rate_currencyapi' ) ) {
 	/*
 	 * alg_wc_cs_get_exchange_rate_currencyapi.
 	 *
-	 * @version x.x.x
-	 * @since   x.x.x
+	 * @version 2.16.0
+	 * @since   2.16.0
 	 */
 	function alg_wc_cs_get_exchange_rate_currencyapi( $currency_from, $currency_to ) {
 		$api_key  = get_option( 'wpw_currency_switcher_currencyapi_api_key' );
