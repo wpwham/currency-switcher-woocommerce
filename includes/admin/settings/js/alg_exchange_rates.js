@@ -28,7 +28,7 @@
 				url: ajax_object.ajax_url,
 				data: data,
 				success: function(response) {
-					$(input_id).val(parseFloat(response));
+					$(input_id).val(parseFloat(response)).trigger( 'change' );
 					$( '#' + id ).siblings( '.spinner' ).remove();
 				},
 			});
@@ -68,6 +68,23 @@
 		}
 		$( '.alg-currency-switcher-exchange-rate-server' ).on( 'change', toggleCoinMarketCapApi );
 		toggleCoinMarketCapApi();
+		
+		var toggleCurrencyapiApi = function() {
+			var show = false;
+			$( '.alg-currency-switcher-exchange-rate-server' ).each( function(){
+				if ( $( this ).val() === 'currencyapi' ) {
+					show = true;
+					return false;
+				}
+			});
+			if ( show ) {
+				$( '#wpw_currency_switcher_currencyapi_api_key' ).attr( 'required', true ).closest( 'tr' ).show();
+			} else {
+				$( '#wpw_currency_switcher_currencyapi_api_key' ).removeAttr( 'required' ).closest( 'tr' ).hide();
+			}
+		}
+		$( '.alg-currency-switcher-exchange-rate-server' ).on( 'change', toggleCurrencyapiApi );
+		toggleCurrencyapiApi();
 		
 	});
 

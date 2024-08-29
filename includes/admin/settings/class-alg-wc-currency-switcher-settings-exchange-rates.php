@@ -246,6 +246,15 @@ class Alg_WC_Currency_Switcher_Settings_Exchange_Rates extends Alg_WC_Currency_S
 				'id'       => 'wpw_currency_switcher_coinmarketcap_api_key',
 			),
 			array(
+				'title'    => __( 'Currencyapi.com API Key', 'currency-switcher-woocommerce' ),
+				'desc'     => sprintf(
+					__( 'Currencyapi.com requires an API key.  Get your key at %s', 'currency-switcher-woocommerce' ),
+					'<a target="_blank" href="https://currencyapi.com/pricing/">https://currencyapi.com/pricing/</a>'
+				),
+				'type'     => 'text',
+				'id'       => 'wpw_currency_switcher_currencyapi_api_key',
+			),
+			array(
 				'title'     => __( 'Exchange rates offset', 'currency-switcher-woocommerce' ),
 				'desc'      => __( 'percent', 'currency-switcher-woocommerce' ),
 				'id'        => 'alg_currency_switcher_exchange_rate_offset',
