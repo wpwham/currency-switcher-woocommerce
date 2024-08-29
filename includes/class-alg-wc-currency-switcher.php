@@ -237,11 +237,12 @@ class Alg_WC_Currency_Switcher_Main {
 	 * @todo    (maybe) add "Order Currency" method (i.e. filter / permanent)
 	 */
 	function add_order_admin_currency_meta_box() {
+		$screen = function_exists( 'wc_get_page_screen_id' ) ? wc_get_page_screen_id( 'shop_order' ) : 'shop_order';
 		add_meta_box(
 			'alg-wc-currency-switcher-order-admin-currency',
 			__( 'Order Currency', 'currency-switcher-woocommerce' ),
 			array( $this, 'create_order_admin_currency_meta_box' ),
-			'shop_order',
+			$screen,
 			'side'
 		);
 	}
@@ -253,10 +254,11 @@ class Alg_WC_Currency_Switcher_Main {
 	 * @since   2.8.6
 	 */
 	function create_order_admin_currency_meta_box() {
-		$order_id            = get_the_ID();
-		$plugin_currencies   = alg_get_enabled_currencies();
-		$currencies          = get_woocommerce_currencies();
-		$order_currency      = get_post_meta( $order_id, '_order_currency', true );
+		$order_id          = isset( $_GET['post'] ) ? (int) $_GET['post'] : (int) $_GET['id'];
+		$plugin_currencies = alg_get_enabled_currencies();
+		$currencies        = get_woocommerce_currencies();
+		$order             = wc_get_order( $order_id );
+		$order_currency    = $order->get_currency();
 		if ( ! in_array( $order_currency, $plugin_currencies ) ) {
 			$plugin_currencies[] = $order_currency;
 		}
