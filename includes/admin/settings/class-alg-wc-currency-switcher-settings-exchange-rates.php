@@ -192,20 +192,32 @@ class Alg_WC_Currency_Switcher_Settings_Exchange_Rates extends Alg_WC_Currency_S
 					),
 				),
 			),
-			array(
-				'title'     => __( 'Exchange rates updates', 'currency-switcher-woocommerce' ),
-				'id'        => 'alg_currency_switcher_exchange_rate_update',
-				'default'   => 'manual',
-				'type'      => 'select',
-				'class'     => 'wc-enhanced-select',
-				'options'   => array(
-					'manual'     => __( 'Enter Rates Manually', 'currency-switcher-woocommerce' ),
-					'minutely'   => __( 'Update Automatically Every Minute', 'currency-switcher-woocommerce' ),
-					'hourly'     => __( 'Update Automatically Hourly', 'currency-switcher-woocommerce' ),
-					'twicedaily' => __( 'Update Automatically Twice Daily', 'currency-switcher-woocommerce' ),
-					'daily'      => __( 'Update Automatically Daily', 'currency-switcher-woocommerce' ),
-					'weekly'     => __( 'Update Automatically Weekly', 'currency-switcher-woocommerce' ),
+			array_merge(
+				array(
+					'title'     => __( 'Exchange rates updates', 'currency-switcher-woocommerce' ),
+					'id'        => 'alg_currency_switcher_exchange_rate_update',
+					'default'   => 'manual',
+					'type'      => 'select',
+					'class'     => 'wc-enhanced-select',
+					'options'   => array_merge(
+						array(
+							'manual'     => __( 'Enter Rates Manually', 'currency-switcher-woocommerce' ),
+							'weekly'     => __( 'Update Automatically Weekly', 'currency-switcher-woocommerce' ),
+						),
+						( get_option( 'wpwham_currency_switcher_version' ) === 'legacy' ? array(
+							'daily'      => __( 'Update Automatically Daily', 'currency-switcher-woocommerce' ),
+							'twicedaily' => __( 'Update Automatically Twice Daily', 'currency-switcher-woocommerce' ),
+							'hourly'     => __( 'Update Automatically Hourly', 'currency-switcher-woocommerce' ),
+							'minutely'   => __( 'Update Automatically Every Minute', 'currency-switcher-woocommerce' ),
+						) : array() )
+					),
 				),
+				( get_option( 'wpwham_currency_switcher_version' ) !== 'legacy' ? array(
+					'desc'  => apply_filters( 'alg_wc_currency_switcher_plugin_option', sprintf(
+						__( 'For faster updates, including daily, hourly, or minute-to-minute, you will need %s plugin.', 'currency-switcher-woocommerce' ),
+						'<a target="_blank" href="' . esc_url( 'https://wpwham.com/products/currency-switcher-for-woocommerce/?utm_source=settings_flags&utm_campaign=free&utm_medium=currency_switcher' ) . '">' .
+							__( 'Currency Switcher for WooCommerce Pro', 'currency-switcher-woocommerce' ) . '</a>' ), 'settings' ),
+				) : array() )
 			),
 			array(
 				'title'     => __( 'Exchange rates server', 'currency-switcher-woocommerce' ),

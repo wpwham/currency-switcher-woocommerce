@@ -36,7 +36,9 @@ if ( 'currency-switcher-woocommerce.php' === basename( __FILE__ ) ) {
 if ( ! defined( 'WPWHAM_CURRENCY_SWITCHER_VERSION' ) ) {
 	define( 'WPWHAM_CURRENCY_SWITCHER_VERSION', '2.15.2' );
 }
-
+if ( ! defined( 'WPWHAM_CURRENCY_SWITCHER_DBVERSION' ) ) {
+	define( 'WPWHAM_CURRENCY_SWITCHER_DBVERSION', '2' );
+}
 
 
 // Constants
@@ -168,6 +170,9 @@ final class Alg_WC_Currency_Switcher {
 	 * @todo    (maybe) import/export all settings
 	 */
 	private function includes() {
+		
+		// Database Updates
+		require_once( 'includes/database-updates.php' );
 
 		// Functions
 		require_once( 'includes/functions/alg-switcher-selector-functions.php' );
@@ -185,10 +190,10 @@ final class Alg_WC_Currency_Switcher {
 		$this->settings['general']            = require_once( 'includes/admin/settings/class-alg-wc-currency-switcher-settings-general.php' );
 		$this->settings['currencies']         = require_once( 'includes/admin/settings/class-alg-wc-currency-switcher-settings-currencies.php' );
 		$this->settings['exchange_rates']     = require_once( 'includes/admin/settings/class-alg-wc-currency-switcher-settings-exchange-rates.php' );
-		$this->settings['currency_countries'] = require_once( 'includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-countries.php' );
-		$this->settings['currency_locales']   = require_once( 'includes/admin/settings/class-alg-wc-currency-switcher-settings-currency-locales.php' );
-		$this->settings['price_formats']      = require_once( 'includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php' );
+		$this->settings['currency_countries'] = require_once( 'includes/admin/settings/class-alg-wc-currency-switcher-settings-countries.php' );
+		$this->settings['currency_locales']   = require_once( 'includes/admin/settings/class-alg-wc-currency-switcher-settings-languages.php' );
 		$this->settings['flags']              = require_once( 'includes/admin/settings/class-alg-wc-currency-switcher-settings-flags.php' );
+		$this->settings['price_formats']      = require_once( 'includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php' );
 		$this->settings['advanced']           = require_once( 'includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php' );
 		if ( is_admin() && get_option( 'alg_currency_switcher_version', '' ) !== $this->version ) {
 			foreach ( $this->settings as $section ) {

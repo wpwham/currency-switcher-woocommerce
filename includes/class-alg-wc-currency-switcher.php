@@ -129,7 +129,7 @@ class Alg_WC_Currency_Switcher_Main {
 			}
 
 			$this->set_currency_on_order_edit_page();
-			if ( 'yes' === get_option( 'alg_wc_currency_switcher_currency_locales_enabled', 'no' ) ) {
+			if ( 'yes' === get_option( 'alg_wc_currency_switcher_currency_locales_enabled', 'no' ) && get_option( 'wpwham_currency_switcher_version' ) === 'legacy' ) {
 				if ( 'yes' === get_option( 'alg_wc_currency_switcher_currency_locales_use_always_enabled', 'yes' ) ) {
 					$this->set_currency_by_locale();
 				} elseif ( null === alg_wc_cs_session_get( 'alg_currency' ) ) {
@@ -216,16 +216,16 @@ class Alg_WC_Currency_Switcher_Main {
 				}
 				if ( ! is_admin() ) {
 					// Flags
-					if ( 'yes' === apply_filters( 'alg_wc_currency_switcher_plugin_option', 'no', 'value_flags' ) ) {
+					if ( 'yes' === get_option( 'alg_wc_currency_switcher_flags_enabled', 'no' ) && get_option( 'wpwham_currency_switcher_version' ) !== 'legacy' ) {
 						add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_wselect_scripts' ) );
 					}
 				}
 			}
 			wpw_cs_session_maybe_stop();
 		}
-		/* if ( is_admin() && 'yes' === get_option( 'alg_currency_switcher_show_flags_in_admin_settings_enabled', 'no' ) ) {
+		if ( is_admin() ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_wselect_scripts' ) ); // for Flags Settings
-		} */
+		}
 	}
 
 	/**
