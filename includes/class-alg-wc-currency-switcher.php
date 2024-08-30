@@ -254,13 +254,17 @@ class Alg_WC_Currency_Switcher_Main {
 	 * @since   2.8.6
 	 */
 	function create_order_admin_currency_meta_box() {
-		$order_id          = isset( $_GET['post'] ) ? (int) $_GET['post'] : (int) $_GET['id'];
 		$plugin_currencies = alg_get_enabled_currencies();
 		$currencies        = get_woocommerce_currencies();
-		$order             = wc_get_order( $order_id );
-		$order_currency    = $order->get_currency();
-		if ( ! in_array( $order_currency, $plugin_currencies ) ) {
-			$plugin_currencies[] = $order_currency;
+		if ( isset( $_GET['action'] ) && $_GET['action'] === 'new' ) {
+			$order_currency = ''; // if creating a new order, we won't have a value yet
+		} else {
+			$order_id       = isset( $_GET['post'] ) ? (int) $_GET['post'] : (int) $_GET['id'];
+			$order          = wc_get_order( $order_id );
+			$order_currency = $order->get_currency();
+			if ( ! in_array( $order_currency, $plugin_currencies ) ) {
+				$plugin_currencies[] = $order_currency;
+			}
 		}
 		$html = '';
 		$html .= '<select name="alg_wc_cs_order_admin_currency" style="width:100%;">';
