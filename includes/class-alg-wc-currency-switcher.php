@@ -250,7 +250,7 @@ class Alg_WC_Currency_Switcher_Main {
 	/**
 	 * create_order_admin_currency_meta_box.
 	 *
-	 * @version 2.16.0
+	 * @version 2.16.1
 	 * @since   2.8.6
 	 */
 	function create_order_admin_currency_meta_box() {
