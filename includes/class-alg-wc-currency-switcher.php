@@ -2,7 +2,7 @@
 /**
  * Currency Switcher Plugin - Core Class
  *
- * @version 2.16.0
+ * @version 2.16.2
  * @since   1.0.0
  * @author  Tom Anbinder
  * @author  WP Wham
@@ -250,7 +250,7 @@ class Alg_WC_Currency_Switcher_Main {
 	/**
 	 * create_order_admin_currency_meta_box.
 	 *
-	 * @version 2.16.1
+	 * @version 2.16.2
 	 * @since   2.8.6
 	 */
 	function create_order_admin_currency_meta_box() {
