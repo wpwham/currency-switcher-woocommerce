@@ -15,6 +15,8 @@ if ( ! class_exists( 'Alg_Currency_Switcher_Exchange_Rates_Crons' ) ) :
 
 class Alg_Currency_Switcher_Exchange_Rates_Crons {
 
+	public $update_intervals = null;
+	
 	/**
 	 * Constructor.
 	 *
