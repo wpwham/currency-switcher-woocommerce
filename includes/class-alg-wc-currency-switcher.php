@@ -286,8 +286,11 @@ class Alg_WC_Currency_Switcher_Main {
 	 * @since   2.8.6
 	 */
 	function save_order_admin_currency_meta_box() {
-		if ( isset( $_POST['alg_wc_cs_order_admin_currency'] ) && '' != $_POST['alg_wc_cs_order_admin_currency'] ) {
-			update_post_meta( get_the_ID(), '_order_currency', $_POST['alg_wc_cs_order_admin_currency'] );
+		// Have get_the_ID() Just in case for backwards compatibility
+		$post_id = isset( $_POST['post_ID'] ) && ! empty( $_POST['post_ID'] ) ? $_POST['post_ID'] : get_the_ID();
+
+		if ( isset( $_POST['alg_wc_cs_order_admin_currency'] ) && '' != $_POST['alg_wc_cs_order_admin_currency'] && $post_id ) {
+			update_post_meta( $post_id, '_order_currency', $_POST['alg_wc_cs_order_admin_currency'] );
 		}
 	}
 
