@@ -47,7 +47,9 @@ class Alg_Widget_Currency_Switcher extends WP_Widget {
 			echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ) . $args['after_title'];
 		}
 		if ( 'yes' === get_option( 'alg_wc_currency_switcher_enabled', 'yes' ) ) {
-			switch ( $instance['switcher_type'] ) {
+			$switcher_type = isset( $instance['switcher_type'] ) ? $instance['switcher_type'] : null;
+			
+			switch ( $switcher_type ) {
 				case 'link_list':
 					echo alg_currency_select_link_list();
 					break;
