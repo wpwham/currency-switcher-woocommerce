@@ -136,7 +136,7 @@ if ( ! function_exists( 'alg_currency_select_link_list' ) ) {
 				}
 				$the_text = $flag_img . alg_format_currency_switcher( $currencies[ $currency_code ], $currency_code, false );
 				$the_link = ( isset( $atts['no_links'] ) && 'yes' === $atts['no_links'] ?
-					$the_text : '<a id="alg_currency_' . $currency_code . '" href="' . add_query_arg( 'alg_currency', $currency_code ) . '">' . $the_text . '</a>' );
+					$the_text : '<a id="alg_currency_' . $currency_code . '" href="' . esc_url( add_query_arg( 'alg_currency', sanitize_text_field( $currency_code ) ) ) . '">' . $the_text . '</a>' );
 				if ( $currency_code != $selected_currency ) {
 					$links[] = $the_link;
 				} else {

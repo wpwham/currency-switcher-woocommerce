@@ -2,8 +2,8 @@
 Contributors: wpwham
 Tags: currency switcher, multicurrency, multi currency, currency, switcher
 Requires at least: 4.4
-Tested up to: 6.6
-Stable tag: 2.16.2
+Tested up to: 6.7
+Stable tag: 2.16.3
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -112,6 +112,10 @@ http://www.yoursite.com?alg_currency=USD
 `
 
 == Changelog ==
+
+= 2.16.3 - 2025-03-06 =
+* FIX: PHP 8.2 notices.
+* FIX: currency not changing from admin edit order page metabox when HPOS enabled (92665).
 
 = 2.16.2 - 2024-09-26 =
 * FIX: PHP error on admin "Add New Order" page (89847, 89530).

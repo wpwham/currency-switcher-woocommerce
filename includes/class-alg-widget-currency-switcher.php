@@ -4,9 +4,10 @@
  *
  * The WooCommerce Currency Switcher Widget class.
  *
- * @version 1.0.0
+ * @version 2.16.3
  * @since   1.0.0
  * @author  Tom Anbinder
+ * @author  WP Wham
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -36,7 +37,7 @@ class Alg_Widget_Currency_Switcher extends WP_Widget {
 	/**
 	 * Outputs the content of the widget
 	 *
-	 * @version 1.0.0
+	 * @version 2.16.3
 	 * @since   1.0.0
 	 * @param   array $args
 	 * @param   array $instance
@@ -47,7 +48,8 @@ class Alg_Widget_Currency_Switcher extends WP_Widget {
 			echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ) . $args['after_title'];
 		}
 		if ( 'yes' === get_option( 'alg_wc_currency_switcher_enabled', 'yes' ) ) {
-			switch ( $instance['switcher_type'] ) {
+			$switcher_type = isset( $instance['switcher_type'] ) ? $instance['switcher_type'] : null;
+			switch ( $switcher_type ) {
 				case 'link_list':
 					echo alg_currency_select_link_list();
 					break;

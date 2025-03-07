@@ -2,7 +2,7 @@
 /**
  * Currency Switcher Plugin - Core Class
  *
- * @version 2.16.2
+ * @version 2.16.3
  * @since   1.0.0
  * @author  Tom Anbinder
  * @author  WP Wham
@@ -111,7 +111,7 @@ class Alg_WC_Currency_Switcher_Main {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.16.0
+	 * @version 2.16.3
 	 * @since   1.0.0
 	 * @todo    move "JS Repositioning", "Switcher" (and maybe something else) to `! is_admin()` section (as "Flags")
 	 */
@@ -141,8 +141,8 @@ class Alg_WC_Currency_Switcher_Main {
 			}
 			// Order currency
 			if ( 'yes' === get_option( 'alg_wc_currency_switcher_order_admin_currency', 'no' ) ) {
-				add_action( 'add_meta_boxes',       array( $this, 'add_order_admin_currency_meta_box' ) );
-				add_action( 'save_post_shop_order', array( $this, 'save_order_admin_currency_meta_box' ), PHP_INT_MAX, 2 );
+				add_action( 'add_meta_boxes', array( $this, 'add_order_admin_currency_meta_box' ) );
+				add_action( 'woocommerce_process_shop_order_meta', array( $this, 'save_order_admin_currency_meta_box' ) );
 			}
 			// Format price on admin order
 			$format_price_on_admin_order = get_option( 'alg_wc_currency_switcher_order_admin_format', 'no' );
@@ -282,12 +282,21 @@ class Alg_WC_Currency_Switcher_Main {
 	/**
 	 * save_order_admin_currency_meta_box.
 	 *
-	 * @version 2.8.6
+	 * @version 2.16.3
 	 * @since   2.8.6
 	 */
-	function save_order_admin_currency_meta_box() {
-		if ( isset( $_POST['alg_wc_cs_order_admin_currency'] ) && '' != $_POST['alg_wc_cs_order_admin_currency'] ) {
-			update_post_meta( get_the_ID(), '_order_currency', $_POST['alg_wc_cs_order_admin_currency'] );
+	function save_order_admin_currency_meta_box( $order_id ) {
+		if ( isset( $_POST['alg_wc_cs_order_admin_currency'] ) ) {
+			if (
+				method_exists( '\Automattic\WooCommerce\Utilities\OrderUtil', 'custom_orders_table_usage_is_enabled' )
+				&& \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled()
+			) {
+				$order = wc_get_order( $order_id );
+				$order->set_currency( $_POST['alg_wc_cs_order_admin_currency'] );
+				$order->save();
+			} else {
+				update_post_meta( $order_id, '_order_currency', $_POST['alg_wc_cs_order_admin_currency'] );
+			}
 		}
 	}
 
