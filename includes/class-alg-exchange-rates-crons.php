@@ -4,9 +4,10 @@
  *
  * The WooCommerce Currency Switcher Exchange Rates Crons class.
  *
- * @version 1.0.0
+ * @version 2.16.3
  * @since   1.0.0
  * @author  Tom Anbinder
+ * @author  WP Wham
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
