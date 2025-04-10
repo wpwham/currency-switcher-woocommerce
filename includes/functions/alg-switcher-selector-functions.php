@@ -60,16 +60,14 @@ if ( ! function_exists( 'alg_get_currency_selector' ) ) {
 					$selected_currency = $currency_code;
 				}
 				if ( 'select' === $type ) {
+					$data_icon = '';
 					$flag_img_html = '';
 					if ( $flags_enabled ) {
 						$country_code = alg_get_country_flag_code( $currency_code );
-						if ( ! empty( $country_code )  ) {
-							$flag_url = alg_get_country_flag_image_url( $country_code );
-							$flag_img_html = '<img src="' . esc_url( $flag_url ) . '" alt="" width="16" height="11" aria-hidden="true"> ';
-						}
+						$data_icon    = ' data-icon="' . alg_get_country_flag_image_url( $country_code ) . '"';
+						$flag_img     = '<img src="' . esc_url( alg_get_country_flag_image_url( $country_code ) ) . '" alt="" width="16" height="11" aria-hidden="true"> ';
 					}
-					$html .= '<option id="alg_currency_' . $currency_code . '" value="' . $currency_code . '" ' . selected( $currency_code, $selected_currency, false ) . '>' .
-						$flag_img_html . // Add the image HTML here
+					$html .= '<option' . $data_icon . ' id="alg_currency_' . $currency_code . '" value="' . $currency_code . '" ' . selected( $currency_code, $selected_currency, false ) . '>' . $flag_img .
 						alg_format_currency_switcher( $currencies[ $currency_code ], $currency_code ) . '</option>';
 				} elseif ( 'radio' === $type ) {
 					$flag_img = '';
