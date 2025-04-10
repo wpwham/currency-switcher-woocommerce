@@ -22,30 +22,36 @@
 		background-position: right 8px center;
 		background-size: 1em;
 		cursor: pointer;
-		font-size: inherit; /* Inherit font size from parent */
+		font-size: .75em;
 		line-height: inherit; /* Inherit line height */
 		min-width: 150px; /* Example minimum width */
 	}
+	select.alg_currency_select::picker(select) {
+		appearance: base-select;
+	}
 
-	/* Style options within the native select */
+	select.alg_currency_select::picker-icon {
+		display: none;
+	}
+
+	select.alg_currency_select img {
+		border: 2px solid #ddd;
+		vertical-align: middle;
+		margin-right: 5px;
+		display: inline-block;
+	}
+
+	select.alg_currency_select::after {
+		content: ' ';
+ 	}
+	select.alg_currency_select::checkmark,
+	select.alg_currency_select option::checkmark,
+	select.alg_currency_select option::picker-icon {
+		display: none;
+	}
+
 	select.alg_currency_select option {
 		padding: 5px 10px;
-		/* Image is handled by the <img> tag in HTML */
-	}
-
-	/* Ensure wSelect elements are hidden if they accidentally render */
-	.wSelect-wrapper {
-		display: none !important;
-	}
-
-	/* Hide the original select when wSelect is active (shouldn't happen with our JS check, but as a fallback) */
-	body:not(._wSelect-ready) select.alg_currency_select.alg-wselect {
-		/* display: inline-block; */ /* Keep default display if wSelect isn't active */
-	}
-
-	/* Override wSelect specific class if flags are enabled but native select is used */
-	select.alg_currency_select.alg-wselect {
-		/* No special styles needed here when native is active */
 	}
 
 }
