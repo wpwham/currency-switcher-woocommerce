@@ -400,9 +400,11 @@ class Alg_WC_Currency_Switcher_Main {
 	function enqueue_wselect_scripts() {
 		$plugin_url     = alg_wc_currency_switcher_plugin()->plugin_url();
 		$plugin_version = alg_wc_currency_switcher_plugin()->version;
-		wp_enqueue_style(  'alg-wselect-style', $plugin_url . '/includes/lib/wSelect/wSelect.css',    array(),           $plugin_version );
-		wp_enqueue_script( 'alg-wselect-lib',   $plugin_url . '/includes/lib/wSelect/wSelect.min.js', array( 'jquery' ), $plugin_version, true );
-		wp_enqueue_script( 'alg-wselect',       $plugin_url . '/includes/js/alg-wSelect.js',          array( 'jquery' ), $plugin_version, true );
+		wp_enqueue_style(  'alg-wselect-style',       $plugin_url . '/includes/lib/wSelect/wSelect.css',    array(),           $plugin_version );
+		// Enqueue the new style for native select elements
+		wp_enqueue_style(  'alg-native-select-style', $plugin_url . '/assets/css/alg-native-select.css', array(),           $plugin_version );
+		wp_enqueue_script( 'alg-wselect-lib',         $plugin_url . '/includes/lib/wSelect/wSelect.min.js', array( 'jquery' ), $plugin_version, true );
+		wp_enqueue_script( 'alg-wselect',             $plugin_url . '/includes/js/alg-wSelect.js',          array( 'jquery' ), $plugin_version, true );
 	}
 
 	/**

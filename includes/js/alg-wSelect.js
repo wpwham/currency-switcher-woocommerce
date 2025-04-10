@@ -5,4 +5,7 @@
  * since   2.4.4
  */
 
-jQuery('select.alg-wselect').wSelect();
+// Initialize wSelect only if the browser doesn't support customizable select.
+if ( ! CSS.supports || ! CSS.supports( 'appearance', 'base-select' ) ) {
+	jQuery('select.alg-wselect').wSelect();
+}

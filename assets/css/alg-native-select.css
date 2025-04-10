@@ -1,0 +1,51 @@
+/**
+ * Currency Switcher for WooCommerce - Native Select Styling
+ *
+ * Styles for the currency switcher dropdown when the browser supports
+ * customizable select elements (appearance: base-select).
+ *
+ * @version n.e.x.t
+ * @since   n.e.x.t
+ */
+
+@supports (appearance: base-select) {
+
+	/* Apply base appearance to the select element */
+	select.alg_currency_select {
+		appearance: base-select;
+		padding: 8px 30px 8px 12px;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		background-color: #fff;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23333' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3E%3C/svg%3E");
+		background-repeat: no-repeat;
+		background-position: right 8px center;
+		background-size: 1em;
+		cursor: pointer;
+		font-size: inherit; /* Inherit font size from parent */
+		line-height: inherit; /* Inherit line height */
+		min-width: 150px; /* Example minimum width */
+	}
+
+	/* Style options within the native select */
+	select.alg_currency_select option {
+		padding: 5px 10px;
+		/* Image is handled by the <img> tag in HTML */
+	}
+
+	/* Ensure wSelect elements are hidden if they accidentally render */
+	.wSelect-wrapper {
+		display: none !important;
+	}
+
+	/* Hide the original select when wSelect is active (shouldn't happen with our JS check, but as a fallback) */
+	body:not(._wSelect-ready) select.alg_currency_select.alg-wselect {
+		/* display: inline-block; */ /* Keep default display if wSelect isn't active */
+	}
+
+	/* Override wSelect specific class if flags are enabled but native select is used */
+	select.alg_currency_select.alg-wselect {
+		/* No special styles needed here when native is active */
+	}
+
+}
