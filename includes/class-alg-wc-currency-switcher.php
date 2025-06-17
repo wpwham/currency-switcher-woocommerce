@@ -656,7 +656,7 @@ class Alg_WC_Currency_Switcher_Main {
 				apply_filters( 'wpw_currency_switcher_adjust_package_rate', true, $package_rate ) &&
 				isset( $package_rate->cost )
 			) {
-				$package_rate->cost = $this->maybe_round_and_pretty_shipping_rate( $package_rate->cost * $currency_exchange_rate, $currency_code );
+				$package_rate->cost = $this->maybe_round_and_pretty_shipping_rate( (float) $package_rate->cost * (float) $currency_exchange_rate, $currency_code );
 				if ( isset( $package_rate->taxes ) && ! empty( $package_rate->taxes ) ) {
 					if ( $this->do_round_or_pretty_shipping_rate( $currency_code ) ) {
 						$package_rate->taxes = WC_Tax::calc_shipping_tax( $package_rate->cost, WC_Tax::get_shipping_tax_rates() );
