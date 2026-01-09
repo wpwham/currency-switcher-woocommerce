@@ -216,7 +216,11 @@ class Alg_Currency_Switcher_Currency_Reports {
 	public function filter_clauses_join( $clauses, $context ) {
 		global $wpdb;
 		
-		$clauses[] = "JOIN {$wpdb->postmeta} currency_postmeta ON {$wpdb->prefix}wc_order_stats.order_id = currency_postmeta.post_id";
+		if ( $this->is_hpos_enabled() ) {
+			$clauses[] = "JOIN {$wpdb->prefix}wc_orders currency_orders ON {$wpdb->prefix}wc_order_stats.order_id = currency_orders.id";
+		} else {
+			$clauses[] = "JOIN {$wpdb->postmeta} currency_postmeta ON {$wpdb->prefix}wc_order_stats.order_id = currency_postmeta.post_id";
+		}
 		
 		return $clauses;
 	}
@@ -236,7 +240,11 @@ class Alg_Currency_Switcher_Currency_Reports {
 		
 		$currency = $this->get_current_currency();
 		
-		$clauses[] = "AND currency_postmeta.meta_key = '_order_currency' AND currency_postmeta.meta_value = '{$currency}'";
+		if ( $this->is_hpos_enabled() ) {
+			$clauses[] = "AND currency_orders.currency = '{$currency}'";
+		} else {
+			$clauses[] = "AND currency_postmeta.meta_key = '_order_currency' AND currency_postmeta.meta_value = '{$currency}'";
+		}
 		
 		return $clauses;
 	}
@@ -254,7 +262,11 @@ class Alg_Currency_Switcher_Currency_Reports {
 	 */
 	public function filter_clauses_select( $clauses, $context ) {
 		
-		$clauses[] = ', currency_postmeta.meta_value AS currency';
+		if ( $this->is_hpos_enabled() ) {
+			$clauses[] = ', currency_orders.currency AS currency';
+		} else {
+			$clauses[] = ', currency_postmeta.meta_value AS currency';
+		}
 		
 		return $clauses;
 	}
@@ -307,6 +319,19 @@ class Alg_Currency_Switcher_Currency_Reports {
 		
 		return $currency;
 	}
+	
+	/**
+	 * Check if HPOS is enabled.
+	 * 
+	 * @return bool
+	 * 
+	 * @version x.x.x
+	 * @since   x.x.x
+	 */
+	protected function is_hpos_enabled() {
+		return alg_wc_currency_switcher_plugin()->is_hpos_enabled();
+	}
+	
 }
 
 endif;
