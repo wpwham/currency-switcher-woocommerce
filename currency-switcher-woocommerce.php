@@ -331,6 +331,19 @@ final class Alg_WC_Currency_Switcher {
 		return untrailingslashit( plugin_dir_path( __FILE__ ) );
 	}
 
+	/**
+	 * Check if HPOS is enabled.
+	 * 
+	 * @version x.x.x
+	 * @since   x.x.x
+	 */
+	public function is_hpos_enabled() {
+		return (
+			method_exists( '\Automattic\WooCommerce\Utilities\OrderUtil', 'custom_orders_table_usage_is_enabled' )
+			&& \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled()
+		);
+	}
+
 }
 
 endif;
