@@ -25,7 +25,10 @@ class Alg_WC_Currency_Switcher_Settings_Currency_Locales extends Alg_WC_Currency
 	 */
 	function __construct() {
 		$this->id   = 'currency_locales';
-		$this->desc = __( 'Languages', 'currency-switcher-woocommerce' );
+		$this->desc = 'Languages';
+		add_action( 'init', function() {
+			$this->desc = __( 'Languages', 'currency-switcher-woocommerce' );
+		} );
 		parent::__construct();
 		add_action( 'admin_init', array( $this, 'process_buttons' ) );
 	}

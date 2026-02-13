@@ -25,7 +25,10 @@ class Alg_WC_Currency_Switcher_Settings_Price_Formats extends Alg_WC_Currency_Sw
 	 */
 	function __construct() {
 		$this->id   = 'price_formats';
-		$this->desc = __( 'Price Formats', 'currency-switcher-woocommerce' );
+		$this->desc = 'Price Formats';
+		add_action( 'init', function() {
+			$this->desc = __( 'Price Formats', 'currency-switcher-woocommerce' );
+		} );
 		parent::__construct();
 	}
 

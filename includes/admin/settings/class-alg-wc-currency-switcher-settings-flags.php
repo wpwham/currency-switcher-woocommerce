@@ -25,7 +25,10 @@ class Alg_WC_Currency_Switcher_Settings_Flags extends Alg_WC_Currency_Switcher_S
 	 */
 	function __construct() {
 		$this->id   = 'flags';
-		$this->desc = __( 'Flags', 'currency-switcher-woocommerce' );
+		$this->desc = 'Flags';
+		add_action( 'init', function() {
+			$this->desc = __( 'Flags', 'currency-switcher-woocommerce' );
+		} );
 		parent::__construct();
 		add_action( 'woocommerce_admin_field_alg_wselect', array( $this, 'output_alg_wselect' ) );
 	}

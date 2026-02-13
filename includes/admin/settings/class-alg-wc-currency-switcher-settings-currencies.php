@@ -25,7 +25,10 @@ class Alg_WC_Currency_Switcher_Settings_Currencies extends Alg_WC_Currency_Switc
 	 */
 	function __construct() {
 		$this->id   = 'currencies';
-		$this->desc = __( 'Currencies', 'currency-switcher-woocommerce' );
+		$this->desc = 'Currencies';
+		add_action( 'init', function() {
+			$this->desc = __( 'Currencies', 'currency-switcher-woocommerce' );
+		} );
 		parent::__construct();
 		add_action( 'woocommerce_admin_field_alg_custom_number', array( $this, 'output_custom_number' ) );
 		add_action( 'admin_init', array( $this, 'process_buttons' ) );

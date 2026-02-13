@@ -25,7 +25,10 @@ class Alg_WC_Currency_Switcher_Settings_Exchange_Rates extends Alg_WC_Currency_S
 	 */
 	function __construct() {
 		$this->id   = 'exchange_rates';
-		$this->desc = __( 'Exchange Rates', 'currency-switcher-woocommerce' );
+		$this->desc = 'Exchange Rates';
+		add_action( 'init', function() {
+			$this->desc = __( 'Exchange Rates', 'currency-switcher-woocommerce' );
+		} );
 		parent::__construct();
 		add_action( 'woocommerce_admin_field_alg_exchange_rate',       array( $this, 'output_settings_button' ) );
 		add_action( 'admin_enqueue_scripts',                           array( $this, 'enqueue_script' ) );

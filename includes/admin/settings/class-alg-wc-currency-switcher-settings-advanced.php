@@ -25,7 +25,10 @@ class Alg_WC_Currency_Switcher_Settings_Advanced extends Alg_WC_Currency_Switche
 	 */
 	function __construct() {
 		$this->id   = 'advanced';
-		$this->desc = __( 'Advanced', 'currency-switcher-woocommerce' );
+		$this->desc = 'Advanced';
+		add_action( 'init', function() {
+			$this->desc = __( 'Advanced', 'currency-switcher-woocommerce' );
+		} );
 		parent::__construct();
 	}
 

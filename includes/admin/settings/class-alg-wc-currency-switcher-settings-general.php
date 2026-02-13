@@ -25,7 +25,10 @@ class Alg_WC_Currency_Switcher_Settings_General extends Alg_WC_Currency_Switcher
 	 */
 	function __construct() {
 		$this->id   = '';
-		$this->desc = __( 'General', 'currency-switcher-woocommerce' );
+		$this->desc = 'General';
+		add_action( 'init', function() {
+			$this->desc = __( 'General', 'currency-switcher-woocommerce' );
+		} );
 		parent::__construct();
 		add_filter( 'woocommerce_admin_settings_sanitize_option', array( $this, 'unclean_textarea' ), PHP_INT_MAX, 3 );
 	}
