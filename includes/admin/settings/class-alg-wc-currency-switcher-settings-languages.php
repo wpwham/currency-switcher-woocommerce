@@ -114,21 +114,31 @@ class Alg_WC_Currency_Switcher_Settings_Currency_Locales extends Alg_WC_Currency
 					'custom_attributes' => apply_filters( 'alg_wc_currency_switcher_plugin_option', array( 'disabled' => 'disabled' ), 'settings' ),
 				) : array() )
 			),
-			array(
-				'title'     => __( 'Enter locales as comma separated text', 'currency-switcher-woocommerce' ),
-				'type'      => 'checkbox',
-				'desc'      => __( 'Enable', 'currency-switcher-woocommerce' ),
-				'desc_tip'  => __( 'To see different input fields, save changes after you set this option.', 'currency-switcher-woocommerce' ),
-				'id'        => 'alg_wc_currency_switcher_currency_locales_as_text_enabled',
-				'default'   => 'no',
+			array_merge(
+				array(
+					'title'     => __( 'Enter locales as comma separated text', 'currency-switcher-woocommerce' ),
+					'type'      => 'checkbox',
+					'desc'      => __( 'Enable', 'currency-switcher-woocommerce' ),
+					'desc_tip'  => __( 'To see different input fields, save changes after you set this option.', 'currency-switcher-woocommerce' ),
+					'id'        => 'alg_wc_currency_switcher_currency_locales_as_text_enabled',
+					'default'   => 'no',
+				),
+				( get_option( 'wpwham_currency_switcher_version' ) !== 'legacy' ? array(
+					'custom_attributes' => apply_filters( 'alg_wc_currency_switcher_plugin_option', array( 'disabled' => 'disabled' ), 'settings' ),
+				) : array() )
 			),
-			array(
-				'title'     => __( 'Always use locale to assign currency', 'currency-switcher-woocommerce' ),
-				'type'      => 'checkbox',
-				'desc'      => __( 'Enable', 'currency-switcher-woocommerce' ),
-				'desc_tip'  => __( 'If disabled - currency will be assigned by locale only once (on first visit), then standard session value will be used.', 'currency-switcher-woocommerce' ),
-				'id'        => 'alg_wc_currency_switcher_currency_locales_use_always_enabled',
-				'default'   => 'yes',
+			array_merge(
+				array(
+					'title'     => __( 'Always use locale to assign currency', 'currency-switcher-woocommerce' ),
+					'type'      => 'checkbox',
+					'desc'      => __( 'Enable', 'currency-switcher-woocommerce' ),
+					'desc_tip'  => __( 'If disabled - currency will be assigned by locale only once (on first visit), then standard session value will be used.', 'currency-switcher-woocommerce' ),
+					'id'        => 'alg_wc_currency_switcher_currency_locales_use_always_enabled',
+					'default'   => 'yes',
+				),
+				( get_option( 'wpwham_currency_switcher_version' ) !== 'legacy' ? array(
+					'custom_attributes' => apply_filters( 'alg_wc_currency_switcher_plugin_option', array( 'disabled' => 'disabled' ), 'settings' ),
+				) : array() )
 			),
 		) );
 		$as_text = ( 'yes' === get_option( 'alg_wc_currency_switcher_currency_locales_as_text_enabled', 'no' ) );
@@ -137,13 +147,18 @@ class Alg_WC_Currency_Switcher_Settings_Currency_Locales extends Alg_WC_Currency
 				$option_id = 'alg_wc_currency_switcher_currency_locales_' . $currency;
 				alg_maybe_update_option_value_type( $option_id, $as_text );
 				$settings = array_merge( $settings, array(
-					array(
-						'title'   => '#' . ( $i + 1 ) . ' [' . $currency . '] ' . $all_currencies[ $currency ],
-						'id'      => $option_id,
-						'default' => '',
-						'type'    => ( $as_text ? 'text'    : 'multiselect' ),
-						'options' => ( $as_text ? ''        : alg_wc_cc_get_all_locales() ),
-						'class'   => ( $as_text ? 'widefat' : 'chosen_select' ),
+					array_merge(
+						array(
+							'title'   => '#' . ( $i + 1 ) . ' [' . $currency . '] ' . $all_currencies[ $currency ],
+							'id'      => $option_id,
+							'default' => '',
+							'type'    => ( $as_text ? 'text'    : 'multiselect' ),
+							'options' => ( $as_text ? ''        : alg_wc_cc_get_all_locales() ),
+							'class'   => ( $as_text ? 'widefat' : 'chosen_select' ),
+						),
+						( get_option( 'wpwham_currency_switcher_version' ) !== 'legacy' ? array(
+							'custom_attributes' => apply_filters( 'alg_wc_currency_switcher_plugin_option', array( 'disabled' => 'disabled' ), 'settings' ),
+						) : array() )
 					),
 				) );
 			}

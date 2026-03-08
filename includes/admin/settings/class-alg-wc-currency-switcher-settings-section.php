@@ -22,7 +22,7 @@ class Alg_WC_Currency_Switcher_Settings_Section {
 	function __construct() {
 		add_filter( 'woocommerce_get_sections_alg_wc_currency_switcher',              array( $this, 'settings_section' ) );
 		add_filter( 'woocommerce_get_settings_alg_wc_currency_switcher_' . $this->id, array( $this, 'get_settings' ), PHP_INT_MAX );
-		add_action( 'init',                                                           array( $this, 'add_settings_hooks' ) );
+		$this->add_settings_hooks();
 	}
 
 	/**

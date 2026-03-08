@@ -105,37 +105,36 @@ final class Alg_WC_Currency_Switcher {
 	 * @todo    check for caching issues
 	 * @todo    (maybe) add all currencies (so no other additional plugin is required)
 	 */
-	function __construct() {
-
-		// Set up localisation
-		add_action( 'init', array( $this, 'load_localization' ) );	
-
+	public function __construct() {
+		
 		// Include required files
-		$this->includes();
-
-		// Add compatibility with third party plugins
+		require_once( 'includes/functions/alg-switcher-selector-functions.php' );
+		require_once( 'includes/functions/alg-switcher-functions.php' );
+		require_once( 'includes/functions/alg-switcher-exchange-rates-functions.php' );
+		require_once( 'includes/functions/alg-switcher-country-functions.php' );
+		require_once( 'includes/functions/alg-switcher-locale-functions.php' );
+		require_once( 'includes/class-alg-switcher-third-party-compatibility.php' );
+		$this->core = require_once( 'includes/class-alg-wc-currency-switcher.php' );
+		
+		// Updates
+		require_once( 'includes/database-updates.php' );
+		
+		// Add compatibility with third party plugins (must be done before init)
 		$compatibility = new Alg_Switcher_Third_Party_Compatibility();
 		$compatibility->init();
-
-		// Settings & Scripts
-		if ( is_admin() ) {
-			add_filter( 'woocommerce_get_settings_pages', array( $this, 'add_woocommerce_settings_tab' ) );
-			add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'action_links' ) );
-			add_action( 'woocommerce_system_status_report', array( $this, 'add_settings_to_status_report' ) );
-		}
 		
-		// WooCommerce scheduled tasks
+		// Global
+		add_action( 'init', array( $this, 'includes' ) );
+		
+		// Admin
 		add_action( 'wc_after_products_ending_sales', array( $this, 'cleanup_ended_sales_prices' ) );
+		add_action( 'woocommerce_system_status_report', array( $this, 'add_settings_to_status_report' ) );
+		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'action_links' ) );
+		add_filter( 'woocommerce_get_settings_pages', array( $this, 'add_woocommerce_settings_tab' ) );
 		
-	}	
-			
-	/**
-	 * @since   2.16.4
-	 */
-	public function load_localization() {
-		load_plugin_textdomain( 'currency-switcher-woocommerce', false, dirname( plugin_basename( __FILE__ ) ) . '/langs/' );
 	}
-
+	
+	
 	/**
 	 * Show action links on the plugin screen
 	 *
@@ -167,7 +166,8 @@ final class Alg_WC_Currency_Switcher {
 			}
 		}
 	}
-
+	
+	
 	/**
 	 * Include required core files used in admin and on the frontend.
 	 *
@@ -175,21 +175,11 @@ final class Alg_WC_Currency_Switcher {
 	 * @since   1.0.0
 	 * @todo    (maybe) import/export all settings
 	 */
-	private function includes() {
+	public function includes() {
 		
-		// Database Updates
-		require_once( 'includes/database-updates.php' );
-
-		// Functions
-		require_once( 'includes/functions/alg-switcher-selector-functions.php' );
-		require_once( 'includes/functions/alg-switcher-functions.php' );
-		require_once( 'includes/functions/alg-switcher-exchange-rates-functions.php' );
-		require_once( 'includes/functions/alg-switcher-country-functions.php' );
-		require_once( 'includes/functions/alg-switcher-locale-functions.php' );
-
-		// Compatibility
-		require_once( 'includes/class-alg-switcher-third-party-compatibility.php' );
-
+		// Localization
+		load_plugin_textdomain( 'currency-switcher-woocommerce', false, dirname( plugin_basename( __FILE__ ) ) . '/langs/' );
+		
 		// Settings
 		require_once( 'includes/admin/settings/class-alg-wc-currency-switcher-settings-section.php' );
 		$this->settings = array();
@@ -212,17 +202,17 @@ final class Alg_WC_Currency_Switcher {
 			}
 			update_option( 'alg_currency_switcher_version', $this->version );
 		}
-
+		
 		// Per product Settings
 		if ( 'yes' === get_option( 'alg_currency_switcher_per_product_enabled', 'yes' ) ) {
 			require_once( 'includes/admin/class-alg-wc-currency-switcher-per-product.php' );
 		}
-
+		
 		// Coupons Settings
 		if ( 'yes' === get_option( 'alg_currency_switcher_fixed_coupons_base_currency_enabled', 'no' ) ) {
 			require_once( 'includes/admin/class-alg-wc-currency-switcher-coupons.php' );
 		}
-
+		
 		// Crons & Reports
 		if ( 'yes' === get_option( 'alg_wc_currency_switcher_enabled', 'yes' ) ) {
 			if ( 'manual' != get_option( 'alg_currency_switcher_exchange_rate_update', 'manual' ) ) {
@@ -230,14 +220,13 @@ final class Alg_WC_Currency_Switcher {
 			}
 			require_once( 'includes/admin/class-alg-currency-reports.php' );
 		}
-
+		
 		// Widget
 		require_once( 'includes/class-alg-widget-currency-switcher.php' );
-
-		// Core
-		$this->core = require_once( 'includes/class-alg-wc-currency-switcher.php' );
+		
 	}
-
+	
+	
 	/**
 	 * add settings to WC status report
 	 *

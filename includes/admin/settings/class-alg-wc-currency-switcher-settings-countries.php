@@ -121,27 +121,37 @@ class Alg_WC_Currency_Switcher_Settings_Currency_Countries extends Alg_WC_Curren
 					'custom_attributes' => apply_filters( 'alg_wc_currency_switcher_plugin_option', array( 'disabled' => 'disabled' ), 'settings' ),
 				) : array() )
 			),
-			array(
-				'title'     => __( 'Enter countries as comma separated text', 'currency-switcher-woocommerce' ),
-				'type'      => 'checkbox',
-				'desc'      => __( 'Enable', 'currency-switcher-woocommerce' ),
-				'desc_tip'  => __( 'To see different input fields, save changes after you set this option.', 'currency-switcher-woocommerce' ),
-				'id'        => 'alg_wc_currency_switcher_currency_countries_as_text_enabled',
-				'default'   => 'no',
-			),
-			array(
-				'title'     => __( 'Override country', 'currency-switcher-woocommerce' ),
-				'type'      => 'select',
-				'class'     => 'wc-enhanced-select',
-				'id'        => 'alg_wc_currency_switcher_currency_countries_override',
-				'default'   => 'disabled',
-				'options'   => array(
-					'disabled' => __( 'Override disabled', 'currency-switcher-woocommerce' ),
-					'checkout_billing'  => __( 'Override with billing country on checkout page only', 'currency-switcher-woocommerce' ),
-					'all_site_billing'  => __( 'Override with billing country on all site', 'currency-switcher-woocommerce' ),
-					'checkout_shipping' => __( 'Override with shipping country on checkout page only', 'currency-switcher-woocommerce' ),
-					'all_site_shipping' => __( 'Override with shipping country on all site', 'currency-switcher-woocommerce' ),
+			array_merge(
+				array(
+					'title'     => __( 'Enter countries as comma separated text', 'currency-switcher-woocommerce' ),
+					'type'      => 'checkbox',
+					'desc'      => __( 'Enable', 'currency-switcher-woocommerce' ),
+					'desc_tip'  => __( 'To see different input fields, save changes after you set this option.', 'currency-switcher-woocommerce' ),
+					'id'        => 'alg_wc_currency_switcher_currency_countries_as_text_enabled',
+					'default'   => 'no',
 				),
+				( get_option( 'wpwham_currency_switcher_version' ) !== 'legacy' ? array(
+					'custom_attributes' => apply_filters( 'alg_wc_currency_switcher_plugin_option', array( 'disabled' => 'disabled' ), 'settings' ),
+				) : array() )
+			),
+			array_merge(
+				array(
+					'title'     => __( 'Override country', 'currency-switcher-woocommerce' ),
+					'type'      => 'select',
+					'class'     => 'wc-enhanced-select',
+					'id'        => 'alg_wc_currency_switcher_currency_countries_override',
+					'default'   => 'disabled',
+					'options'   => array(
+						'disabled' => __( 'Override disabled', 'currency-switcher-woocommerce' ),
+						'checkout_billing'  => __( 'Override with billing country on checkout page only', 'currency-switcher-woocommerce' ),
+						'all_site_billing'  => __( 'Override with billing country on all site', 'currency-switcher-woocommerce' ),
+						'checkout_shipping' => __( 'Override with shipping country on checkout page only', 'currency-switcher-woocommerce' ),
+						'all_site_shipping' => __( 'Override with shipping country on all site', 'currency-switcher-woocommerce' ),
+					),
+				),
+				( get_option( 'wpwham_currency_switcher_version' ) !== 'legacy' ? array(
+					'custom_attributes' => apply_filters( 'alg_wc_currency_switcher_plugin_option', array( 'disabled' => 'disabled' ), 'settings' ),
+				) : array() )
 			),
 		) );
 		$as_text = ( 'yes' === get_option( 'alg_wc_currency_switcher_currency_countries_as_text_enabled', 'no' ) );
@@ -150,13 +160,18 @@ class Alg_WC_Currency_Switcher_Settings_Currency_Countries extends Alg_WC_Curren
 				$option_id = 'alg_currency_switcher_currency_countries_' . $currency;
 				alg_maybe_update_option_value_type( $option_id, $as_text );
 				$settings = array_merge( $settings, array(
-					array(
-						'title'   => '#' . ( $i + 1 ) . ' [' . $currency . '] ' . $all_currencies[ $currency ],
-						'id'      => $option_id,
-						'default' => '',
-						'type'    => ( $as_text ? 'text'    : 'multiselect' ),
-						'options' => ( $as_text ? ''        : alg_get_countries() ),
-						'class'   => ( $as_text ? 'widefat' : 'chosen_select' ),
+					array_merge(
+						array(
+							'title'   => '#' . ( $i + 1 ) . ' [' . $currency . '] ' . $all_currencies[ $currency ],
+							'id'      => $option_id,
+							'default' => '',
+							'type'    => ( $as_text ? 'text'    : 'multiselect' ),
+							'options' => ( $as_text ? ''        : alg_get_countries() ),
+							'class'   => ( $as_text ? 'widefat' : 'chosen_select' ),
+						),
+						( get_option( 'wpwham_currency_switcher_version' ) !== 'legacy' ? array(
+							'custom_attributes' => apply_filters( 'alg_wc_currency_switcher_plugin_option', array( 'disabled' => 'disabled' ), 'settings' ),
+						) : array() )
 					),
 				) );
 			}
