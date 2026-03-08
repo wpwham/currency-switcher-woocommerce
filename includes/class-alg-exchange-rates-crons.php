@@ -4,7 +4,7 @@
  *
  * The WooCommerce Currency Switcher Exchange Rates Crons class.
  *
- * @version 2.16.3
+ * @version 2.16.5
  * @since   1.0.0
  * @author  Tom Anbinder
  * @author  WP Wham
@@ -15,29 +15,32 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 if ( ! class_exists( 'Alg_Currency_Switcher_Exchange_Rates_Crons' ) ) :
 
 class Alg_Currency_Switcher_Exchange_Rates_Crons {
-
+	
 	public $update_intervals = null;
 	
 	/**
 	 * Constructor.
 	 *
-	 * @version 1.0.0
+	 * @version 2.16.5
 	 * @since   1.0.0
 	 */
-	function __construct() {
-		$this->update_intervals  = array(
+	public function __construct() {
+		
+		$this->update_intervals = array(
 			'minutely'   => __( 'Update Every Minute', 'currency-switcher-woocommerce' ),
-			'hourly'     => __( 'Update Hourly', 'currency-switcher-woocommerce' ),
-			'twicedaily' => __( 'Update Twice Daily', 'currency-switcher-woocommerce' ),
-			'daily'      => __( 'Update Daily', 'currency-switcher-woocommerce' ),
-			'weekly'     => __( 'Update Weekly', 'currency-switcher-woocommerce' ),
+			'hourly'     => __( 'Update Hourly',       'currency-switcher-woocommerce' ),
+			'twicedaily' => __( 'Update Twice Daily',  'currency-switcher-woocommerce' ),
+			'daily'      => __( 'Update Daily',        'currency-switcher-woocommerce' ),
+			'weekly'     => __( 'Update Weekly',       'currency-switcher-woocommerce' ),
 		);
-		add_action( 'init',                           array( $this, 'schedule_the_events' ) );
-		add_action( 'admin_init',                     array( $this, 'schedule_the_events' ) );
+		
 		add_action( 'alg_update_exchange_rates_hook', array( $this, 'update_the_exchange_rates' ) );
 		add_filter( 'cron_schedules',                 array( $this, 'cron_add_custom_intervals' ) );
+		
+		$this->schedule_the_events();
 	}
-
+	
+	
 	/**
 	 * On an early action hook, check if the hook is scheduled - if not, schedule it.
 	 *

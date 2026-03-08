@@ -2,9 +2,10 @@
 /**
  * Currency Switcher - Section Settings
  *
- * @version 2.8.7
+ * @version 2.16.5
  * @since   1.0.0
  * @author  Tom Anbinder
+ * @author  WP Wham
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -16,13 +17,13 @@ class Alg_WC_Currency_Switcher_Settings_Section {
 	/**
 	 * Constructor.
 	 *
-	 * @version 1.0.0
+	 * @version 2.16.5
 	 * @since   1.0.0
 	 */
 	function __construct() {
 		add_filter( 'woocommerce_get_sections_alg_wc_currency_switcher',              array( $this, 'settings_section' ) );
 		add_filter( 'woocommerce_get_settings_alg_wc_currency_switcher_' . $this->id, array( $this, 'get_settings' ), PHP_INT_MAX );
-		add_action( 'init',                                                           array( $this, 'add_settings_hooks' ) );
+		$this->add_settings_hooks();
 	}
 
 	/**
