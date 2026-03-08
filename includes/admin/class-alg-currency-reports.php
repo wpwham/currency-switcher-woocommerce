@@ -4,10 +4,10 @@
  *
  * The Currency Switcher Currency Reports class.
  *
- * @version 2.15.1
+ * @version 2.16.5
  * @since   1.0.0
  * @author  Algoritmika Ltd.
- * @author  WP Wham.
+ * @author  WP Wham
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -210,7 +210,7 @@ class Alg_Currency_Switcher_Currency_Reports {
 	 *
 	 * @return array
 	 * 
-	 * @version 2.13.0
+	 * @version 2.16.5
 	 * @since   2.13.0
 	 */
 	public function filter_clauses_join( $clauses, $context ) {
@@ -233,7 +233,7 @@ class Alg_Currency_Switcher_Currency_Reports {
 	 *
 	 * @return array
 	 * 
-	 * @version 2.13.0
+	 * @version 2.16.5
 	 * @since   2.13.0
 	 */
 	public function filter_clauses_where( $clauses, $context ) {
@@ -257,7 +257,7 @@ class Alg_Currency_Switcher_Currency_Reports {
 	 *
 	 * @return array
 	 * 
-	 * @version 2.13.0
+	 * @version 2.16.5
 	 * @since   2.13.0
 	 */
 	public function filter_clauses_select( $clauses, $context ) {
@@ -325,8 +325,8 @@ class Alg_Currency_Switcher_Currency_Reports {
 	 * 
 	 * @return bool
 	 * 
-	 * @version x.x.x
-	 * @since   x.x.x
+	 * @version 2.16.5
+	 * @since   2.16.5
 	 */
 	protected function is_hpos_enabled() {
 		return alg_wc_currency_switcher_plugin()->is_hpos_enabled();

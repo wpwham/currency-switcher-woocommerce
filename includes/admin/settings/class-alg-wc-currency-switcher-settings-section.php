@@ -2,9 +2,10 @@
 /**
  * Currency Switcher - Section Settings
  *
- * @version 2.8.7
+ * @version 2.16.5
  * @since   1.0.0
  * @author  Tom Anbinder
+ * @author  WP Wham
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -16,7 +17,7 @@ class Alg_WC_Currency_Switcher_Settings_Section {
 	/**
 	 * Constructor.
 	 *
-	 * @version 1.0.0
+	 * @version 2.16.5
 	 * @since   1.0.0
 	 */
 	function __construct() {

@@ -4,7 +4,7 @@
  *
  * The WooCommerce Currency Switcher Exchange Rates Crons class.
  *
- * @version 2.16.3
+ * @version 2.16.5
  * @since   1.0.0
  * @author  Tom Anbinder
  * @author  WP Wham
@@ -21,7 +21,7 @@ class Alg_Currency_Switcher_Exchange_Rates_Crons {
 	/**
 	 * Constructor.
 	 *
-	 * @version 1.0.0
+	 * @version 2.16.5
 	 * @since   1.0.0
 	 */
 	public function __construct() {

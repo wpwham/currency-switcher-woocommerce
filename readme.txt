@@ -2,8 +2,8 @@
 Contributors: wpwham
 Tags: currency switcher, multicurrency, multi currency, currency, switcher
 Requires at least: 4.4
-Tested up to: 6.8
-Stable tag: 2.16.4
+Tested up to: 6.9
+Stable tag: 2.16.5
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -112,6 +112,10 @@ http://www.yoursite.com?alg_currency=USD
 `
 
 == Changelog ==
+
+= 2.16.5 - 2026-03-07 =
+* FIX: PHP notices.
+* FIX: missing some data on Analytics pages when HPOS enabled (104281).
 
 = 2.16.4 - 2025-05-31 =
 * FIX: PHP notice.
