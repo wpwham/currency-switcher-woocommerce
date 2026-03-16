@@ -108,7 +108,7 @@ class Alg_WC_Currency_Switcher_Settings_Advanced extends Alg_WC_Currency_Switche
 				'type'     => 'text',
 				'css'      => 'width:100%;',
 			),
-			/* array(
+			array(
 				'title'    => __( 'Session type', 'currency-switcher-woocommerce' ),
 				'id'       => 'alg_wc_currency_switcher_session_type',
 				'default'  => 'standard',
@@ -118,7 +118,7 @@ class Alg_WC_Currency_Switcher_Settings_Advanced extends Alg_WC_Currency_Switche
 					'standard' => __( 'Standard PHP sessions', 'currency-switcher-woocommerce' ),
 					'wc'       => __( 'WC sessions', 'currency-switcher-woocommerce' ),
 				),
-			), */
+			), 
 			array(
 				'type'      => 'sectionend',
 				'id'        => 'alg_wc_currency_switcher_advanced_options',

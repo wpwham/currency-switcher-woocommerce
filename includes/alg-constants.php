@@ -76,8 +76,7 @@ if ( ! defined( 'ALG_WC_CS_SESSION_TYPE' ) ) {
 	 * @version 2.7.0
 	 * @since   2.7.0
 	 */
-//	define( 'ALG_WC_CS_SESSION_TYPE', get_option( 'alg_wc_currency_switcher_session_type', 'standard' ) );
-	define( 'ALG_WC_CS_SESSION_TYPE', 'standard' );
+	define( 'ALG_WC_CS_SESSION_TYPE', get_option( 'alg_wc_currency_switcher_session_type', 'standard' ) );
 }
 
 if ( ! defined( 'ALG_WC_CS_EXCHANGE_RATES_PRECISION' ) ) {

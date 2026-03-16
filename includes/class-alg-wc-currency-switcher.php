@@ -109,33 +109,51 @@ class Alg_WC_Currency_Switcher_Main {
 	}
 
 	/**
+	 * Initialize session and handle session-dependent operations
+	 *
+	 * @version 2.17.0
+	 * @since   2.17.0
+	 */
+	public function init_session() {
+		alg_wc_cs_session_maybe_start();
+
+		if ( isset( $_REQUEST['alg_currency'] ) ) {
+			$currencies = alg_get_enabled_currencies();
+			if ( in_array( $_REQUEST['alg_currency'], $currencies ) ) {
+				alg_wc_cs_session_set( 'alg_currency', $_REQUEST['alg_currency'] );
+				add_filter( 'woocommerce_cart_shipping_packages', array( $this, 'disable_shipping_rates_cache' ), 10, 2 );
+				add_action( 'wp_footer', array( $this, 'update_mini_cart' ), PHP_INT_MAX );
+			}
+		}
+
+		$this->set_currency_on_order_edit_page();
+
+		if ( 'yes' === get_option( 'alg_wc_currency_switcher_currency_locales_enabled', 'no' ) && get_option( 'wpwham_currency_switcher_version' ) === 'legacy' ) {
+			if ( 'yes' === get_option( 'alg_wc_currency_switcher_currency_locales_use_always_enabled', 'yes' ) ) {
+				$this->set_currency_by_locale();
+			} elseif ( null === alg_wc_cs_session_get( 'alg_currency' ) ) {
+				$this->set_currency_by_locale();
+			}
+		}
+	}
+
+	/**
 	 * Constructor.
 	 *
-	 * @version 2.16.3
+	 * @version 2.17.0
 	 * @since   1.0.0
 	 * @todo    move "JS Repositioning", "Switcher" (and maybe something else) to `! is_admin()` section (as "Flags")
 	 */
 	function __construct() {
 
 		if ( 'yes' === get_option( 'alg_wc_currency_switcher_enabled', 'yes' ) ) {
-			alg_wc_cs_session_maybe_start();
-			if ( isset( $_REQUEST['alg_currency'] ) ) {
-				$currencies = alg_get_enabled_currencies();
-				if ( in_array( $_REQUEST['alg_currency'], $currencies ) ) {
-					alg_wc_cs_session_set( 'alg_currency', $_REQUEST['alg_currency'] );
-					add_filter( 'woocommerce_cart_shipping_packages', array( $this, 'disable_shipping_rates_cache' ), 10, 2 );
-					add_action( 'wp_footer', array( $this, 'update_mini_cart' ), PHP_INT_MAX );
-				}
+
+			if ( ALG_WC_CS_SESSION_TYPE === 'wc' ) {
+				add_action( 'woocommerce_init', array( $this, 'init_session' ), 10 );
+			} else {
+				$this->init_session();
 			}
 
-			$this->set_currency_on_order_edit_page();
-			if ( 'yes' === get_option( 'alg_wc_currency_switcher_currency_locales_enabled', 'no' ) && get_option( 'wpwham_currency_switcher_version' ) === 'legacy' ) {
-				if ( 'yes' === get_option( 'alg_wc_currency_switcher_currency_locales_use_always_enabled', 'yes' ) ) {
-					$this->set_currency_by_locale();
-				} elseif ( null === alg_wc_cs_session_get( 'alg_currency' ) ) {
-					$this->set_currency_by_locale();
-				}
-			}
 			if ( 'yes' === get_option( 'alg_currency_switcher_fix_mini_cart', 'no' ) ) {
 				add_action( 'wp_loaded', array( $this, 'fix_mini_cart' ), PHP_INT_MAX );
 			}
