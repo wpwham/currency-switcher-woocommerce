@@ -107,6 +107,9 @@ final class Alg_WC_Currency_Switcher {
 	 */
 	public function __construct() {
 		
+		// Global
+		add_action( 'init', array( $this, 'includes' ) );
+		
 		// Include required files
 		require_once( 'includes/functions/alg-switcher-selector-functions.php' );
 		require_once( 'includes/functions/alg-switcher-functions.php' );
@@ -122,9 +125,6 @@ final class Alg_WC_Currency_Switcher {
 		// Add compatibility with third party plugins (must be done before init)
 		$compatibility = new Alg_Switcher_Third_Party_Compatibility();
 		$compatibility->init();
-		
-		// Global
-		add_action( 'init', array( $this, 'includes' ) );
 		
 		// Admin
 		add_action( 'wc_after_products_ending_sales', array( $this, 'cleanup_ended_sales_prices' ) );
