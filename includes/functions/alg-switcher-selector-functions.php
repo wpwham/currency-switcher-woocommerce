@@ -48,7 +48,7 @@ if ( ! function_exists( 'alg_get_currency_selector' ) ) {
 		$html = '';
 		$html .= '<form action="" method="post" id="alg_currency_selector">';
 		if ( 'select' === $type ) {
-			$html .= '<select name="alg_currency" id="alg_currency_select" class="alg_currency_select' . ( $flags_enabled ? ' alg-wselect' : '' ) . '" onchange="this.form.submit()">';
+			$html .= '<select name="alg_currency" id="alg_currency_select" class="alg_currency_select' . ( $flags_enabled ? ' alg-wselect' : '' ) . '" onchange="this.form.submit()"><button><selectedcontent></selectedcontent></button>';
 		}
 		// Options
 		$function_currencies = alg_get_enabled_currencies();
@@ -61,11 +61,13 @@ if ( ! function_exists( 'alg_get_currency_selector' ) ) {
 				}
 				if ( 'select' === $type ) {
 					$data_icon = '';
+					$flag_img_html = '';
 					if ( $flags_enabled ) {
 						$country_code = alg_get_country_flag_code( $currency_code );
 						$data_icon    = ' data-icon="' . alg_get_country_flag_image_url( $country_code ) . '"';
+						$flag_img     = '<img src="' . esc_url( alg_get_country_flag_image_url( $country_code ) ) . '" alt="" width="16" height="11" aria-hidden="true"> ';
 					}
-					$html .= '<option' . $data_icon . ' id="alg_currency_' . $currency_code . '" value="' . $currency_code . '" ' . selected( $currency_code, $selected_currency, false ) . '>' .
+					$html .= '<option' . $data_icon . ' id="alg_currency_' . $currency_code . '" value="' . $currency_code . '" ' . selected( $currency_code, $selected_currency, false ) . '>' . $flag_img .
 						alg_format_currency_switcher( $currencies[ $currency_code ], $currency_code ) . '</option>';
 				} elseif ( 'radio' === $type ) {
 					$flag_img = '';

@@ -1,0 +1,57 @@
+/**
+ * Currency Switcher for WooCommerce - Native Select Styling
+ *
+ * Styles for the currency switcher dropdown when the browser supports
+ * customizable select elements (appearance: base-select).
+ *
+ * @version n.e.x.t
+ * @since   n.e.x.t
+ */
+
+@supports (appearance: base-select) {
+
+	/* Apply base appearance to the select element */
+	select.alg_currency_select {
+		appearance: base-select;
+		padding: 8px 30px 8px 12px;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		background-color: #fff;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23333' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3E%3C/svg%3E");
+		background-repeat: no-repeat;
+		background-position: right 8px center;
+		background-size: 1em;
+		cursor: pointer;
+		font-size: .75em;
+		line-height: inherit; /* Inherit line height */
+		min-width: 150px; /* Example minimum width */
+	}
+	select.alg_currency_select::picker(select) {
+		appearance: base-select;
+	}
+
+	select.alg_currency_select::picker-icon {
+		display: none;
+	}
+
+	select.alg_currency_select img {
+		border: 2px solid #ddd;
+		vertical-align: middle;
+		margin-right: 5px;
+		display: inline-block;
+	}
+
+	select.alg_currency_select::after {
+		content: ' ';
+ 	}
+	select.alg_currency_select::checkmark,
+	select.alg_currency_select option::checkmark,
+	select.alg_currency_select option::picker-icon {
+		display: none;
+	}
+
+	select.alg_currency_select option {
+		padding: 5px 10px;
+	}
+
+}
