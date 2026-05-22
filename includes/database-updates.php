@@ -6,6 +6,9 @@
  * History:
  * 2024-08-29 -- DB v2, for Currency Switcher versions < 2.15.2
  */
+
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 function wpwham_currency_switcher_db_update() {
 	global $wpdb;
 	

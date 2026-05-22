@@ -7,6 +7,8 @@
  * @author  Tom Anbinder
  */
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 if ( ! function_exists( 'alg_format_currency_switcher' ) ) {
 	/**
 	 * alg_format_currency_switcher.

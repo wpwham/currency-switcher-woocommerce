@@ -7,6 +7,8 @@
  * @author  Tom Anbinder
  */
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 if ( ! function_exists( 'alg_get_country_flag_code' ) ) {
 	/**
 	 * alg_get_country_flag_code.

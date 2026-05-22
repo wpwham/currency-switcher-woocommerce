@@ -7,6 +7,8 @@
  * @todo    change prefix to 'wpw_cs_'
  */
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 if ( ! function_exists( 'alg_wc_cs_session_maybe_start' ) ) {
 	/**
 	 * alg_wc_cs_session_maybe_start.

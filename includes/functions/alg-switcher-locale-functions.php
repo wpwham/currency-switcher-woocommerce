@@ -7,6 +7,8 @@
  * @author  Tom Anbinder
  */
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 if ( ! function_exists( 'alg_wc_cc_get_currency_locales' ) ) {
 	/**
 	 * alg_wc_cc_get_currency_locales.
