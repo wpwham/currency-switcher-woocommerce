@@ -214,7 +214,7 @@ if ( ! function_exists( 'alg_wc_cs_get_exchange_rate' ) ) {
 		} else {
 			$offset = get_option( 'alg_currency_switcher_exchange_rate_offset_' . $currency_from . '_' . $currency_to, 0 );
 		}
-		$offset = floatval( $offset );
+		$offset = round( floatval( $offset ), 6 );
 		return ( 0.0 !== $offset ? ( $offset / 100 * $return + $return ) : $return );
 	}
 }
