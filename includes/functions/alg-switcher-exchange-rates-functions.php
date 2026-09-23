@@ -11,6 +11,8 @@
  * @todo show an admin notice if libxml is missing (impacts the XML-based APIs: ECB, BoE, TCMB)
  */
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 if ( ! function_exists( 'alg_wc_cs_get_exchange_rates_servers' ) ) {
 	/*
 	 * alg_wc_cs_get_exchange_rates_servers.

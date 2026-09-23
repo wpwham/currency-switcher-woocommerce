@@ -341,8 +341,8 @@ class Alg_WC_Currency_Switcher_Main {
 	 */
 	function disable_shipping_rates_cache($packages) {
 		// add random value to existing array to disable cache
-		$key = rand();
-		$value = rand();
+		$key = wp_rand();
+		$value = wp_rand();
 		$packages[0][$key] = $value;
 		return $packages;
 	}
