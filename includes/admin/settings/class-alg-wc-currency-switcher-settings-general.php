@@ -210,10 +210,12 @@ class Alg_WC_Currency_Switcher_Settings_General extends Alg_WC_Currency_Switcher
 				'type'     => 'select',
 				'class'    => 'wc-enhanced-select',
 				'options'  => array(
-					'no_round'   => __( 'No rounding', 'currency-switcher-woocommerce' ),
-					'round'      => __( 'Round', 'currency-switcher-woocommerce' ),
-					'round_up'   => __( 'Round up', 'currency-switcher-woocommerce' ),
-					'round_down' => __( 'Round down', 'currency-switcher-woocommerce' ),
+					'no_round'      => __( 'No rounding', 'currency-switcher-woocommerce' ),
+					'round'         => __( 'Round', 'currency-switcher-woocommerce' ),
+					'round_up'      => __( 'Round up', 'currency-switcher-woocommerce' ),
+					'round_down'    => __( 'Round down', 'currency-switcher-woocommerce' ),
+					'round_up_100'  => __( 'Round up to 100', 'currency-switcher-woocommerce' ),
+					'round_up_1000' => __( 'Round up to 1000', 'currency-switcher-woocommerce' ),
 				),
 			),
 			array(

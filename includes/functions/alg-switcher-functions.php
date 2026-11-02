@@ -388,6 +388,12 @@ if ( ! function_exists( 'alg_wc_cs_round_and_pretty' ) ) {
 			case 'round_down':
 				$price = floor( $price );
 				break;
+			case 'round_up_100':
+				$price = ceil( round( $price, $shop_precision ) / 100 ) * 100;
+				break;
+			case 'round_up_1000':
+				$price = ceil( round( $price, $shop_precision ) / 1000 ) * 1000;
+				break;
 		}
 		// Pretty Price
 		if ( 'yes' === $rounding_options['pretty_price'] && $price >= 0.5 ) {
