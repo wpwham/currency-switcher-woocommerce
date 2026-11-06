@@ -191,6 +191,9 @@ final class Alg_WC_Currency_Switcher {
 		$this->settings['flags']              = require_once( 'includes/admin/settings/class-alg-wc-currency-switcher-settings-flags.php' );
 		$this->settings['price_formats']      = require_once( 'includes/admin/settings/class-alg-wc-currency-switcher-settings-price-formats.php' );
 		$this->settings['advanced']           = require_once( 'includes/admin/settings/class-alg-wc-currency-switcher-settings-advanced.php' );
+		
+		// Review suggestion
+		require_once( 'includes/class-wpwham-currency-switcher-review.php' );
 		if ( is_admin() && get_option( 'alg_currency_switcher_version', '' ) !== $this->version ) {
 			foreach ( $this->settings as $section ) {
 				foreach ( $section->get_settings() as $value ) {
